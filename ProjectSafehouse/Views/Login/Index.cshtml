@@ -1,0 +1,385 @@
+﻿@model ProjectSafehouse.Models.User
+
+@{
+    ViewBag.Title = "Login or Signup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string CurrentTheme = "base";   
+}
+
+
+@section Head{
+<style>
+    div.CleanBox
+		{
+			width: 750px;
+			height: 0px;
+            opacity: 0;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 50px;
+			border: solid 1px #666;
+			padding: 0px;
+			background-color: #FFF;
+            overflow: hidden;
+
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			
+			-moz-box-shadow: 2px 3px 6px #888;
+			 -webkit-box-shadow: 2px 3px 6px #888;
+			 box-shadow: 2px 3px 6px #888;
+
+            overflow: hidden;
+		}
+
+		div.CleanBox .Content
+		{
+			padding: 10px;
+            padding-left: 5px;
+			width: 100%;
+			height: 100%;
+		}
+
+        div.IconAndHeader
+        {
+            cursor: pointer;
+            background: rgb(255,255,255); /* Old browsers */
+            background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 50%, rgba(225,225,225,1) 51%, rgba(246,246,246,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(241,241,241,1)), color-stop(51%,rgba(225,225,225,1)), color-stop(100%,rgba(246,246,246,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+
+            border: 1px solid #CCC;
+            -webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			
+			-moz-box-shadow: 2px 3px 6px #888;
+			 -webkit-box-shadow: 2px 3px 6px #888;
+			 box-shadow: 2px 3px 6px #888;
+
+             margin-top: 5px;
+             padding: 10px;
+        }
+
+        div.IconAndHeader h2
+        {
+            
+        }
+
+        div.IconAndHeader:hover
+        {
+            border: solid 1px #59cc0a;
+        }
+
+        div.CleanBox .Content input[type=submit]
+        {
+            border: 1px solid #CCC;
+            -webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+            cursor: pointer;
+            width: 150px;
+            padding: 9px 15px;
+            
+            font-size: 14px;
+            display: block;
+            cursor: pointer;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 32px;
+
+            background: rgb(255,255,255); /* Old browsers */
+            background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 50%, rgba(225,225,225,1) 51%, rgba(246,246,246,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(241,241,241,1)), color-stop(51%,rgba(225,225,225,1)), color-stop(100%,rgba(246,246,246,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+        }
+
+        div.CleanBox .Content input[type=submit]:hover, input[type=submit].focus
+        { 
+            border: 1px solid #59cc0a;
+        }
+
+        div#loginBox
+        {
+            display: block;
+            height: 260px;
+            opacity: 1;
+        }
+
+        div#signupBox
+        {
+            display: none;
+        }
+
+        div.CleanBox .InputSection
+        {
+            width: 100%;
+            display: block;
+            margin-top: 5px;
+        }
+
+        div.CleanBox input
+        {
+            padding: 9px;
+            border: none;/*solid 1px #E5E5E5;*/
+            outline: 0;
+            font-family: 'Cabin Condensed', sans-serif;
+            width: 200px;
+            background: none;
+        }
+
+        div.CleanBox .TextWrapper
+        {
+            padding: 3px;
+            -webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+            border: 1px solid #CCC;
+            display: inline-block;
+            float: left;
+
+            background: rgb(255,255,255); /* Old browsers */
+            background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(47%,rgba(246,246,246,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+
+            -moz-box-shadow: 2px 3px 6px #888;
+			 -webkit-box-shadow: 2px 3px 6px #888;
+			 box-shadow: 2px 3px 6px #888;
+
+        }
+
+        div.CleanBox .TextWrapper img
+        {
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        div.CleanBox .TextWrapper.SelectedWrapper
+        {
+            border: 1px solid #59cc0a;
+        }
+
+        div.CleanBox input[type=text]:hover,input[type=text]:focus,input[type=password]:hover,input[type=password]:focus
+        {
+            /*border-color: #C9C9C9;*/
+            padding-right: 20px;
+            -moz-transition: padding .25s;
+            -webkit-transition: padding .25s;
+            -o-transition: padding .25s;
+            transition: padding .25s;
+        }
+
+        div.CleanBox label
+        {
+            margin-left: 0px;
+            margin-right: 10px;
+            text-align: right;
+            padding-top: 14px;
+            width: 110px;
+            display: inline-block;
+            float: left;
+        }
+</style>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('div.CleanBox').on('focus', 'input', function () {
+                var parent = $(this).parent();
+                parent.addClass('SelectedWrapper');
+            }).on('blur', 'input', function () {
+                var parent = $(this).parent();
+                parent.removeClass('SelectedWrapper');
+            });
+
+            $('#signUpSwitch').click(function () {
+                $('#loginBox').animate(
+                    {
+                        height: 0,
+                        opacity: 0
+                    }, 400, function () {
+                        $('#loginBox').css("display", "none");
+                        $('#signupBox').css("display", "block").animate(
+                            {
+                                opacity: 1,
+                                height: 360
+                            }, 400
+                         );
+                    }
+                );
+            });
+
+            $('#logInSwitch').click(function () {
+                $('#signupBox').animate(
+                   {
+                       height: 0,
+                       opacity: 0
+                   }, 400, function () {
+                       $('#signupBox').css("display", "none");
+                       $('#loginBox').css("display", "block").animate(
+                           {
+                               opacity: 1,
+                               height: 260
+                           }, 400
+                        );
+                   }
+               );
+            });
+
+        });
+    </script>
+
+}
+
+@section menuOptions
+{
+    <div class="NavOption NavDropDown">
+		<img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "cog_32x32.png")"/><h2>Navigation</h2>
+	</div> 
+}
+
+@section SubMenuOptions
+{
+    <div class="NavOption NavLink">
+		<h2>
+			Why you should choose us.
+		</h2>
+	</div> 
+	<div class="NavOption NavLink">
+		<h2>
+			How to sign up.
+		</h2>
+	</div> 
+}
+
+    <div id="loginBox" class="CleanBox">
+		<div class="CleanHeader">
+            <h3>Log in to your account.</h3> 
+		</div>
+		<div class="Content">
+			<div class="SplitLeft">
+			    @using (Html.BeginForm("ReturningUser", "Login", FormMethod.Post))
+                {
+				    <p class="EmailSection InputSection">
+                        <label for="logInEmail">Email</label>
+                        <div class="TextWrapper">
+                            <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "at_24x24.png")"/>
+					        @Html.TextBoxFor(x => x.Email,  new { placeholder = "Your Email Address", id="logInEmail" })
+				        </div>
+                        <div style="clear:both"></div>
+                    </p>
+                    <p class="PasswordSection InputSection">
+                        <label for="logInPassword">Password</label>
+                        <div class="TextWrapper">
+                            <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "key_stroke_24x24.png")"/>
+	                        @Html.PasswordFor(x => x.Password,  new { placeholder = "Your Password", id="logInPassword" })
+				        </div>
+                        <div style="clear:both"></div>
+                    </p>
+				    
+				    <input type="submit" value="Log In!" />
+                }
+                
+			</div>
+			<div class="SplitRight">
+				<p>
+					Don't have an account with us?<br/>  Sign up for one today!
+					We offer <em>free</em> project management tools for small development teams
+					and extremely competitively priced tools for companies.
+				</p>
+				
+				<div class="IconAndHeader" id="signUpSwitch">
+					<img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "Home.png")" alt="Sign Up!"/>
+					<h2>Sign Up</h2>
+                    <div style="clear:both"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div id="signupBox" class="CleanBox">
+        <div class="CleanHeader">
+            <h3>Sign up for an account.</h3> 
+		</div>
+        <div class="Content">
+            <div class="SplitLeft">
+            @using (Html.BeginForm("NewUser", "Login", FormMethod.Post))
+            {
+                <p class="EmailSection InputSection">
+                    <label for="signUpEmail">Email</label>
+                    <div class="TextWrapper">
+                        <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "at_24x24.png")"/>
+                        @Html.TextBoxFor(x => x.Email, new { placeholder = "Your Email Address", id="signUpEmail" })
+                    </div>
+                    <div style="clear:both"></div>
+                </p>
+                <p class="PasswordSection InputSection">
+                    <label for="signUpPassword">Password</label>
+                    <div class="TextWrapper">
+                        <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "key_stroke_24x24.png")"/>
+                        @Html.PasswordFor(x => x.Password, new { placeholder = "Pick a Password", id="signUpPassword" })
+                    </div>
+                     <div style="clear:both"></div>
+                </p>
+                <p class="ConfirmSection InputSection">
+                    <label for="signUpConfirm">Confirm Password</label>
+                    <div class="TextWrapper">
+                        <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "lock_stroke_18x24.png")" style="margin-left: 8px; margin-right: 5px;"/>
+                        <input type="password" placeholder="Confirm Your Password" id="signUpConfirm" />
+                    </div>
+                     <div style="clear:both"></div>
+                </p>
+                <p class="InputSection">
+                    <input type="checkbox" id="agreeToTerms" style="float:left; width:15px; margin-left: 110px;" value="I agree to the terms and conditions" />
+                    <label for="agreeToTerms" style="float:left; width: 200px; margin-top: -14px;">I agree to the <a href="#">terms and conditions</a>.</label>
+                     <div style="clear:both"></div>
+                </p>
+			    
+				<input type="submit" value="Sign Up!" />
+			    
+            }
+            </div>
+            <div class="SplitRight">
+				<p>
+					Already have an account with us?<br/>  Log in to access your tools!
+					We are constantly working hard to bring you the best and easiest to use team-management software.
+				</p>
+				
+				<div class="IconAndHeader"  id="logInSwitch">
+					<img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "home.png")" alt="Sign Up!"/>
+					<h2>Log In</h2>
+                    <div style="clear:both"></div>
+				</div>
+			</div>
+        </div>
+    </div>
+
+<!--
+ <div class="NavOption NavLink">
+		<h2>
+			Why you should choose us.
+		</h2>
+	</div> 
+	<div class="NavOption NavLink">
+		<h2>
+			How to sign up.
+		</h2>
+	</div>    
+-->

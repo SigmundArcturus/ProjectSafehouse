@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+#navDropDown
+{
+    height: 64px;
+    float: right;
+    color: #D1A127;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#usersDropDown h2
+{
+    vertical-align: central;
+    font-size: 24pt;
+}
+
+    div.CleanHeader
+    {
+        -webkit-border-radius: 20px;
+        -webkit-border-top-right-radius: 5px;
+        -webkit-border-bottom-right-radius: 5px;
+        -moz-border-radius: 20px;
+        -moz-border-radius-topright: 5px;
+        -moz-border-radius-bottomright: 5px;
+        border-radius: 20px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        border: solid 1px #333;
+        height: 40px;
+        width: auto;
+        background-color: #CCC;
+        margin-top: -2px;
+    }
+
+    div.CleanHeader .InnerCircle
+    {
+        -webkit-border-radius: 15px;
+        -moz-border-radius: 15px;
+        border-radius: 15px;
+        border: solid 1px #444;
+        height: 30px;
+        width: 30px;
+        background-color: #145577;
+        float: left;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+
+    div.CleanHeader .InnerBox
+    {
+        height: 20px;
+        background-color: #145577;
+        float: left;
+        margin-top: 10px;
+        margin-left: -5px;
+
+        -webkit-border-top-right-radius: 10px;
+        -webkit-border-bottom-right-radius: 10px;
+        -moz-border-radius-topright: 10px;
+        -moz-border-radius-bottomright: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+        padding-right: 20px;
+    }
+
+    div.CleanHeader .InnerBox h3
+    {
+        margin-left: -10px;
+        color: #D1A127;
+        font-size: 10pt;
+        vertical-align: central;
+        margin-top: 0px;
+    }
+
+    div#loginBox
+    {
+        width: 300px;
+        height: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+        border: solid 1px #666;
+
+        -webkit-border-radius: 5px;
+        -webkit-border-top-left-radius: 20px;
+        -moz-border-radius: 5px;
+        -moz-border-radius-topleft: 20px;
+        border-radius: 5px;
+        border-top-left-radius: 20px;
+    }
+
+        div#loginBox .Content
+        {
+            padding: 10px;
+            width: 100%;
+            height: auto;
+        }
+
+</style>
+
+@section menuOptions{
+    <div id="navDropDown">
+        <h2>Navigate</h2>
+    </div> 
+}
+
+<div id="loginBox">
+    <div class="CleanHeader">
+        <div class="InnerCircle"></div>
+        <div class="InnerBox">
+             <h3>Please Login Here</h3> 
+        </div>
+    </div>
+    <br/>
+    <div class="Content">
+        UserName: <input type="text" /><br />
+        Password: <input type="text" /><br />
+        <a href="">Login</a>
+    </div>
+
+</div>
+
+
+
+@section footer{
+    some footer text
+}
