@@ -12,8 +12,8 @@ namespace ProjectSafehouse.Models
         public string Name { get; set; }
         public string Password { get; set; }
         public string AvatarURL { get; set; }
-        public double HourlyCost { get; set; }
-        public double OvertimeMultiplier { get; set; }
-        public double OvertimeThreshold { get; set; }
+        public decimal? HourlyCost { get; set; }
+        public decimal? OvertimeMultiplier { get; set; }
+        public decimal? OvertimeThreshold { get; set; }
     }
 }

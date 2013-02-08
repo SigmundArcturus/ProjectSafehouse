@@ -22,7 +22,7 @@ namespace ProjectSafehouse.Tests
             IUnityContainer container = new UnityContainer();
             config.Configure(container);
 
-            DAL = new DataAccessLayer(container.Resolve<IDataAccessLayer>("Fake"));
+            DAL = new DataAccessLayer(container.Resolve<IDataAccessLayer>("SQL"));
         }
 
         [TestMethod]
