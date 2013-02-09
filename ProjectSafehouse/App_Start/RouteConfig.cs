@@ -13,6 +13,13 @@ namespace ProjectSafehouse
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //if there is no controller name, assume we are on the login page.
+            routes.MapRoute(
+                name: "LoginDefault",
+                url: "{action}/{id}",
+                defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

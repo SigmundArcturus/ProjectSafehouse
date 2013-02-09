@@ -11,8 +11,11 @@ namespace ProjectSafehouse.Abstractions
     public interface IDataAccessLayer
     {
         User createNewUser(string emailAddress, string unhashedPassword);
-        User loadUser(Guid userId);
+        User loadUserById(Guid userId);
+        User loadUserByEmail(string userEmail);
         IEnumerable<User> findUsers(string searchDetails);
         User checkPassword(string emailAddress, string unhashedPassword);
+        bool deleteExistingUser(string emailAddress, string unhashedPassword);
+        string hashPassword(string unhashedPassword);
     }
 }

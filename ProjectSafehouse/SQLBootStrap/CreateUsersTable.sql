@@ -19,7 +19,15 @@ CREATE TABLE [dbo].[Users](
 	[AvatarURL] [varchar](100) NULL,
 	[HourlyCost] [money] NULL,
 	[OvertimeMultiplier] [decimal](18, 2) NULL,
-	[OvertimeThreshold] [decimal](18, 2) NULL
+	[OvertimeThreshold] [decimal](18, 2) NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[Email] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO

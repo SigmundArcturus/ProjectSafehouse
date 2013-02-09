@@ -30,8 +30,6 @@
         </EntityContainer>
         <EntityType Name="SQLUser">
           <Key>
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Password" />
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />

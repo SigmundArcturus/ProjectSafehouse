@@ -22,9 +22,14 @@ namespace ProjectSafehouse.Dependencies
             return dal.createNewUser(emailAddress, unhashedPassword);
         }
 
-        public Models.User loadUser(Guid userId)
+        public Models.User loadUserById(Guid userId)
         {
-            return dal.loadUser(userId);
+            return dal.loadUserById(userId);
+        }
+
+        public Models.User loadUserByEmail(string userEmail)
+        {
+            return dal.loadUserByEmail(userEmail);
         }
 
         public IEnumerable<Models.User> findUsers(string searchDetails)
@@ -35,6 +40,22 @@ namespace ProjectSafehouse.Dependencies
         public Models.User checkPassword(string emailAddress, string unhashedPassword)
         {
             return dal.checkPassword(emailAddress, unhashedPassword);
+        }
+
+        /// <summary>
+        /// Delete an existing user from the database.  Returns True if the user existed and was deleted.  Returns False if user didn't exist.
+        /// </summary>
+        /// <param name="emailAddress"></param>
+        /// <param name="unhashedPassword"></param>
+        /// <returns>Bool UserExisted</returns>
+        public bool deleteExistingUser(string emailAddress, string unhashedPassword)
+        {
+            return dal.deleteExistingUser(emailAddress, unhashedPassword);
+        }
+
+        public string hashPassword(string unhashedPassword)
+        {
+            return dal.hashPassword(unhashedPassword);
         }
     }
 }

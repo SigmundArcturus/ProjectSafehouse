@@ -33,11 +33,12 @@ namespace ProjectSafehouse.Tests
             string password = "password";
 
             //Act
+            bool userExisted = DAL.deleteExistingUser(email, password);
             User result = DAL.createNewUser(email, password);
-            User find = DAL.loadUser(result.ID);
+            User find = DAL.loadUserById(result.ID);
 
             //Assert
-            if (result != find)
+            if (result.Equals(find))
             {
                 throw new Exception("Couldn't find user");
             }

@@ -17,7 +17,7 @@ namespace ProjectSafehouse.Abstractions
 
         public Models.User createNewUser(string emailAddress, string unhashedPassword)
         {
-            string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(unhashedPassword, "sha1");
+            string hashedPassword = hashPassword(unhashedPassword);
 
             Models.User newUser = new Models.User()
             {
@@ -38,9 +38,35 @@ namespace ProjectSafehouse.Abstractions
             return newUser;
         }
 
-        public Models.User loadUser(Guid userId)
+        public Models.User loadUserById(Guid userId)
         {
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.ID == userId);
+
+            if (foundUser != null)
+            {
+                Models.User loadedUser = new Models.User()
+                {
+                    ID = foundUser.ID,
+                    AvatarURL = foundUser.AvatarURL,
+                    Email = foundUser.Email,
+                    HourlyCost = foundUser.HourlyCost,
+                    Password = "",
+                    Name = foundUser.Name,
+                    OvertimeMultiplier = foundUser.OvertimeMultiplier,
+                    OvertimeThreshold = foundUser.OvertimeThreshold
+                };
+
+                return loadedUser;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public Models.User loadUserByEmail(string userEmail)
+        {
+            SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == userEmail);
 
             if (foundUser != null)
             {
@@ -71,7 +97,7 @@ namespace ProjectSafehouse.Abstractions
 
         public Models.User checkPassword(string emailAddress, string unhashedPassword)
         {
-            string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(unhashedPassword, "sha1");
+            string hashedPassword = hashPassword(unhashedPassword);
 
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == emailAddress);
             if (foundUser != null && foundUser.Password == hashedPassword)
@@ -94,6 +120,28 @@ namespace ProjectSafehouse.Abstractions
             {
                 return null;
             }
+        }
+
+        public bool deleteExistingUser(string emailAddress, string unhashedPassword)
+        {
+            string hashedPassword = hashPassword(unhashedPassword);
+            SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == emailAddress);
+            if (foundUser != null && foundUser.Password == hashedPassword)
+            {
+                db.SQLUsers.Remove(foundUser);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //todo:  implement advanced password protection.
+        public string hashPassword(string unhashedPassword)
+        {
+            return FormsAuthentication.HashPasswordForStoringInConfigFile(unhashedPassword, "sha1"); ;
         }
     }
 }
