@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Security;
 
@@ -18,6 +19,16 @@ namespace ProjectSafehouse.Abstractions
         public Models.User createNewUser(string emailAddress, string unhashedPassword)
         {
             string hashedPassword = hashPassword(unhashedPassword);
+
+            //run test for email address validation (in case client-side validation is circumvented)
+            try
+            {
+                MailAddress m = new MailAddress(emailAddress);
+            }
+            catch (FormatException)
+            {
+                return null;
+            }
 
             Models.User newUser = new Models.User()
             {

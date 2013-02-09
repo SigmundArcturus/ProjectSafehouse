@@ -28,12 +28,17 @@ namespace ProjectSafehouse.Controllers
 
         public ViewResult ReturningUser(User user)
         {
+            ViewBag.Error = null;
+
             CurrentUser = DAL.checkPassword(user.Email, user.Password);
 
             if (CurrentUser != null)
                 return View("Welcome", CurrentUser);
             else
+            {
+                ViewBag.Error = "Login error.  Please check your email and password.";
                 return View("Index");
+            }
         }
     }
 }
