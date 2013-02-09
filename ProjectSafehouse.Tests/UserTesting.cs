@@ -42,5 +42,43 @@ namespace ProjectSafehouse.Tests
                 throw new Exception("Couldn't find user");
             }
         }
+
+        [TestMethod]
+        public void CreateDuplicateUser()
+        {
+            //Arrange
+            string email = "test@test.com";
+            string password = "password";
+
+            //Act
+            User result = DAL.createNewUser(email, password);
+            User result1 = DAL.createNewUser(email, password);
+
+            //Assert
+        }
+
+        [TestMethod]
+        public void CreateUserNoEmail()
+        {
+            //Arrange
+            string email = null;
+            string password = "password";
+
+            //Act
+            User result = DAL.createNewUser(email, password);
+
+            //Assert
+        }
+
+        [TestMethod]
+        public void CreateUserNoPassword()
+        {
+            //Arrange
+            string email = "test@test.com";
+            string password = null;
+
+            //Act
+            User result = DAL.createNewUser(email, password);
+        }
     }
 }
