@@ -22,7 +22,7 @@ namespace ProjectSafehouse.Tests
             IUnityContainer container = new UnityContainer();
             config.Configure(container);
 
-            DAL = new DataAccessLayer(container.Resolve<IDataAccessLayer>("SQL"));
+            DAL = new DataAccessLayer(container.Resolve<IDataAccessLayer>("Fake"));
         }
 
         [TestMethod]
@@ -33,15 +33,52 @@ namespace ProjectSafehouse.Tests
             string password = "password";
 
             //Act
-            bool userExisted = DAL.deleteExistingUser(email, password);
             User result = DAL.createNewUser(email, password);
-            User find = DAL.loadUserById(result.ID);
+            User find = DAL.loadUser(result.ID);
 
             //Assert
-            if (result.Equals(find))
+            if (result != find)
             {
                 throw new Exception("Couldn't find user");
             }
+        }
+
+        [TestMethod]
+        public void CreateDuplicateUser()
+        {
+            //Arrange
+            string email = "test@test.com";
+            string password = "password";
+
+            //Act
+            User result = DAL.createNewUser(email, password);
+            User result1 = DAL.createNewUser(email, password);
+
+            //Assert
+        }
+
+        [TestMethod]
+        public void CreateUserNoEmail()
+        {
+            //Arrange
+            string email = null;
+            string password = "password";
+
+            //Act
+            User result = DAL.createNewUser(email, password);
+
+            //Assert
+        }
+
+        [TestMethod]
+        public void CreateUserNoPassword()
+        {
+            //Arrange
+            string email = "test@test.com";
+            string password = null;
+
+            //Act
+            User result = DAL.createNewUser(email, password);
         }
     }
 }
