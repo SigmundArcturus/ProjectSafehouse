@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "StandardPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head{
+    <link rel="stylesheet" href="/Content/themes/base/Shared/StandardPage.css" type="text/css" />
+}
+
+<div class="MainContent">
+    <div class="PositionedContent">
+    @RenderSection("MainContent", required: true)
+    </div>
+</div>

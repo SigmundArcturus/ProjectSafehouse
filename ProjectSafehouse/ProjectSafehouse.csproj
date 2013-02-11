@@ -233,6 +233,7 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\Login\Index.css" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -259,9 +260,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\themes\blue\ActionList.css" />
+    <Content Include="Content\themes\base\Login\Welcome.css" />
+    <Content Include="Content\themes\base\Shared\StandardPage.css" />
+    <Content Include="Content\themes\base\Shared\_Layout.css" />
     <Content Include="Content\themes\blue\images\YellowUser.png" />
-    <Content Include="Content\themes\blue\Login.css" />
     <Content Include="Content\themes\blue\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -280,7 +282,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\Login\Index.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\safehouse.Namespacing.js" />
+    <Content Include="Scripts\Shared\StandardPage.js" />
+    <Content Include="Scripts\Shared\_Layout.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -313,6 +319,7 @@
       <DependentUpon>SQLDB.edmx</DependentUpon>
       <LastGenOutput>SQLDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Shared\StandardPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

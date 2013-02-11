@@ -2,7 +2,10 @@
 
 @{
     ViewBag.Title = "Welcome";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/StandardPage.cshtml";
 }
 
-<h2>Welcome to Project Safehouse @Model.Email</h2>
+@section MainContent{
+    <h2>Welcome to Project Safehouse @Model.Email</h2>
+}
+
