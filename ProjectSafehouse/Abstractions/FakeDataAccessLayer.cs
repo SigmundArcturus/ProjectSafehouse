@@ -79,31 +79,46 @@ namespace ProjectSafehouse.Abstractions
             return unhashedPassword;
         }
 
+
         public Models.Company createNewCompany(Models.User creator, string name, string description)
         {
-            Models.Company comp = new Models.Company()
+            Models.Company company = new Models.Company()
             {
-                ID = Guid.NewGuid(),
                 Administrators = new List<Models.User>(),
                 AllowableStorage = new List<Models.StorageAllocation>(),
                 BillableItems = new List<Models.BillingType>(),
                 CreatedBy = creator,
                 CreatedDate = DateTime.UtcNow,
                 Description = description,
+                ID = Guid.NewGuid(),
                 Name = name,
                 Projects = new List<Models.Project>(),
                 Users = new List<Models.User>()
             };
 
-            comp.Administrators.Add(creator);
+            company.Administrators.Add(creator);
 
-            _fakeCompaniesList.Add(comp);
+            _fakeCompaniesList.Add(company);
 
-            return comp;
+            return company;
         }
 
-
         public bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId)
+        {
+            Models.Company toRemove = _fakeCompaniesList.FirstOrDefault(x => x.ID == creatorID);
+
+            if (toRemove != null && toRemove.CreatedBy.Password == hashPassword(unhashedPassword))
+            {
+                _fakeCompaniesList.Remove(toRemove);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public List<Models.Company> loadUserCompanies(Guid userId, bool includeAdmin, bool includeManager, bool includeUser)
         {
             throw new NotImplementedException();
         }

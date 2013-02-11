@@ -139,6 +139,11 @@ namespace ProjectSafehouse.Abstractions
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == emailAddress);
             if (foundUser != null && foundUser.Password == hashedPassword)
             {
+                List<Models.Company> userCompanies = loadUserCompanies(foundUser.ID, true, true, true);
+                foreach (var company in userCompanies)
+                {
+                    deleteExistingCompany(foundUser.ID, unhashedPassword, company.ID);
+                }
                 db.SQLUsers.Remove(foundUser);
                 db.SaveChanges();
                 return true;
@@ -190,21 +195,48 @@ namespace ProjectSafehouse.Abstractions
 
         public bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId)
         {
-            /*
-            string hashedPassword = hashPassword(unhashedPassword);
-            SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == emailAddress);
-            if (foundUser != null && foundUser.Password == hashedPassword)
+            SQLCompany foundCompany = db.SQLCompanies.FirstOrDefault(x => x.ID == targetCompanyId);
+            bool removedACompany = false;
+
+            if (foundCompany != null)
             {
-                db.SQLUsers.Remove(foundUser);
-                db.SaveChanges();
-                return true;
+                Models.User foundUser = loadUserById(foundCompany.CreatedByUserID);
+                if (foundUser != null && checkPassword(foundUser.Email, unhashedPassword) != null)
+                {
+                    db.SQLCompanies.Remove(foundCompany);
+                    db.SaveChanges();
+                    removedACompany = true;
+                }
             }
-            else
+
+            return removedACompany;
+        }
+
+        public List<Models.Company> loadUserCompanies(Guid userId, bool includeAdmin, bool includeManager, bool includeUser)
+        {
+            List<SQLCompany> foundCompanies = new List<SQLCompany>();
+            List<Models.Company> returnMe = new List<Models.Company>();
+            if (includeAdmin)
+                foundCompanies.AddRange(db.SQLCompanies.Where(x => x.CreatedByUserID == userId));
+
+            foreach (SQLCompany comp in foundCompanies)
             {
-                return false;
-            }
-             * */
-            return false;
+                returnMe.Add(new Models.Company()
+                {
+                    Administrators = new List<Models.User>(),
+                    AllowableStorage = new List<Models.StorageAllocation>(),
+                    BillableItems = new List<Models.BillingType>(),
+                    CreatedBy = loadUserById(comp.CreatedByUserID),
+                    CreatedDate = comp.CreatedDate,
+                    Description = comp.Description,
+                    ID = comp.ID,
+                    Name = comp.Name,
+                    Projects = new List<Models.Project>(),
+                    Users = new List<Models.User>()
+                });
+            };
+
+            return returnMe;
         }
     }
 }

@@ -19,5 +19,6 @@ namespace ProjectSafehouse.Abstractions
         string hashPassword(string unhashedPassword);
         Company createNewCompany(User creator, string name, string description);
         bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId);
+        List<Models.Company> loadUserCompanies(Guid userId, bool includeAdmin, bool includeManager, bool includeUser);
     }
 }

@@ -67,5 +67,10 @@ namespace ProjectSafehouse.Dependencies
         {
             return dal.deleteExistingCompany(creatorID, unhashedPassword, targetCompanyId);
         }
+
+        public List<Models.Company> loadUserCompanies(Guid userId, bool includeAdmin, bool includeManager, bool includeUser)
+        {
+            return dal.loadUserCompanies(userId, includeAdmin, includeManager, includeUser);
+        }
     }
 }

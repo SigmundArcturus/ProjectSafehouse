@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
@@ -25,10 +26,15 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
-        public void CreateNewCompany()
+        public void CanCreateNewCompany()
         {
             // Arrange
             Models.User testUser = DAL.loadUserByEmail("test@test.com");
+            List<Models.Company> userCompanies = DAL.loadUserCompanies(testUser.ID, true, true, true);
+            foreach(var userCompany in userCompanies)
+            {
+                bool removedTestCompany = DAL.deleteExistingCompany(testUser.ID, "password", userCompany.ID);
+            }
 
             // Act
             Models.Company testCompany = DAL.createNewCompany(testUser, "Test Company", "A company created by the test methods.");

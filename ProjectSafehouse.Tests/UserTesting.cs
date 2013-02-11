@@ -26,7 +26,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
-        public void CreateNewUser()
+        public void CanCreateNewUser()
         {
             //Arrange
             string email = "test@test.com";
@@ -45,7 +45,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
-        public void CreateDuplicateUser()
+        public void CannotCreateDuplicateUser()
         {
             //Arrange
             string email = "test@test.com";
@@ -59,7 +59,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
-        public void CreateUserNoEmail()
+        public void CannotCreateUserNoEmail()
         {
             //Arrange
             string email = null;
@@ -72,7 +72,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
-        public void CreateUserNoPassword()
+        public void CannotCreateUserNoPassword()
         {
             //Arrange
             string email = "test@test.com";
