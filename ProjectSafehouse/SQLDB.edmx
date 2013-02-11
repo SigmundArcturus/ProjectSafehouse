@@ -6,8 +6,23 @@
     <edmx:StorageModels>
     <Schema Namespace="ProjectSafehouseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ProjectSafehouseModelStoreContainer">
+          <EntitySet Name="Companies" EntityType="ProjectSafehouseModel.Store.Companies" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="ProjectSafehouseModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Companies_Users" Association="ProjectSafehouseModel.Store.FK_Companies_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Companies" EntitySet="Companies" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="CreatedByUserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -21,12 +36,29 @@
           <Property Name="OvertimeMultiplier" Type="decimal" Scale="2" />
           <Property Name="OvertimeThreshold" Type="decimal" Scale="2" />
         </EntityType>
+        <Association Name="FK_Companies_Users">
+          <End Role="Users" Type="ProjectSafehouseModel.Store.Users" Multiplicity="1" />
+          <End Role="Companies" Type="ProjectSafehouseModel.Store.Companies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Companies">
+              <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjectSafehouseModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ProjectSafehouseEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="SQLUsers" EntityType="ProjectSafehouseModel.SQLUser" />
+          <EntitySet Name="SQLCompanies" EntityType="ProjectSafehouseModel.SQLCompany" />
+          <AssociationSet Name="FK_Companies_Users" Association="ProjectSafehouseModel.FK_Companies_Users">
+            <End Role="SQLUser" EntitySet="SQLUsers" />
+            <End Role="Company" EntitySet="SQLCompanies" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="SQLUser">
           <Key>
@@ -40,7 +72,31 @@
           <Property Name="HourlyCost" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="OvertimeMultiplier" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OvertimeThreshold" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Companies" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="SQLUser" ToRole="Company" />
         </EntityType>
+        <EntityType Name="SQLCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Guid" Name="CreatedByUserID" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="Company" ToRole="SQLUser" />
+        </EntityType>
+        <Association Name="FK_Companies_Users">
+          <End Type="ProjectSafehouseModel.SQLUser" Role="SQLUser" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLCompany" Role="Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -58,6 +114,17 @@
                 <ScalarProperty Name="HourlyCost" ColumnName="HourlyCost" />
                 <ScalarProperty Name="OvertimeMultiplier" ColumnName="OvertimeMultiplier" />
                 <ScalarProperty Name="OvertimeThreshold" ColumnName="OvertimeThreshold" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLCompanies">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLCompany">
+              <MappingFragment StoreEntitySet="Companies">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

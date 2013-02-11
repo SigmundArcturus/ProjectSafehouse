@@ -154,5 +154,57 @@ namespace ProjectSafehouse.Abstractions
         {
             return FormsAuthentication.HashPasswordForStoringInConfigFile(unhashedPassword, "sha1"); ;
         }
+
+        public Models.Company createNewCompany(Models.User creator, string name, string description)
+        {
+            Models.Company newCompany = new Models.Company()
+            {
+                Administrators = new List<Models.User>(),
+                AllowableStorage = new List<Models.StorageAllocation>(),
+                BillableItems = new List<Models.BillingType>(),
+                CreatedBy = creator,
+                CreatedDate = DateTime.UtcNow,
+                Description = description,
+                Name = name,
+                ID = Guid.NewGuid(),
+                Projects = new List<Models.Project>(),
+                Users = new List<Models.User>()
+            };
+
+            SQLCompany newSqlCompany = new SQLCompany()
+            {
+                Name = newCompany.Name,
+                CreatedByUserID = creator.ID,
+                CreatedDate = newCompany.CreatedDate,
+                Description = newCompany.Description,
+                ID = newCompany.ID
+            };
+
+            db.SQLCompanies.Add(newSqlCompany);
+
+            db.SaveChanges();
+
+            return newCompany;
+        }
+
+
+        public bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId)
+        {
+            /*
+            string hashedPassword = hashPassword(unhashedPassword);
+            SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == emailAddress);
+            if (foundUser != null && foundUser.Password == hashedPassword)
+            {
+                db.SQLUsers.Remove(foundUser);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+             * */
+            return false;
+        }
     }
 }

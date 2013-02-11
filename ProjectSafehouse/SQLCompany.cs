@@ -12,22 +12,14 @@ namespace ProjectSafehouse
     using System;
     using System.Collections.Generic;
     
-    public partial class SQLUser
+    public partial class SQLCompany
     {
-        public SQLUser()
-        {
-            this.Companies = new HashSet<SQLCompany>();
-        }
-    
         public System.Guid ID { get; set; }
-        public string Email { get; set; }
         public string Name { get; set; }
-        public string Password { get; set; }
-        public string AvatarURL { get; set; }
-        public Nullable<decimal> HourlyCost { get; set; }
-        public Nullable<decimal> OvertimeMultiplier { get; set; }
-        public Nullable<decimal> OvertimeThreshold { get; set; }
+        public string Description { get; set; }
+        public System.Guid CreatedByUserID { get; set; }
+        public System.DateTime CreatedDate { get; set; }
     
-        public virtual ICollection<SQLCompany> Companies { get; set; }
+        public virtual SQLUser User { get; set; }
     }
 }

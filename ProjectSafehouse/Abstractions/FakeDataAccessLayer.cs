@@ -8,6 +8,7 @@ namespace ProjectSafehouse.Abstractions
     public class FakeDataAccessLayer: IDataAccessLayer
     {
         private List<Models.User> _fakeUsersList;
+        private List<Models.Company> _fakeCompaniesList;
 
         public FakeDataAccessLayer()
         {
@@ -76,6 +77,35 @@ namespace ProjectSafehouse.Abstractions
         public string hashPassword(string unhashedPassword)
         {
             return unhashedPassword;
+        }
+
+        public Models.Company createNewCompany(Models.User creator, string name, string description)
+        {
+            Models.Company comp = new Models.Company()
+            {
+                ID = Guid.NewGuid(),
+                Administrators = new List<Models.User>(),
+                AllowableStorage = new List<Models.StorageAllocation>(),
+                BillableItems = new List<Models.BillingType>(),
+                CreatedBy = creator,
+                CreatedDate = DateTime.UtcNow,
+                Description = description,
+                Name = name,
+                Projects = new List<Models.Project>(),
+                Users = new List<Models.User>()
+            };
+
+            comp.Administrators.Add(creator);
+
+            _fakeCompaniesList.Add(comp);
+
+            return comp;
+        }
+
+
+        public bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

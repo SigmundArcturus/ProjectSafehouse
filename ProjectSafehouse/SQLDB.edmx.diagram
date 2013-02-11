@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="4c4f33529e374a979b98da99ad4b902a" Name="Diagram1">
         <EntityTypeShape EntityType="ProjectSafehouseModel.SQLUser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLCompany" Width="1.5" PointX="2.875" PointY="0.75" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_Companies_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

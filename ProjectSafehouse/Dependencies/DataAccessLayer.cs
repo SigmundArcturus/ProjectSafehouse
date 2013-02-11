@@ -57,5 +57,15 @@ namespace ProjectSafehouse.Dependencies
         {
             return dal.hashPassword(unhashedPassword);
         }
+
+        public Models.Company createNewCompany(Models.User creator, string name, string description)
+        {
+            return dal.createNewCompany(creator, name, description);
+        }
+
+        public bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId)
+        {
+            return dal.deleteExistingCompany(creatorID, unhashedPassword, targetCompanyId);
+        }
     }
 }

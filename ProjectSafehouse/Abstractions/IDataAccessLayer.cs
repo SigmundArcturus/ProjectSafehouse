@@ -17,5 +17,7 @@ namespace ProjectSafehouse.Abstractions
         User checkPassword(string emailAddress, string unhashedPassword);
         bool deleteExistingUser(string emailAddress, string unhashedPassword);
         string hashPassword(string unhashedPassword);
+        Company createNewCompany(User creator, string name, string description);
+        bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId);
     }
 }
