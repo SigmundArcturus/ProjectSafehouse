@@ -6,23 +6,7 @@
 }
 
 @section Head{
-<script>
-
-    $(document).ready(function () {
-        $.ajax({
-            url: "../Company/LoadUserCompanies",
-            cache: false,
-            data: {
-                userId: '@Model.ID'
-            },
-            method: "GET",
-            success: function (data) {
-                $('#companiesList').html(data);
-            }
-        });
-    });
-
-</script>
+    <script type="text/javascript" src="/Scripts/Login/Welcome.js"></script>
 }
 
 @section MainContent{

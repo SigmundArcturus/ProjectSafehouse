@@ -42,6 +42,8 @@ body
 	-moz-box-shadow: 3px 0px 6px #666;
 	-webkit-box-shadow: 3px 0px 6px #666;
 	box-shadow: 3px 0px 6px #666;
+
+    z-index: 9999;
 }
 
 
@@ -104,6 +106,21 @@ body
 .NavOption.NavLink
 {
 	float: left;
+}
+
+.NavOption.NavLink a
+{
+    text-decoration: none;
+}
+
+#subMenu .NavOption.NavLink
+{
+    float: right;
+}
+
+#subMenu .NavOption.NavLink a
+{
+    color: #323232;
 }
 		
 .NavOption.NavDropDown h2

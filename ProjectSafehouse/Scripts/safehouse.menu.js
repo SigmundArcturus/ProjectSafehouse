@@ -4,6 +4,16 @@ $(document).ready(function () {
     $('#mainMenu').on('click', '.NavDropDown', function () {
         menuMethods.ToggleSubMenu($(this).attr('id'));
     });
+
+    $('body').on('mouseleave', '#subMenu', function () {
+        $('#subMenu').animate(
+            {
+                height: '0px'
+            },
+            400,
+            function () { $('#subMenu').html(''); }
+        );
+    });
 });
 
 menuMethods.ExampleMenu  =
@@ -39,7 +49,7 @@ menuMethods.LoadTopLevel = function () {
         if(currentOption.type == "DropDown")
         {
             $('#mainMenu').append('<div class="NavOption NavDropDown" id="' + currentOption.id + '">' +
-                '<img src="Content\\themes\\base\\images\\' + currentOption.image + '"/>' +
+                '<img src="..\\Content\\themes\\base\\images\\' + currentOption.image + '"/>' +
                 '<h2>' + currentOption.text + '</h2>' +
                 '</div>');
         }
@@ -48,6 +58,7 @@ menuMethods.LoadTopLevel = function () {
 
 menuMethods.ToggleSubMenu = function (targetId) {
     var Menu = menuMethods.CurrentMenu;
+    $('#subMenu').html('');
 
     if ($('#subMenu').height() < 1) {
         
@@ -58,35 +69,25 @@ menuMethods.ToggleSubMenu = function (targetId) {
             400,
             function () { }
         );
-
-        var selectedItem = null;
-        for (var i = 0; i < Menu.length; i++) {
-            if (Menu[i].id == targetId) {
-                selectedItem = Menu[i];
-            }
-        }
-
-        if (selectedItem && selectedItem.submenu) {
-            for(var j = 0; j < selectedItem.submenu.length; j++)
-            {
-                var subItem = selectedItem.submenu[j];
-                $('#subMenu').append('<div class="NavOption NavLink">' +
-                    '<h2>' +
-                        subItem.text +
-                    '</h2>' +
-                '</div> ');
-            }
-        }
-
     }
-    else {
-        $('#subMenu').animate(
-            {
-                height: '0px'
-            },
-            400,
-            function () { $('#subMenu').html('');}
-        );
+
+    var selectedItem = null;
+    for (var i = 0; i < Menu.length; i++) {
+        if (Menu[i].id == targetId) {
+            selectedItem = Menu[i];
+        }
+    }
+
+    if (selectedItem && selectedItem.submenu) {
+        for(var j = 0; j < selectedItem.submenu.length; j++)
+        {
+            var subItem = selectedItem.submenu[j];
+            $('#subMenu').append('<div class="NavOption NavLink">' +
+                '<a href="' + subItem.link + '">' +
+                    subItem.text +
+                '</a>' +
+            '</div> ');
+        }
     }
 }
 
