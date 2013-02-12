@@ -14,29 +14,18 @@
 
     <link rel="stylesheet" type="text/css" href="@string.Format("/Content/themes/{0}/Login/{1}", CurrentTheme, "Index.css")">
     <script type="text/javascript" src="/Scripts/Login/Index.js"></script>
+    <script type="text/javascript" src="/Scripts/safehouse.menu.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var loginMenu = ProjectSafehouse.Utilities.Menu;
+            loginMenu.SetCurrentMenu(loginMenu.ExampleMenu);
+            loginMenu.LoadTopLevel(loginMenu.ExampleMenu);
+        });
+    </script>
 
 }
 
-@section MenuOptions
-{
-    <div class="NavOption NavDropDown">
-		<img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "cog_32x32.png")"/><h2>Navigation</h2>
-	</div> 
-}
-
-@section SubMenuOptions
-{
-    <div class="NavOption NavLink">
-		<h2>
-			Why you should choose us.
-		</h2>
-	</div> 
-	<div class="NavOption NavLink">
-		<h2>
-			How to sign up.
-		</h2>
-	</div> 
-}
 
 @section MainContent{
     <div id="loginBox" class="CleanBox">

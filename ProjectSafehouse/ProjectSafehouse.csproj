@@ -285,6 +285,7 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\Login\Index.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\safehouse.menu.js" />
     <Content Include="Scripts\safehouse.Namespacing.js" />
     <Content Include="Scripts\Shared\StandardPage.js" />
     <Content Include="Scripts\Shared\_Layout.js" />
