@@ -20,6 +20,7 @@ namespace ProjectSafehouse.Abstractions
             set
             {
                  HttpContext.Session["CurrentUser"] = value;
+                 ViewBag.CurrentUser = value;
             }
         }
 
@@ -35,6 +36,7 @@ namespace ProjectSafehouse.Abstractions
             config.Configure(container);
 
             DAL = new DataAccessLayer(container.Resolve<IDataAccessLayer>("SQL"));
+
         }
 
     }

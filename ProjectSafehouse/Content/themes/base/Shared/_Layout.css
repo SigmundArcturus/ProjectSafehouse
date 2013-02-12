@@ -5,6 +5,7 @@
     width: 100%;
     height: 100%;
 	font-family: 'Cabin Condensed', sans-serif;       
+    background: url('../images/Overlay.png') top center repeat-y, url('../images/Background.png') top left repeat;
 }
 
 body
@@ -86,6 +87,7 @@ body
 	float: left;
 	margin-right: 5px;
 	vertical-align: middle;
+    margin-top: 20px;
 }
 
 .NavOption.NavDropDown
@@ -96,7 +98,7 @@ body
 		
 .NavOption.NavDropDown img
 {
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 }
 		
 .NavOption.NavLink

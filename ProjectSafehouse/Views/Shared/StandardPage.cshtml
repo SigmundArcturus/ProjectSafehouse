@@ -5,6 +5,15 @@
 
 @section Head{
     <link rel="stylesheet" href="/Content/themes/base/Shared/StandardPage.css" type="text/css" />
+    @RenderSection("Head", required: false)
+}
+
+@section MenuOptions{
+    @RenderSection("MenuOptions", required: false)
+}
+
+@section SubMenuOptions{
+    @RenderSection("SubMenuOptions", required: false)
 }
 
 <div class="MainContent">

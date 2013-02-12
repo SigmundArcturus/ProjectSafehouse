@@ -34,7 +34,8 @@ namespace ProjectSafehouse.Abstractions
             {
                 ID = Guid.NewGuid(),
                 Email = emailAddress,
-                Password = hashedPassword
+                Password = hashedPassword,
+                Companies = new List<Models.Company>()
             };
 
             db.SQLUsers.Add(new SQLUser()
@@ -52,33 +53,17 @@ namespace ProjectSafehouse.Abstractions
         public Models.User loadUserById(Guid userId)
         {
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.ID == userId);
-
-            if (foundUser != null)
-            {
-                Models.User loadedUser = new Models.User()
-                {
-                    ID = foundUser.ID,
-                    AvatarURL = foundUser.AvatarURL,
-                    Email = foundUser.Email,
-                    HourlyCost = foundUser.HourlyCost,
-                    Password = "",
-                    Name = foundUser.Name,
-                    OvertimeMultiplier = foundUser.OvertimeMultiplier,
-                    OvertimeThreshold = foundUser.OvertimeThreshold
-                };
-
-                return loadedUser;
-            }
-            else
-            {
-                return null;
-            }
+            return loadUserBySqlUser(foundUser);
         }
 
         public Models.User loadUserByEmail(string userEmail)
         {
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == userEmail);
+            return loadUserBySqlUser(foundUser);            
+        }
 
+        private Models.User loadUserBySqlUser(SQLUser foundUser)
+        {
             if (foundUser != null)
             {
                 Models.User loadedUser = new Models.User()
@@ -90,7 +75,8 @@ namespace ProjectSafehouse.Abstractions
                     Password = "",
                     Name = foundUser.Name,
                     OvertimeMultiplier = foundUser.OvertimeMultiplier,
-                    OvertimeThreshold = foundUser.OvertimeThreshold
+                    OvertimeThreshold = foundUser.OvertimeThreshold,
+                    Companies = loadUserCompanies(foundUser.ID, true, true, true)
                 };
 
                 return loadedUser;
@@ -113,17 +99,39 @@ namespace ProjectSafehouse.Abstractions
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == emailAddress);
             if (foundUser != null && foundUser.Password == hashedPassword)
             {
-                Models.User loadedUser = new Models.User()
-                {
-                    AvatarURL = foundUser.AvatarURL,
-                    Email = foundUser.Email,
-                    HourlyCost = foundUser.HourlyCost,
-                    ID = foundUser.ID,
-                    Name = foundUser.Name,
-                    OvertimeThreshold = foundUser.OvertimeThreshold,
-                    OvertimeMultiplier = foundUser.OvertimeMultiplier,
-                    Password = ""
-                };
+                Models.User loadedUser = loadUserById(foundUser.ID);
+                //Models.User loadedUser = new Models.User()
+                //{
+                //    AvatarURL = foundUser.AvatarURL,
+                //    Email = foundUser.Email,
+                //    HourlyCost = foundUser.HourlyCost,
+                //    ID = foundUser.ID,
+                //    Name = foundUser.Name,
+                //    OvertimeThreshold = foundUser.OvertimeThreshold,
+                //    OvertimeMultiplier = foundUser.OvertimeMultiplier,
+                //    Password = "",
+                //    Companies = new List<Models.Company>()
+                //};
+
+                //foreach (var comp in foundUser.AdminCompanies)
+                //{
+                //    Models.Company toAdd = new Models.Company()
+                //    {
+                //        Administrators = new List<Models.User>(),
+                //        AllowableStorage = new List<Models.StorageAllocation>(),
+                //        BillableItems = new List<Models.BillingType>(),
+                //        CreatedBy = null,
+                //        CreatedDate = comp.CreatedDate,
+                //        Description = comp.Description,
+                //        ID = comp.ID,
+                //        Name = comp.Name,
+                //        Projects = new List<Models.Project>(),
+                //        Users = new List<Models.User>()
+                //    };
+
+                //    toAdd.CreatedBy = loadedUser;
+                //    loadedUser.Companies.Add(toAdd);
+                //}
 
                 return loadedUser;
             }

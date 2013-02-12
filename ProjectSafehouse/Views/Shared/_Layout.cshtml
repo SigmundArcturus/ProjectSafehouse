@@ -13,17 +13,9 @@
 
     <link rel="stylesheet" type="text/css" href="/Content/themes/base/Shared/_Layout.css" />
 
-    <style>
-
-       html {
-        background: url('@string.Format("Content/themes/{0}/images/{1}", CurrentTheme, "Overlay.png")') top center repeat-y, url('@string.Format("Content/themes/{0}/images/{1}", CurrentTheme, "Background.png")') top left repeat;
-        }
-
-    </style>
-
-    <script src="Scripts/jquery-1.9.0.min.js"></script>
-	<script src="Scripts/Shared/_Layout.js"></script>
-    <script src="Scripts/safehouse.Namespacing.js"></script>
+    <script src="~/Scripts/jquery-1.9.0.min.js"></script>
+	<script src="~/Scripts/Shared/_Layout.js"></script>
+    <script src="~/Scripts/safehouse.Namespacing.js"></script>
 	
 	<link href='http://fonts.googleapis.com/css?family=Cabin+Condensed:400,600' rel='stylesheet' type='text/css'>
 
@@ -33,8 +25,15 @@
 <body>
     <div id="mainMenu">
 		<div class="NavOption NavLink NavHome">
-			<img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "home_goldenrod.png")"/><a href="">Project Safehouse</a>
+			<img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "home_goldenrod.png")"/><a href="">Project Safehouse</a>
 		</div> 
+        @if (ViewBag.CurrentUser != null)
+        {
+            <div class="NavOption NavLink">
+		        <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "eject_32x32.png")"/><a href="~/LogOut">Sign Out</a>
+	        </div> 
+        }
+
         @RenderSection("MenuOptions", required: false)
     </div>
 	<div id="subMenu">

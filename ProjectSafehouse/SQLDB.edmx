@@ -72,7 +72,7 @@
           <Property Name="HourlyCost" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="OvertimeMultiplier" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OvertimeThreshold" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Companies" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="SQLUser" ToRole="Company" />
+          <NavigationProperty Name="AdminCompanies" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="SQLUser" ToRole="Company" />
         </EntityType>
         <EntityType Name="SQLCompany">
           <Key>

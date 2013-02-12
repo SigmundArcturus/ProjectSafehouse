@@ -16,7 +16,7 @@ namespace ProjectSafehouse
     {
         public SQLUser()
         {
-            this.Companies = new HashSet<SQLCompany>();
+            this.AdminCompanies = new HashSet<SQLCompany>();
         }
     
         public System.Guid ID { get; set; }
@@ -28,6 +28,6 @@ namespace ProjectSafehouse
         public Nullable<decimal> OvertimeMultiplier { get; set; }
         public Nullable<decimal> OvertimeThreshold { get; set; }
     
-        public virtual ICollection<SQLCompany> Companies { get; set; }
+        public virtual ICollection<SQLCompany> AdminCompanies { get; set; }
     }
 }

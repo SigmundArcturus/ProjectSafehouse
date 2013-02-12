@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Login or Signup";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/StandardPage.cshtml";
 }
 
 @{
@@ -17,7 +17,7 @@
 
 }
 
-@section menuOptions
+@section MenuOptions
 {
     <div class="NavOption NavDropDown">
 		<img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "cog_32x32.png")"/><h2>Navigation</h2>
@@ -38,6 +38,7 @@
 	</div> 
 }
 
+@section MainContent{
     <div id="loginBox" class="CleanBox">
 		<div class="CleanHeader">
             <h3>Log in to your account.</h3> 
@@ -145,7 +146,7 @@
 			</div>
         </div>
     </div>
-
+    }
 <!--
  <div class="NavOption NavLink">
 		<h2>

@@ -17,7 +17,11 @@ namespace ProjectSafehouse.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            //return View();
+            if (CurrentUser == null)
+                return View();
+            else
+                return View("Welcome", CurrentUser);
         }
 
         public ViewResult NewUser(User user)
@@ -39,6 +43,13 @@ namespace ProjectSafehouse.Controllers
                 ViewBag.Error = "Login error.  Please check your email and password.";
                 return View("Index");
             }
+        }
+
+        public ViewResult LogOut()
+        {
+            ViewBag.Error = null;
+            CurrentUser = null;
+            return View("Index");
         }
     }
 }

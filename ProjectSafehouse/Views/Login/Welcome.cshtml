@@ -5,7 +5,33 @@
     Layout = "~/Views/Shared/StandardPage.cshtml";
 }
 
+@section Head{
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "../Company/LoadUserCompanies",
+            cache: false,
+            data: {
+                userId: '@Model.ID'
+            },
+            method: "GET",
+            success: function (data) {
+                $('#companiesList').html(data);
+            }
+        });
+    });
+
+</script>
+}
+
 @section MainContent{
     <h2>Welcome to Project Safehouse @Model.Email</h2>
+
+    <div id="companiesList">
+
+    </div>
 }
+
+
 
