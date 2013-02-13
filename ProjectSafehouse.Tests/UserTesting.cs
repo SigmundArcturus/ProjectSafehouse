@@ -35,7 +35,7 @@ namespace ProjectSafehouse.Tests
             //Act
             bool test = DAL.deleteExistingUser(email, password);
             User result = DAL.createNewUser(email, password);
-            User find = DAL.loadUserById(result.ID);
+            User find = DAL.loadUserById(result.ID, false);
 
             //Assert
             if (result.ID != find.ID || result.Email != find.Email)

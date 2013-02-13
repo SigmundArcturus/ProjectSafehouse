@@ -61,11 +61,20 @@ $(document).ready(function () {
         url: "../Company/LoadUserCompanies",
         cache: false,
         data: {
-            userId: '@Model.ID'
+            userId: $('#userId').attr('value')
         },
         method: "GET",
         success: function (data) {
             $('#companiesList').html(data);
         }
     });
+
+    $('#createCompanyButton').click(function () {
+        $('#createCompanyBox').css('display', 'block');
+        $('#createCompanyBox').animate(
+            {
+                height: '220px'
+            }, 400, function () { });
+    });
+    
 });

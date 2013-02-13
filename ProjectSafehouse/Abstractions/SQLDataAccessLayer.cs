@@ -50,19 +50,19 @@ namespace ProjectSafehouse.Abstractions
             return newUser;
         }
 
-        public Models.User loadUserById(Guid userId)
+        public Models.User loadUserById(Guid userId, bool includeCompanies)
         {
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.ID == userId);
-            return loadUserBySqlUser(foundUser);
+            return loadUserBySqlUser(foundUser, includeCompanies);
         }
 
-        public Models.User loadUserByEmail(string userEmail)
+        public Models.User loadUserByEmail(string userEmail, bool includeCompanies)
         {
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == userEmail);
-            return loadUserBySqlUser(foundUser);            
+            return loadUserBySqlUser(foundUser, includeCompanies);            
         }
 
-        private Models.User loadUserBySqlUser(SQLUser foundUser)
+        private Models.User loadUserBySqlUser(SQLUser foundUser, bool includeCompanies)
         {
             if (foundUser != null)
             {
@@ -76,7 +76,7 @@ namespace ProjectSafehouse.Abstractions
                     Name = foundUser.Name,
                     OvertimeMultiplier = foundUser.OvertimeMultiplier,
                     OvertimeThreshold = foundUser.OvertimeThreshold,
-                    Companies = loadUserCompanies(foundUser.ID, true, true, true)
+                    Companies = includeCompanies ? loadUserCompanies(foundUser.ID, true, true, true) : null
                 };
 
                 return loadedUser;
@@ -99,7 +99,7 @@ namespace ProjectSafehouse.Abstractions
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == emailAddress);
             if (foundUser != null && foundUser.Password == hashedPassword)
             {
-                Models.User loadedUser = loadUserById(foundUser.ID);
+                Models.User loadedUser = loadUserById(foundUser.ID, false);
                 //Models.User loadedUser = new Models.User()
                 //{
                 //    AvatarURL = foundUser.AvatarURL,
@@ -208,7 +208,7 @@ namespace ProjectSafehouse.Abstractions
 
             if (foundCompany != null)
             {
-                Models.User foundUser = loadUserById(foundCompany.CreatedByUserID);
+                Models.User foundUser = loadUserById(foundCompany.CreatedByUserID, false);
                 if (foundUser != null && checkPassword(foundUser.Email, unhashedPassword) != null)
                 {
                     db.SQLCompanies.Remove(foundCompany);
@@ -234,7 +234,7 @@ namespace ProjectSafehouse.Abstractions
                     Administrators = new List<Models.User>(),
                     AllowableStorage = new List<Models.StorageAllocation>(),
                     BillableItems = new List<Models.BillingType>(),
-                    CreatedBy = loadUserById(comp.CreatedByUserID),
+                    CreatedBy = loadUserById(comp.CreatedByUserID, false),
                     CreatedDate = comp.CreatedDate,
                     Description = comp.Description,
                     ID = comp.ID,

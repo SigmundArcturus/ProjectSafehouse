@@ -22,14 +22,14 @@ namespace ProjectSafehouse.Dependencies
             return dal.createNewUser(emailAddress, unhashedPassword);
         }
 
-        public Models.User loadUserById(Guid userId)
+        public Models.User loadUserById(Guid userId, bool includeCompanies)
         {
-            return dal.loadUserById(userId);
+            return dal.loadUserById(userId, includeCompanies);
         }
 
-        public Models.User loadUserByEmail(string userEmail)
+        public Models.User loadUserByEmail(string userEmail, bool includeCompanies)
         {
-            return dal.loadUserByEmail(userEmail);
+            return dal.loadUserByEmail(userEmail, includeCompanies);
         }
 
         public IEnumerable<Models.User> findUsers(string searchDetails)

@@ -29,7 +29,7 @@ namespace ProjectSafehouse.Tests
         public void CanCreateNewCompany()
         {
             // Arrange
-            Models.User testUser = DAL.loadUserByEmail("test@test.com");
+            Models.User testUser = DAL.loadUserByEmail("test@test.com", false);
             List<Models.Company> userCompanies = DAL.loadUserCompanies(testUser.ID, true, true, true);
             foreach(var userCompany in userCompanies)
             {

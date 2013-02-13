@@ -28,13 +28,13 @@ namespace ProjectSafehouse.Abstractions
             return newUser;
         }
 
-        public Models.User loadUserById(Guid userId)
+        public Models.User loadUserById(Guid userId, bool includeCompanies)
         {
             Models.User locatedUser = _fakeUsersList.FirstOrDefault(x => x.ID == userId);
             return locatedUser;
         }
 
-        public Models.User loadUserByEmail(string userEmail)
+        public Models.User loadUserByEmail(string userEmail, bool includeCompanies)
         {
             Models.User locatedUser = _fakeUsersList.FirstOrDefault(x => x.Email == userEmail);
             return locatedUser;
@@ -62,7 +62,7 @@ namespace ProjectSafehouse.Abstractions
 
         public bool deleteExistingUser(string emailAddress, string unhashedPassword)
         {
-            Models.User loaded = loadUserByEmail(emailAddress);
+            Models.User loaded = loadUserByEmail(emailAddress, false);
             if (loaded != null)
             {
                 _fakeUsersList.Remove(loaded);
