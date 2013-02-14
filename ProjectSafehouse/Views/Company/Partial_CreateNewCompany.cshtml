@@ -5,7 +5,7 @@
     <p class="NameSection InputSection">
         <label for="companyName">Name</label>
         <div class="TextWrapper">
-            <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+            <img src="~/Content/themes/base/images/pen_24x24.png"/>
 			@Html.TextBoxFor(x => x.Name, new { placeholder = "Company Name", id = "companyName", required = "true" })
 		</div>
         <div style="clear:both"></div>
@@ -13,10 +13,11 @@
     <p class="NameSection InputSection">
         <label for="companyDescription">Description</label>
         <div class="TextWrapper">
-            <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+            <img src="~/Content/themes/base/images/article_24x24.png"/>
 			@Html.TextBoxFor(x => x.Description, new { placeholder = "Company Description", id = "companyDescription", required = "true" })
 		</div>
         <div style="clear:both"></div>
     </p>
-    <input type="submit" value="Create Company" />
+    
+    <input type="button" value="Create Company" onclick="ProjectSafehouse.AJAX.Company.CreateCompany();"/>
 }

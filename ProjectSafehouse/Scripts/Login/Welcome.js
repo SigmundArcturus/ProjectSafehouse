@@ -52,6 +52,22 @@
         }
 ];
 
+var companyCreator = extend(ProjectSafehouse, "ProjectSafehouse.AJAX.Company");
+
+companyCreator.CreateCompany = function(){
+    $.ajax({
+        url: '../Company/LoadUserCompanies',
+        cache: false,
+        data: {
+            userId: $('#userId').attr('value')
+        },
+        method: 'POST',
+        success: function (data) {
+            $('#companiesList').html(data);
+        }
+    });
+}
+
 $(document).ready(function () {
     var loginMenu = ProjectSafehouse.Utilities.Menu;
     loginMenu.SetCurrentMenu(welcomeMainMenu);
@@ -69,12 +85,34 @@ $(document).ready(function () {
         }
     });
 
-    $('#createCompanyButton').click(function () {
-        $('#createCompanyBox').css('display', 'block');
-        $('#createCompanyBox').animate(
+    $('body').on('click', '.FriendlyBox', function () {
+        var targetExpand = $(this).attr('target');
+        $('.CompanyDetailsContainer').stop(true, true);
+        $('.CompanyDetailsContainer').animate(
             {
-                height: '220px'
-            }, 400, function () { });
+                height: '0px'
+            }, 300, function(){
+                $('.CompanyDetailsContainer').css('display', 'none');
+                $('#' + targetExpand).css('display', 'block');
+                $('#' + targetExpand).animate(
+                    {
+                        height: '220px'
+                    }, 400, function () { });
+            }
+        );        
     });
+
+    $('body').on('click', 'img.CloseDetailsContainer', function(){
+        var target = $(this).parent();
+        target.stop(true, true);
+        target.animate(
+            {
+                height: '0px'
+            }, 300, function () {
+                target.css('display', 'none');
+            }
+        );
+    });
+    
     
 });

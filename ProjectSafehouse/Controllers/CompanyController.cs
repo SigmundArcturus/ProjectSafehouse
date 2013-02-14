@@ -26,10 +26,12 @@ namespace ProjectSafehouse.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult CreateNewCompany(Models.Company toCreate)
+        public ActionResult CreateNewCompany(Models.Company toCreate)
         {
             DAL.createNewCompany(CurrentUser, toCreate.Name, toCreate.Description);
-            return PartialView("Partial_CreateNewCompany", new Models.Company());
+            List<Models.Company> returnMe = DAL.loadUserCompanies(CurrentUser.ID, true, true, true);
+
+            return View("Partial_CompanyList", returnMe);
         }
     }
 }
