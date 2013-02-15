@@ -82,7 +82,17 @@ namespace ProjectSafehouse.Dependencies
 
         public Models.Company createNewCompany(Models.User creator, string name, string description)
         {
-            return dal.createNewCompany(creator, name, description);
+            Models.Company createdCompany = dal.createNewCompany(creator, name, description);
+
+            // always create a default project for any new company
+            if (createdCompany != null)
+            {
+                Models.Project createdProject = dal.createNewProject(creator, createdCompany, "Default Project", "Automatically created for " + name + " during company creation.");
+                if (createdProject != null)
+                    createdCompany.Projects.Add(createdProject);
+            }
+
+            return createdCompany;
         }
 
         public bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId)

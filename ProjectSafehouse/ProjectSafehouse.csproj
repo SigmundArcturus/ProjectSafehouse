@@ -142,6 +142,7 @@
     <Compile Include="Controllers\ActionListController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="CustomExceptions\UserExceptions.cs" />
     <Compile Include="Dependencies\DataAccessLayer.cs" />
     <Compile Include="Global.asax.cs">
@@ -301,6 +302,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\safehouse.menu.js" />
     <Content Include="Scripts\safehouse.namespacing.js" />
+    <Content Include="Scripts\safehouse.ajax.js" />
     <Content Include="Scripts\Shared\StandardPage.js" />
     <Content Include="Scripts\Shared\_Layout.js" />
     <Content Include="Scripts\_references.js" />
@@ -338,6 +340,7 @@
     <Content Include="Views\Shared\StandardPage.cshtml" />
     <Content Include="Views\Company\Partial_CompanyList.cshtml" />
     <Content Include="Views\Company\Partial_CreateNewCompany.cshtml" />
+    <Content Include="Views\Project\Partial_ProjectList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

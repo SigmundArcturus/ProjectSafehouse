@@ -74,20 +74,31 @@ $(document).ready(function () {
     loginMenu.SetCurrentMenu(welcomeMainMenu);
     loginMenu.LoadTopLevel();
 
-    $.ajax({
+    var ajaxMethods = ProjectSafehouse.Utilities.AJAX;
+    ajaxMethods.LoadPartialView({
         url: "../Company/LoadUserCompanies",
-        cache: false,
         data: {
             userId: $('#userId').attr('value')
         },
-        method: "GET",
-        success: function (data) {
-            $('#companiesList').html(data);
-        }
+        resultTarget: $('#companiesList')
     });
+
+    //$.ajax({
+    //    url: "../Company/LoadUserCompanies",
+    //    cache: false,
+    //    data: {
+    //        userId: $('#userId').attr('value')
+    //    },
+    //    method: "GET",
+    //    success: function (data) {
+    //        $('#companiesList').html(data);
+    //    }
+    //});
 
     $('body').on('click', '.FriendlyBox', function () {
         var targetExpand = $(this).attr('target');
+        var companyId = $(this).attr('companyid');
+
         $('.CompanyDetailsContainer').stop(true, true);
         $('.CompanyDetailsContainer').animate(
             {
@@ -98,7 +109,19 @@ $(document).ready(function () {
                 $('#' + targetExpand).animate(
                     {
                         height: '220px'
-                    }, 400, function () { });
+                    }, 400, function () {
+                        if (companyId != null) {
+
+                            ajaxMethods.LoadPartialView({
+                                url: "../Project/LoadCompanyProjects",
+                                data: {
+                                    companyId: companyId
+                                },
+                                resultTarget: $('#' + targetExpand + ' ul.ProjectList')
+                            });
+
+                        }
+                    });
             }
         );        
     });
