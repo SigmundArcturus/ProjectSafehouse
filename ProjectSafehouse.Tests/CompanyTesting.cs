@@ -40,7 +40,8 @@ namespace ProjectSafehouse.Tests
             Models.Company testCompany = DAL.createNewCompany(testUser, "Test Company", "A company created by the test methods.");
 
             // Assert
-
+            List<Models.Company> companies = DAL.loadUserCompanies(testUser.ID, true, true, true);
+            Assert.IsTrue(companies.Find(x => x.Name == "Test Company" && x.Description == "A company created by the test methods.") != null);
         }
     }
 }

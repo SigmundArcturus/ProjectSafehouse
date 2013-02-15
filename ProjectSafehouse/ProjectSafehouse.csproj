@@ -142,10 +142,12 @@
     <Compile Include="Controllers\ActionListController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="CustomExceptions\UserExceptions.cs" />
     <Compile Include="Dependencies\DataAccessLayer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HTMLHelpers\JSON.cs" />
     <Compile Include="Models\ActionItem.cs" />
     <Compile Include="Models\ActionItemStatus.cs" />
     <Compile Include="Models\ActionItemType.cs" />
@@ -210,6 +212,7 @@
     <Content Include="Content\themes\base\images\PlusSign.png" />
     <Content Include="Content\themes\base\images\plus_32x32.png" />
     <Content Include="Content\themes\base\images\plus_alt_32x32.png" />
+    <Content Include="Content\themes\base\images\selectedTriangle.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

@@ -36,7 +36,7 @@
 				    <p class="EmailSection InputSection">
                         <label for="logInEmail">Email</label>
                         <div class="TextWrapper">
-                            <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "at_24x24.png")"/>
+                            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "at_24x24.png")"/>
 					        @Html.TextBoxFor(x => x.Email, new { placeholder = "Your Email Address", id = "logInEmail", required = "true", type = "email" })
 				        </div>
                         <div style="clear:both"></div>
@@ -44,7 +44,7 @@
                     <p class="PasswordSection InputSection">
                         <label for="logInPassword">Password</label>
                         <div class="TextWrapper">
-                            <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "key_stroke_24x24.png")"/>
+                            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "key_stroke_24x24.png")"/>
 	                        @Html.PasswordFor(x => x.Password, new { placeholder = "Your Password", id = "logInPassword", required = "true" })
 				        </div>
                         <div style="clear:both"></div>
@@ -62,7 +62,7 @@
 				</p>
 				
 				<div class="IconAndHeader" id="signUpSwitch">
-					<img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "Home.png")" alt="Sign Up!"/>
+					<img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "Home.png")" alt="Sign Up!"/>
 					<h2>Sign Up</h2>
                     <div style="clear:both"></div>
 				</div>
@@ -80,7 +80,7 @@
                 <p class="EmailSection InputSection">
                     <label for="signUpEmail">Email</label>
                     <div class="TextWrapper">
-                        <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "at_24x24.png")"/>
+                        <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "at_24x24.png")"/>
                         @Html.TextBoxFor(x => x.Email, new { placeholder = "Your Email Address", id = "signUpEmail", required = "true", type = "email" })
                     </div>
                     <div style="clear:both"></div>
@@ -88,7 +88,7 @@
                 <p class="PasswordSection InputSection">
                     <label for="signUpPassword">Password</label>
                     <div class="TextWrapper">
-                        <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "key_stroke_24x24.png")"/>
+                        <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "key_stroke_24x24.png")"/>
                         @Html.PasswordFor(x => x.Password, new { placeholder = "Pick a Password", id = "signUpPassword", required = "true" })
                     </div>
                      <div style="clear:both"></div>
@@ -96,7 +96,7 @@
                 <p class="ConfirmSection InputSection">
                     <label for="signUpConfirm">Confirm Password</label>
                     <div class="TextWrapper">
-                        <img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "lock_stroke_18x24.png")" style="margin-left: 8px; margin-right: 5px;"/>
+                        <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "lock_stroke_18x24.png")" style="margin-left: 8px; margin-right: 5px;"/>
                         <input type="password" placeholder="Confirm Your Password" id="signUpConfirm" required />
                     </div>
                      <div style="clear:both"></div>
@@ -118,7 +118,7 @@
 				</p>
 				
 				<div class="IconAndHeader"  id="logInSwitch">
-					<img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "home.png")" alt="Sign Up!"/>
+					<img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "home.png")" alt="Sign Up!"/>
 					<h2>Log In</h2>
                     <div style="clear:both"></div>
 				</div>

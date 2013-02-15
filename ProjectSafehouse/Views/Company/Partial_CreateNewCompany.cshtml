@@ -14,10 +14,9 @@
         <label for="companyDescription">Description</label>
         <div class="TextWrapper">
             <img src="~/Content/themes/base/images/article_24x24.png"/>
-			@Html.TextBoxFor(x => x.Description, new { placeholder = "Company Description", id = "companyDescription", required = "true" })
+			@Html.TextBoxFor(x => x.Description, new { placeholder = "Company Description", id = "companyDescription", required = "false" })
 		</div>
         <div style="clear:both"></div>
     </p>
-    
-    <input type="button" value="Create Company" onclick="ProjectSafehouse.AJAX.Company.CreateCompany();"/>
+    <input type="submit" value="Create Company" />
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
@@ -21,7 +20,10 @@ namespace ProjectSafehouse.Controllers
             if (CurrentUser == null)
                 return View();
             else
+            {
+                ViewBag.CurrentUser = CurrentUser;
                 return View("Welcome", CurrentUser);
+            }
         }
 
         public ViewResult NewUser(User user)

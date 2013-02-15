@@ -54,18 +54,19 @@
 
 var companyCreator = extend(ProjectSafehouse, "ProjectSafehouse.AJAX.Company");
 
-companyCreator.CreateCompany = function(){
-    $.ajax({
-        url: '../Company/LoadUserCompanies',
-        cache: false,
-        data: {
-            userId: $('#userId').attr('value')
-        },
-        method: 'POST',
-        success: function (data) {
-            $('#companiesList').html(data);
-        }
-    });
+companyCreator.CreateCompany = function (newCompany) {
+    console.log(newCompany);
+    //$.ajax({
+    //    url: '../Company/CreateNewCompany',
+    //    cache: false,
+    //    data: {
+    //        toCreate: newCompany
+    //    },
+    //    method: 'POST',
+    //    success: function (data) {
+    //        $('#companiesList').html(data);
+    //    }
+    //});
 }
 
 $(document).ready(function () {

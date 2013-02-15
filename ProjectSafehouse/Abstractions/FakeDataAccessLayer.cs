@@ -122,5 +122,21 @@ namespace ProjectSafehouse.Abstractions
         {
             throw new NotImplementedException();
         }
+
+
+        public Models.Project createNewProject(Models.User creator, Models.Company company, string name, string description)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool deleteExistingProject(Guid creatorID, string unhashedPassword, Guid targetProjectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Models.Project> loadCompanyProjects(Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

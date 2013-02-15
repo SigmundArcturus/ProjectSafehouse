@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using Microsoft.Practices.Unity;
 using ProjectSafehouse.Abstractions;
@@ -19,6 +20,27 @@ namespace ProjectSafehouse.Dependencies
 
         public Models.User createNewUser(string emailAddress, string unhashedPassword)
         {
+            // ALWAYS run these validation checks before submitting down to injected DAL.
+            // They are necessary in case client-side validation fails.
+            //
+            if (string.IsNullOrWhiteSpace(emailAddress))
+                throw new ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException("An empty or null email address was specified for a new user.");
+
+            if (string.IsNullOrWhiteSpace(unhashedPassword))
+                throw new ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException("An invalid, null or empty password was specified for a new user: " + emailAddress);
+
+            try
+            {
+                MailAddress m = new MailAddress(emailAddress);
+            }
+            catch (FormatException fex)
+            {
+                throw new ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException("An invalid email address was specified for a new user: " + emailAddress, fex);
+            }
+
+            if (loadUserByEmail(emailAddress, false) != null)
+                throw new ProjectSafehouse.CustomExceptions.DuplicateUserInsertException("A possible duplicate user insert was detected and avoided for email: " + emailAddress);
+
             return dal.createNewUser(emailAddress, unhashedPassword);
         }
 
@@ -71,6 +93,22 @@ namespace ProjectSafehouse.Dependencies
         public List<Models.Company> loadUserCompanies(Guid userId, bool includeAdmin, bool includeManager, bool includeUser)
         {
             return dal.loadUserCompanies(userId, includeAdmin, includeManager, includeUser);
+        }
+
+
+        public Models.Project createNewProject(Models.User creator, Models.Company company, string name, string description)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool deleteExistingProject(Guid creatorID, string unhashedPassword, Guid targetProjectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Models.Project> loadCompanyProjects(Guid companyId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

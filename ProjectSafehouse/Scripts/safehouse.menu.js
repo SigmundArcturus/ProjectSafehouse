@@ -2,10 +2,13 @@
 
 $(document).ready(function () {
     $('#mainMenu').on('click', '.NavDropDown', function () {
+        $('.NavSelected').removeClass('NavSelected');
+        $(this).addClass('NavSelected');
         menuMethods.ToggleSubMenu($(this).attr('id'));
     });
 
     $('body').on('mouseleave', '#subMenu', function () {
+        $('.NavSelected').removeClass('NavSelected');
         $('#subMenu').animate(
             {
                 height: '0px'

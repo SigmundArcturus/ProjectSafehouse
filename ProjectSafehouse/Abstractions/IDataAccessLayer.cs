@@ -20,5 +20,8 @@ namespace ProjectSafehouse.Abstractions
         Company createNewCompany(User creator, string name, string description);
         bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId);
         List<Models.Company> loadUserCompanies(Guid userId, bool includeAdmin, bool includeManager, bool includeUser);
+        Project createNewProject(User creator, Company company, string name, string description);
+        bool deleteExistingProject(Guid creatorID, string unhashedPassword, Guid targetProjectId);
+        List<Models.Project> loadCompanyProjects(Guid companyId);
     }
 }

@@ -45,6 +45,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ProjectSafehouse.CustomExceptions.DuplicateUserInsertException))]
         public void CannotCreateDuplicateUser()
         {
             //Arrange
@@ -59,6 +60,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException))]
         public void CannotCreateUserNoEmail()
         {
             //Arrange
@@ -72,6 +74,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException))]
         public void CannotCreateUserNoPassword()
         {
             //Arrange
