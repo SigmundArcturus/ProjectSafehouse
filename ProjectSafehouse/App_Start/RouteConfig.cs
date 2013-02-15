@@ -20,6 +20,18 @@ namespace ProjectSafehouse
             );
 
             routes.MapRoute(
+                name: "Project",
+                url: "Project/LoadCompanyProjects/{id}",
+                defaults: new { controller = "Project", action = "LoadCompanyProjects", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "ProjectOverview",
+                url: "Project/{projectId}/ProjectOverview",
+                defaults: new { controller = "Project", action = "ProjectOverview", projectId = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "LogOut",
                 url: "LogOut/{id}",
                 defaults: new { controller = "Login", action = "LogOut", id = UrlParameter.Optional }

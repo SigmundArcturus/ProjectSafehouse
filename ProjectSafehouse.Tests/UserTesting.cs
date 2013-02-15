@@ -38,8 +38,8 @@ namespace ProjectSafehouse.Tests
             User find = DAL.loadUserById(result.ID, false);
 
             //Assert
-            Assert.Equals(result.ID, find.ID);
-            Assert.Equals(result.Email, find.Email);
+            Assert.AreEqual(result.ID, find.ID);
+            Assert.AreEqual(result.Email, find.Email);
         }
 
         [TestMethod]

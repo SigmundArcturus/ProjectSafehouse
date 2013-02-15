@@ -25,5 +25,13 @@ namespace ProjectSafehouse.Controllers
             return PartialView("Partial_ProjectList", returnMe);
         }
 
+        [HttpGet]
+        public ViewResult ProjectOverview(Guid projectId)
+        {
+            Models.Project returnMe = DAL.loadProjectById(projectId);
+
+            return View(returnMe);
+        }
+
     }
 }

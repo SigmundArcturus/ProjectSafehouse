@@ -2,5 +2,7 @@
 
 @foreach (ProjectSafehouse.Models.Project proj in Model)
 {
-    <li>proj.Name</li>
+    <li>
+        <a href="~/Project/@proj.ID/ProjectOverview">@proj.Name</a>
+    </li>
 }

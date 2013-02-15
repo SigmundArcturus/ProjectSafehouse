@@ -325,5 +325,27 @@ namespace ProjectSafehouse.Abstractions
 
             return foundProjects;
         }
+
+
+        public Models.Project loadProjectById(Guid projectId)
+        {
+            SQLProject foundSQLProject = db.SQLProjects.FirstOrDefault(x => x.ID == projectId);
+
+            Models.Project foundProject = new Models.Project()
+            {
+                AssignedUsers = new List<Models.User>(),
+                BillableItems = new List<Models.BillingType>(),
+                CreatedBy = loadUserById(foundSQLProject.CreatedByUserId, false),
+                CreatedDate = foundSQLProject.CreatedDate,
+                Description = foundSQLProject.Description,
+                ID = foundSQLProject.ID,
+                Name = foundSQLProject.Name,
+                ProjectFiles = new List<Models.FileRevision>(),
+                ProjectFolders = new List<Models.FileFolder>(),
+                ReleaseList = new List<Models.Release>()
+            };
+
+            return foundProject;
+        }
     }
 }

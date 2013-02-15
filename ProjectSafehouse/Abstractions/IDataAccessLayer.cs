@@ -23,5 +23,6 @@ namespace ProjectSafehouse.Abstractions
         Project createNewProject(User creator, Company company, string name, string description);
         bool deleteExistingProject(Guid creatorID, string unhashedPassword, Guid targetProjectId);
         List<Models.Project> loadCompanyProjects(Guid companyId);
+        Project loadProjectById(Guid projectId);
     }
 }

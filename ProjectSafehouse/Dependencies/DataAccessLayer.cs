@@ -119,5 +119,10 @@ namespace ProjectSafehouse.Dependencies
         {
             return dal.loadCompanyProjects(companyId);
         }
+
+        public Models.Project loadProjectById(Guid projectId)
+        {
+            return dal.loadProjectById(projectId);
+        }
     }
 }

@@ -138,5 +138,11 @@ namespace ProjectSafehouse.Abstractions
         {
             throw new NotImplementedException();
         }
+
+
+        public Models.Project loadProjectById(Guid projectId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
