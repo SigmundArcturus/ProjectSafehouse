@@ -14,6 +14,11 @@ namespace ProjectSafehouse
     
     public partial class SQLCompany
     {
+        public SQLCompany()
+        {
+            this.Projects = new HashSet<SQLProject>();
+        }
+    
         public System.Guid ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -21,5 +26,6 @@ namespace ProjectSafehouse
         public System.DateTime CreatedDate { get; set; }
     
         public virtual SQLUser User { get; set; }
+        public virtual ICollection<SQLProject> Projects { get; set; }
     }
 }

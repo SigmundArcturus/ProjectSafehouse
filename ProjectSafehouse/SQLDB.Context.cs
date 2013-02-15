@@ -27,5 +27,6 @@ namespace ProjectSafehouse
     
         public DbSet<SQLUser> SQLUsers { get; set; }
         public DbSet<SQLCompany> SQLCompanies { get; set; }
+        public DbSet<SQLProject> SQLProjects { get; set; }
     }
 }

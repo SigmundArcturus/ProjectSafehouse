@@ -187,6 +187,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SQLDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="SQLProject.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="SQLUser.cs">
       <DependentUpon>SQLDB.tt</DependentUpon>
     </Compile>

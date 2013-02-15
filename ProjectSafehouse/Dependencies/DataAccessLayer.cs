@@ -95,20 +95,19 @@ namespace ProjectSafehouse.Dependencies
             return dal.loadUserCompanies(userId, includeAdmin, includeManager, includeUser);
         }
 
-
         public Models.Project createNewProject(Models.User creator, Models.Company company, string name, string description)
         {
-            throw new NotImplementedException();
+            return dal.createNewProject(creator, company, name, description);
         }
 
         public bool deleteExistingProject(Guid creatorID, string unhashedPassword, Guid targetProjectId)
         {
-            throw new NotImplementedException();
+            return dal.deleteExistingProject(creatorID, unhashedPassword, targetProjectId);
         }
 
         public List<Models.Project> loadCompanyProjects(Guid companyId)
         {
-            throw new NotImplementedException();
+            return dal.loadCompanyProjects(companyId);
         }
     }
 }

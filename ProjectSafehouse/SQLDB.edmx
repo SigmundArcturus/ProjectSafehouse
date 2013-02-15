@@ -7,10 +7,19 @@
     <Schema Namespace="ProjectSafehouseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ProjectSafehouseModelStoreContainer">
           <EntitySet Name="Companies" EntityType="ProjectSafehouseModel.Store.Companies" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Projects" EntityType="ProjectSafehouseModel.Store.Projects" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="ProjectSafehouseModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Companies_Users" Association="ProjectSafehouseModel.Store.FK_Companies_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Companies" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Companies" Association="ProjectSafehouseModel.Store.FK_Projects_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Users" Association="ProjectSafehouseModel.Store.FK_Projects_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Projects" EntitySet="Projects" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Companies">
@@ -22,6 +31,17 @@
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="CreatedByUserID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="CreatedByUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -48,6 +68,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Projects_Companies">
+          <End Role="Companies" Type="ProjectSafehouseModel.Store.Companies" Multiplicity="1" />
+          <End Role="Projects" Type="ProjectSafehouseModel.Store.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Users">
+          <End Role="Users" Type="ProjectSafehouseModel.Store.Users" Multiplicity="1" />
+          <End Role="Projects" Type="ProjectSafehouseModel.Store.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="CreatedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -58,6 +102,15 @@
           <AssociationSet Name="FK_Companies_Users" Association="ProjectSafehouseModel.FK_Companies_Users">
             <End Role="SQLUser" EntitySet="SQLUsers" />
             <End Role="Company" EntitySet="SQLCompanies" />
+          </AssociationSet>
+          <EntitySet Name="SQLProjects" EntityType="ProjectSafehouseModel.SQLProject" />
+          <AssociationSet Name="FK_Projects_Companies" Association="ProjectSafehouseModel.FK_Projects_Companies">
+            <End Role="SQLCompany" EntitySet="SQLCompanies" />
+            <End Role="Project" EntitySet="SQLProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Users" Association="ProjectSafehouseModel.FK_Projects_Users">
+            <End Role="SQLUser" EntitySet="SQLUsers" />
+            <End Role="Project" EntitySet="SQLProjects" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="SQLUser">
@@ -73,6 +126,7 @@
           <Property Name="OvertimeMultiplier" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OvertimeThreshold" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="AdminCompanies" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="SQLUser" ToRole="Company" />
+          <NavigationProperty Name="Projects" Relationship="ProjectSafehouseModel.FK_Projects_Users" FromRole="SQLUser" ToRole="Project" />
         </EntityType>
         <EntityType Name="SQLCompany">
           <Key>
@@ -84,6 +138,7 @@
           <Property Type="Guid" Name="CreatedByUserID" Nullable="false" />
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
           <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="Company" ToRole="SQLUser" />
+          <NavigationProperty Name="Projects" Relationship="ProjectSafehouseModel.FK_Projects_Companies" FromRole="SQLCompany" ToRole="Project" />
         </EntityType>
         <Association Name="FK_Companies_Users">
           <End Type="ProjectSafehouseModel.SQLUser" Role="SQLUser" Multiplicity="1" />
@@ -94,6 +149,43 @@
             </Principal>
             <Dependent Role="Company">
               <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SQLProject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Guid" Name="CreatedByUserId" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
+          <Property Type="Guid" Name="CompanyId" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="ProjectSafehouseModel.FK_Projects_Companies" FromRole="Project" ToRole="SQLCompany" />
+          <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_Projects_Users" FromRole="Project" ToRole="SQLUser" />
+        </EntityType>
+        <Association Name="FK_Projects_Companies">
+          <End Type="ProjectSafehouseModel.SQLCompany" Role="SQLCompany" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLProject" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Users">
+          <End Type="ProjectSafehouseModel.SQLUser" Role="SQLUser" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLProject" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CreatedByUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -122,6 +214,18 @@
               <MappingFragment StoreEntitySet="Companies">
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLProjects">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLProject">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

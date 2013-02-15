@@ -201,6 +201,18 @@ namespace ProjectSafehouse.Abstractions
                 Models.User foundUser = loadUserById(foundCompany.CreatedByUserID, false);
                 if (foundUser != null && checkPassword(foundUser.Email, unhashedPassword) != null)
                 {
+
+                    List<Models.Project> deleteProjects = loadCompanyProjects(targetCompanyId);
+                    if (deleteProjects.Count(x => x.CreatedBy.ID != creatorID) > 0)
+                        throw new Exception("Cannot delete company, it still has projects that you don't own underneath it.");
+                    else
+                    {
+                        foreach (var toDelete in deleteProjects)
+                        {
+                            deleteExistingProject(creatorID, unhashedPassword, toDelete.ID);
+                        }
+                    }
+
                     db.SQLCompanies.Remove(foundCompany);
                     db.SaveChanges();
                     removedACompany = true;
@@ -240,17 +252,78 @@ namespace ProjectSafehouse.Abstractions
 
         public Models.Project createNewProject(Models.User creator, Models.Company company, string name, string description)
         {
-            throw new NotImplementedException();
+            Models.Project newProject = new Models.Project()
+            {
+                ID = Guid.NewGuid(),
+                Name = name,
+                Description = description,
+                CreatedDate = DateTime.UtcNow,
+                CreatedBy = creator,
+                AssignedUsers = new List<Models.User>(),
+                BillableItems = new List<Models.BillingType>(),
+                ProjectFiles = new List<Models.FileRevision>(),
+                ProjectFolders = new List<Models.FileFolder>(),
+                ReleaseList = new List<Models.Release>()
+            };
+
+            SQLProject sqlProject = new SQLProject()
+            {
+                CompanyId = company.ID,
+                CreatedByUserId = creator.ID,
+                CreatedDate = newProject.CreatedDate,
+                Description = description,
+                Name = name,
+                ID = newProject.ID
+            };
+
+            db.SQLProjects.Add(sqlProject);
+
+            db.SaveChanges();
+
+            return newProject;
         }
 
         public bool deleteExistingProject(Guid creatorID, string unhashedPassword, Guid targetProjectId)
         {
-            throw new NotImplementedException();
+            SQLProject foundProject = db.SQLProjects.FirstOrDefault(x => x.ID == targetProjectId);
+            bool removedAProject = false;
+
+            if (foundProject != null)
+            {
+                Models.User foundUser = loadUserById(foundProject.CreatedByUserId, false);
+                if (foundUser != null && checkPassword(foundUser.Email, unhashedPassword) != null)
+                {
+                    db.SQLProjects.Remove(foundProject);
+                    db.SaveChanges();
+                    removedAProject = true;
+                }
+            }
+
+            return removedAProject;
         }
 
         public List<Models.Project> loadCompanyProjects(Guid companyId)
         {
-            throw new NotImplementedException();
+            List<SQLProject> foundSQLProjects = db.SQLProjects.Where(x => x.CompanyId == companyId).ToList();
+
+
+            List<Models.Project> foundProjects = foundSQLProjects.Select(
+                 y => new Models.Project()
+                 {
+                     AssignedUsers = new List<Models.User>(),
+                     BillableItems = new List<Models.BillingType>(),
+                     CreatedBy = loadUserById(y.CreatedByUserId, false),
+                     CreatedDate = y.CreatedDate,
+                     Description = y.Description,
+                     ID = y.ID,
+                     Name = y.Name,
+                     ProjectFiles = new List<Models.FileRevision>(),
+                     ProjectFolders = new List<Models.FileFolder>(),
+                     ReleaseList = new List<Models.Release>()
+                 }
+                ).ToList();
+
+            return foundProjects;
         }
     }
 }

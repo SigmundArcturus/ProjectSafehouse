@@ -38,10 +38,8 @@ namespace ProjectSafehouse.Tests
             User find = DAL.loadUserById(result.ID, false);
 
             //Assert
-            if (result.ID != find.ID || result.Email != find.Email)
-            {
-                throw new Exception("Couldn't find user");
-            }
+            Assert.Equals(result.ID, find.ID);
+            Assert.Equals(result.Email, find.Email);
         }
 
         [TestMethod]
