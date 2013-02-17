@@ -329,7 +329,7 @@ namespace ProjectSafehouse.Abstractions
 
         public Models.Project loadProjectById(Guid projectId)
         {
-            SQLProject foundSQLProject = db.SQLProjects.FirstOrDefault(x => x.ID == projectId);
+            SQLProject foundSQLProject = db.SQLProjects.FirstOrDefault(x => x.ID == projectId); 
 
             Models.Project foundProject = new Models.Project()
             {
