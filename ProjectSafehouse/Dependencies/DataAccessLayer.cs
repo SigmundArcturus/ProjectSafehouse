@@ -124,5 +124,41 @@ namespace ProjectSafehouse.Dependencies
         {
             return dal.loadProjectById(projectId);
         }
+
+
+        public Models.Release createNewRelease(Models.User creator, Models.Project project, Models.Release toAdd)
+        {
+            return dal.createNewRelease(creator, project, toAdd);
+        }
+
+        public bool deleteExistingRelease(Guid releaseId, string unhashedPassword, Guid targetReleaseId)
+        {
+            return dal.deleteExistingRelease(releaseId, unhashedPassword, targetReleaseId);
+        }
+
+        public List<Models.Release> loadProjectReleases(Guid projectId)
+        {
+            return dal.loadProjectReleases(projectId);
+        }
+
+        public Models.Release loadReleaseById(Guid releaseId)
+        {
+            return dal.loadReleaseById(releaseId);
+        }
+
+        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, string name, string description, Models.ActionItemStatus startingStatus, Models.User assignedTo)
+        {
+            return dal.createNewActionItem(creator, release, name, description, startingStatus, assignedTo);
+        }
+
+        public List<Models.ActionItem> loadProjectActionItems(Guid projectId)
+        {
+            return dal.loadProjectActionItems(projectId);
+        }
+
+        public List<Models.ActionItem> loadReleaseActionItems(Guid releaseId)
+        {
+            return dal.loadReleaseActionItems(releaseId);
+        }
     }
 }

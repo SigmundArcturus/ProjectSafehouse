@@ -12,22 +12,16 @@ namespace ProjectSafehouse
     using System;
     using System.Collections.Generic;
     
-    public partial class SQLProject
+    public partial class SQLRelease
     {
-        public SQLProject()
-        {
-            this.Releases = new HashSet<SQLRelease>();
-        }
-    
         public System.Guid ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public System.Guid CreatedByUserId { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public System.Guid CompanyId { get; set; }
+        public Nullable<System.DateTime> ScheduledDate { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public System.Guid ScheduledByID { get; set; }
+        public System.Guid ProjectID { get; set; }
     
-        public virtual SQLCompany Company { get; set; }
-        public virtual SQLUser User { get; set; }
-        public virtual ICollection<SQLRelease> Releases { get; set; }
+        public virtual SQLProject Project { get; set; }
     }
 }

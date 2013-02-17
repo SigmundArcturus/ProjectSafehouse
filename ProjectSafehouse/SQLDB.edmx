@@ -8,6 +8,7 @@
         <EntityContainer Name="ProjectSafehouseModelStoreContainer">
           <EntitySet Name="Companies" EntityType="ProjectSafehouseModel.Store.Companies" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Projects" EntityType="ProjectSafehouseModel.Store.Projects" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Releases" EntityType="ProjectSafehouseModel.Store.Releases" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="ProjectSafehouseModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Companies_Users" Association="ProjectSafehouseModel.Store.FK_Companies_Users">
             <End Role="Users" EntitySet="Users" />
@@ -20,6 +21,10 @@
           <AssociationSet Name="FK_Projects_Users" Association="ProjectSafehouseModel.Store.FK_Projects_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Releases_Projects" Association="ProjectSafehouseModel.Store.FK_Releases_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Releases" EntitySet="Releases" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Companies">
@@ -42,6 +47,18 @@
           <Property Name="CreatedByUserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Releases">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="Description" Type="varchar" MaxLength="256" />
+          <Property Name="ScheduledDate" Type="datetime" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="ScheduledByID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -92,6 +109,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Releases_Projects">
+          <End Role="Projects" Type="ProjectSafehouseModel.Store.Projects" Multiplicity="1" />
+          <End Role="Releases" Type="ProjectSafehouseModel.Store.Releases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Releases">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -111,6 +140,11 @@
           <AssociationSet Name="FK_Projects_Users" Association="ProjectSafehouseModel.FK_Projects_Users">
             <End Role="SQLUser" EntitySet="SQLUsers" />
             <End Role="Project" EntitySet="SQLProjects" />
+          </AssociationSet>
+          <EntitySet Name="SQLReleases" EntityType="ProjectSafehouseModel.SQLRelease" />
+          <AssociationSet Name="FK_Releases_Projects" Association="ProjectSafehouseModel.FK_Releases_Projects">
+            <End Role="SQLProject" EntitySet="SQLProjects" />
+            <End Role="Release" EntitySet="SQLReleases" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="SQLUser">
@@ -164,6 +198,7 @@
           <Property Type="Guid" Name="CompanyId" Nullable="false" />
           <NavigationProperty Name="Company" Relationship="ProjectSafehouseModel.FK_Projects_Companies" FromRole="Project" ToRole="SQLCompany" />
           <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_Projects_Users" FromRole="Project" ToRole="SQLUser" />
+          <NavigationProperty Name="Releases" Relationship="ProjectSafehouseModel.FK_Releases_Projects" FromRole="SQLProject" ToRole="Release" />
         </EntityType>
         <Association Name="FK_Projects_Companies">
           <End Type="ProjectSafehouseModel.SQLCompany" Role="SQLCompany" Multiplicity="1" />
@@ -186,6 +221,31 @@
             </Principal>
             <Dependent Role="Project">
               <PropertyRef Name="CreatedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SQLRelease">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ScheduledDate" Precision="3" />
+          <Property Type="DateTime" Name="StartDate" Precision="3" />
+          <Property Type="Guid" Name="ScheduledByID" Nullable="false" />
+          <Property Type="Guid" Name="ProjectID" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="ProjectSafehouseModel.FK_Releases_Projects" FromRole="Release" ToRole="SQLProject" />
+        </EntityType>
+        <Association Name="FK_Releases_Projects">
+          <End Type="ProjectSafehouseModel.SQLProject" Role="SQLProject" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLRelease" Role="Release" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLProject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Release">
+              <PropertyRef Name="ProjectID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -226,6 +286,19 @@
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLReleases">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLRelease">
+              <MappingFragment StoreEntitySet="Releases">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ScheduledByID" ColumnName="ScheduledByID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ScheduledDate" ColumnName="ScheduledDate" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

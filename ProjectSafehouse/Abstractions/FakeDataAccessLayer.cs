@@ -144,5 +144,41 @@ namespace ProjectSafehouse.Abstractions
         {
             throw new NotImplementedException();
         }
+
+
+        public Models.Release createNewRelease(Models.User creator, Models.Project project, Models.Release toAdd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool deleteExistingRelease(Guid releaseId, string unhashedPassword, Guid targetReleaseId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Models.Release> loadProjectReleases(Guid projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Models.Release loadReleaseById(Guid releaseId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, string name, string description, Models.ActionItemStatus startingStatus, Models.User assignedTo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Models.ActionItem> loadProjectActionItems(Guid projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Models.ActionItem> loadReleaseActionItems(Guid releaseId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

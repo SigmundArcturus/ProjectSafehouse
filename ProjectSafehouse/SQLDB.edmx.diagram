@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="ProjectSafehouseModel.SQLProject" Width="1.5" PointX="11.70443089292591" PointY="19.396726542802867" />
         <AssociationConnector Association="ProjectSafehouseModel.FK_Projects_Companies" />
         <AssociationConnector Association="ProjectSafehouseModel.FK_Projects_Users" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLRelease" Width="1.5" PointX="0.7721816398073833" PointY="6.634627375115933" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_Releases_Projects" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

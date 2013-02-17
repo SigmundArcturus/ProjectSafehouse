@@ -347,5 +347,97 @@ namespace ProjectSafehouse.Abstractions
 
             return foundProject;
         }
+
+
+        public Models.Release createNewRelease(Models.User creator, Models.Project project, Models.Release toAdd)
+        {
+            SQLRelease toInsert = new SQLRelease()
+            {
+                Description = toAdd.Description,
+                ID = toAdd.ID,
+                Name = toAdd.Name,
+                ProjectID = project.ID,
+                ScheduledByID = creator.ID,
+                ScheduledDate = toAdd.ScheduledDate,
+                StartDate = toAdd.StartDate
+            };
+
+            toAdd.ScheduledBy = creator;
+
+            db.SQLReleases.Add(toInsert);
+
+            return toAdd;
+        }
+
+        public bool deleteExistingRelease(Guid releaseId, string unhashedPassword, Guid targetReleaseId)
+        {
+            SQLRelease foundRelease = db.SQLReleases.FirstOrDefault(x => x.ID == targetReleaseId);
+            bool removedAProject = false;
+
+            if (foundRelease != null)
+            {
+                Models.User foundUser = loadUserById(foundRelease.ScheduledByID, false);
+                if (foundUser != null && checkPassword(foundUser.Email, unhashedPassword) != null)
+                {
+                    db.SQLReleases.Remove(foundRelease);
+                    db.SaveChanges();
+                    removedAProject = true;
+                }
+            }
+
+            return removedAProject;
+        }
+
+        public List<Models.Release> loadProjectReleases(Guid projectId)
+        {
+            List<Models.Release> projectReleases = new List<Models.Release>();
+
+            List<SQLRelease> found = db.SQLReleases.Where(x => x.ProjectID == projectId).ToList();
+
+            projectReleases = found.Select(x => new Models.Release(){
+                ID = x.ID,
+                Description = x.Description,
+                Name = x.Name,
+                ScheduledDate = x.ScheduledDate,
+                StartDate = x.StartDate,
+                ScheduledBy = loadUserById(x.ScheduledByID, false)
+            }).ToList();
+
+            return projectReleases;
+        }
+
+        public Models.Release loadReleaseById(Guid releaseId)
+        {
+            Models.Release returnMe = null;
+            SQLRelease found = db.SQLReleases.FirstOrDefault(x => x.ID == releaseId);
+            if (found != null)
+            {
+                returnMe = new Models.Release()
+                {
+                    ID = found.ID,
+                    Description = found.Description,
+                    Name = found.Name,
+                    ScheduledBy = loadUserById(found.ID, false),
+                    StartDate = found.StartDate,
+                    ScheduledDate = found.ScheduledDate
+                };
+            }
+            return returnMe;
+        }
+
+        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, string name, string description, Models.ActionItemStatus startingStatus, Models.User assignedTo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Models.ActionItem> loadProjectActionItems(Guid projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Models.ActionItem> loadReleaseActionItems(Guid releaseId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

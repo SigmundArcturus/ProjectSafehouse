@@ -139,7 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\ActionListController.cs" />
+    <Compile Include="Controllers\ActionItemController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -189,6 +189,9 @@
       <DependentUpon>SQLDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="SQLProject.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLRelease.cs">
       <DependentUpon>SQLDB.tt</DependentUpon>
     </Compile>
     <Compile Include="SQLUser.cs">
