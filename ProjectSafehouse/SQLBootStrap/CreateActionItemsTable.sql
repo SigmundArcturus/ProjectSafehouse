@@ -1,7 +1,7 @@
 USE [ProjectSafehouse]
 GO
 
-/****** Object:  Table [dbo].[ActionItems]    Script Date: 2/19/2013 11:15:02 AM ******/
+/****** Object:  Table [dbo].[ActionItems]    Script Date: 2/19/2013 10:53:18 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -41,13 +41,6 @@ REFERENCES [dbo].[ActionItemTypes] ([ID])
 GO
 
 ALTER TABLE [dbo].[ActionItems] CHECK CONSTRAINT [FK_ActionItems_ActionItemTypes]
-GO
-
-ALTER TABLE [dbo].[ActionItems]  WITH CHECK ADD  CONSTRAINT [FK_ActionItems_Releases] FOREIGN KEY([InReleaseId])
-REFERENCES [dbo].[Releases] ([ID])
-GO
-
-ALTER TABLE [dbo].[ActionItems] CHECK CONSTRAINT [FK_ActionItems_Releases]
 GO
 
 ALTER TABLE [dbo].[ActionItems]  WITH CHECK ADD  CONSTRAINT [FK_ActionItems_Statuses] FOREIGN KEY([CurrentStatusId])

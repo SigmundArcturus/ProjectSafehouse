@@ -10,10 +10,34 @@ namespace ProjectSafehouse.Abstractions
     public class SQLDataAccessLayer: IDataAccessLayer
     {
         private ProjectSafehouseEntities db { get; set; }
+        private List<Models.Priority> defaultPriorities { get; set; }
 
         public SQLDataAccessLayer()
         {
             db = new ProjectSafehouseEntities();
+            defaultPriorities = new List<Models.Priority>(){ 
+                new Models.Priority(){
+                    CreatedBy = null,
+                    CreatedOn = DateTime.MinValue,
+                    Description = "Default High Priority",
+                    Name = "High Priority",
+                    Order = 1
+                },
+                new Models.Priority(){
+                    CreatedBy = null,
+                    CreatedOn = DateTime.MinValue,
+                    Description = "Default Medium Priority",
+                    Name = "Medium Priority",
+                    Order = 2
+                },
+                new Models.Priority(){
+                    CreatedBy = null,
+                    CreatedOn = DateTime.MinValue,
+                    Description = "Default Low Priority",
+                    Name = "Low Priority",
+                    Order = 3
+                }
+            };
         }
 
         public Models.User createNewUser(string emailAddress, string unhashedPassword)
@@ -425,17 +449,172 @@ namespace ProjectSafehouse.Abstractions
             return returnMe;
         }
 
-        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, string name, string description, Models.ActionItemStatus startingStatus, Models.User assignedTo)
+        public Models.ActionItem createNewActionItem(Models.Release release, Models.ActionItem toCreate)
         {
-            throw new NotImplementedException();
+            SQLActionItem toSave = new SQLActionItem()
+            {
+                ActionItemTypeId = toCreate.CurrentType.ID,
+                CreatedByUserId = toCreate.CreatedBy.ID,
+                InReleaseId = release.ID,
+                CurrentPriority = toCreate.CurrentPriority.Order,
+                CurrentStatusId = toCreate.CurrentStatus.ID,
+                DateCompleted = toCreate.DateCompleted,
+                DateCreated = toCreate.DateCreated,
+                Description = toCreate.Description,
+                ID = toCreate.ID == Guid.Empty ? Guid.NewGuid() : toCreate.ID,
+                Name = toCreate.Title,
+                IndividualTargetDate = toCreate.TargetDate,
+                Estimate = null,
+                TimeSpent = null
+            };
+
+            if (toCreate.Estimate.HasValue)
+                toSave.Estimate = toCreate.Estimate.Value.Ticks;
+
+            if (toCreate.TimeSpent.HasValue)
+                toSave.TimeSpent = toCreate.TimeSpent.Value.Ticks;
+
+            db.SQLActionItems.Add(toSave);
+            db.SaveChanges();
+
+            return toCreate;
+        }
+
+        private List<Models.User> loadModelUsersFromSQLUsers(List<SQLUser> fromDB, bool includeCompanies)
+        {
+            List<Models.User> toReturn = new List<Models.User>();
+
+            toReturn = fromDB.Select(x => new Models.User()
+            {
+                AvatarURL = x.AvatarURL,
+                Companies = includeCompanies ? loadUserCompanies(x.ID, true, true, true) : new List<Models.Company>(),
+                Email = x.Email,
+                HourlyCost = x.HourlyCost,
+                ID = x.ID,
+                Name = x.Name,
+                OvertimeMultiplier = x.OvertimeMultiplier,
+                OvertimeThreshold = x.OvertimeThreshold,
+                Password = null
+            }).ToList();
+
+            return toReturn;
+        }
+
+        private List<Models.Priority> loadPriorityListForCompanyById(Guid companyId)
+        {
+            List<Models.Priority> returnMe = new List<Models.Priority>();
+            Models.Company selectedCompany = loadCompanyById(companyId);
+
+            returnMe = selectedCompany.Priorities.Count > 0 ? selectedCompany.Priorities : defaultPriorities;
+            return returnMe;
         }
 
         public List<Models.ActionItem> loadProjectActionItems(Guid projectId)
         {
-            throw new NotImplementedException();
+            List<Models.ActionItem> toReturn = new List<Models.ActionItem>();
+
+            List<SQLActionItem> fromDB = db.SQLActionItems.Where(x => x.Release.ProjectID == projectId).ToList();
+            
+            SQLProject project = db.SQLProjects.FirstOrDefault(x => x.ID == projectId);
+
+            List<Models.Priority> companyPriorities = loadPriorityListForCompanyById(project.CompanyId);
+
+            toReturn = fromDB.Select(y => new Models.ActionItem()
+            {
+                AssignedTo = loadModelUsersFromSQLUsers(y.ActionItemUsers.Select(x => x.User).ToList(), false),
+                CreatedBy = loadUserById(y.ID, false),
+                CurrentStatus = new Models.ActionItemStatus()
+                {
+                    Description = y.Status.Description,
+                    Name = y.Status.Name,
+                    ID = y.Status.ID
+                },
+                CurrentPriority = companyPriorities.FirstOrDefault(z => z.Order == y.CurrentPriority),
+                CurrentType = new Models.ActionItemType()
+                {
+                    Description = y.ActionItemType.Description,
+                    ID = y.ActionItemType.ID,
+                    Title = y.ActionItemType.Name
+                },
+                Description = y.Description,
+                DateCreated = y.DateCreated,
+                DateCompleted = y.DateCompleted,
+                ID = y.ID,
+                Estimate = y.Estimate.HasValue ? TimeSpan.FromTicks(y.Estimate.Value) : new TimeSpan(),
+                TimeSpent = y.TimeSpent.HasValue ? TimeSpan.FromTicks(y.TimeSpent.Value) : new TimeSpan(),
+                TargetDate = y.IndividualTargetDate ?? y.Release.ScheduledDate,
+                Title = y.Name
+            }).ToList();
+
+            return toReturn;
         }
 
         public List<Models.ActionItem> loadReleaseActionItems(Guid releaseId)
+        {
+            List<Models.ActionItem> toReturn = new List<Models.ActionItem>();
+
+            List<SQLActionItem> fromDB = db.SQLActionItems.Where(x => x.InReleaseId == releaseId).ToList();
+
+            SQLRelease release = db.SQLReleases.FirstOrDefault(x => x.ID == releaseId);
+
+            List<Models.Priority> companyPriorities = loadPriorityListForCompanyById(release.Project.CompanyId);
+
+            toReturn = fromDB.Select(y => new Models.ActionItem()
+            {
+                AssignedTo = loadModelUsersFromSQLUsers(y.ActionItemUsers.Select(x => x.User).ToList(), false),
+                CreatedBy = loadUserById(y.ID, false),
+                CurrentStatus = new Models.ActionItemStatus()
+                {
+                    Description = y.Status.Description,
+                    Name = y.Status.Name,
+                    ID = y.Status.ID
+                },
+                CurrentPriority = companyPriorities.FirstOrDefault(z => z.Order == y.CurrentPriority),
+                CurrentType = new Models.ActionItemType()
+                {
+                    Description = y.ActionItemType.Description,
+                    ID = y.ActionItemType.ID,
+                    Title = y.ActionItemType.Name
+                },
+                Description = y.Description,
+                DateCreated = y.DateCreated,
+                DateCompleted = y.DateCompleted,
+                ID = y.ID,
+                Estimate = y.Estimate.HasValue ? TimeSpan.FromTicks(y.Estimate.Value) : new TimeSpan(),
+                TimeSpent = y.TimeSpent.HasValue ? TimeSpan.FromTicks(y.TimeSpent.Value) : new TimeSpan(),
+                TargetDate = y.IndividualTargetDate ?? y.Release.ScheduledDate,
+                Title = y.Name
+            }).ToList();
+
+            return toReturn;
+        }
+
+
+        public Models.Company loadCompanyById(Guid companyId)
+        {
+            SQLCompany fromDb = db.SQLCompanies.FirstOrDefault(x => x.ID == companyId);
+
+            Models.User companyCreator = loadUserById(fromDb.User.ID, false);
+
+            Models.Company returnMe = new Models.Company()
+            {
+                CreatedBy = companyCreator,
+                Administrators = new List<Models.User>(){ companyCreator },
+                AllowableStorage = new List<Models.StorageAllocation>(),
+                BillableItems = new List<Models.BillingType>(),
+                CreatedDate = fromDb.CreatedDate,
+                Description = fromDb.Description,
+                ID = fromDb.ID,
+                Name = fromDb.Name,
+                Priorities = loadPriorityListForCompanyById(fromDb.ID),
+                Projects = loadCompanyProjects(fromDb.ID),
+                Users = new List<Models.User>() {  companyCreator }
+            };
+
+            return returnMe;
+        }
+
+        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, Models.ActionItem toCreate, Models.ActionItemStatus startingStatus, Models.User assignedTo)
         {
             throw new NotImplementedException();
         }

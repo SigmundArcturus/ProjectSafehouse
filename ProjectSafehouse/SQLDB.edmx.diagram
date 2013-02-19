@@ -13,6 +13,17 @@
         <AssociationConnector Association="ProjectSafehouseModel.FK_Projects_Users" />
         <EntityTypeShape EntityType="ProjectSafehouseModel.SQLRelease" Width="1.5" PointX="0.7721816398073833" PointY="6.634627375115933" />
         <AssociationConnector Association="ProjectSafehouseModel.FK_Releases_Projects" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLActionItem" Width="1.5" PointX="11.402117561270538" PointY="27.396424276473198" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLActionItemType" Width="1.5" PointX="8.1007000189743472" PointY="9.9899575458792764" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLCompanyPriority" Width="1.5" PointX="5.9160162051748557" PointY="19.512987339642358" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLStatus" Width="1.5" PointX="4.4835931865887684" PointY="2.9339838041616528" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItems_ActionItemTypes" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItems_Statuses" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyPriorities_Companies" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItems_Releases" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLActionItemUser" Width="1.5" PointX="9.3177435590502533" PointY="24.88647739257965" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItemUsers_ActionItems" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItemUsers_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

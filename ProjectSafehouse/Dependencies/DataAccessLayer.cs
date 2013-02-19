@@ -146,9 +146,9 @@ namespace ProjectSafehouse.Dependencies
             return dal.loadReleaseById(releaseId);
         }
 
-        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, string name, string description, Models.ActionItemStatus startingStatus, Models.User assignedTo)
+        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, Models.ActionItem toCreate, Models.ActionItemStatus startingStatus, Models.User assignedTo)
         {
-            return dal.createNewActionItem(creator, release, name, description, startingStatus, assignedTo);
+            return dal.createNewActionItem(creator, release, toCreate, startingStatus, assignedTo);
         }
 
         public List<Models.ActionItem> loadProjectActionItems(Guid projectId)
@@ -159,6 +159,12 @@ namespace ProjectSafehouse.Dependencies
         public List<Models.ActionItem> loadReleaseActionItems(Guid releaseId)
         {
             return dal.loadReleaseActionItems(releaseId);
+        }
+
+
+        public Models.Company loadCompanyById(Guid companyId)
+        {
+            return dal.loadCompanyById(companyId);
         }
     }
 }

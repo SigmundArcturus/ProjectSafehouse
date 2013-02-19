@@ -6,13 +6,42 @@
     <edmx:StorageModels>
     <Schema Namespace="ProjectSafehouseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ProjectSafehouseModelStoreContainer">
+          <EntitySet Name="ActionItems" EntityType="ProjectSafehouseModel.Store.ActionItems" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ActionItemTypes" EntityType="ProjectSafehouseModel.Store.ActionItemTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ActionItemUsers" EntityType="ProjectSafehouseModel.Store.ActionItemUsers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Companies" EntityType="ProjectSafehouseModel.Store.Companies" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CompanyPriorities" EntityType="ProjectSafehouseModel.Store.CompanyPriorities" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Projects" EntityType="ProjectSafehouseModel.Store.Projects" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Releases" EntityType="ProjectSafehouseModel.Store.Releases" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Statuses" EntityType="ProjectSafehouseModel.Store.Statuses" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="ProjectSafehouseModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ActionItems_ActionItemTypes" Association="ProjectSafehouseModel.Store.FK_ActionItems_ActionItemTypes">
+            <End Role="ActionItemTypes" EntitySet="ActionItemTypes" />
+            <End Role="ActionItems" EntitySet="ActionItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionItems_Releases" Association="ProjectSafehouseModel.Store.FK_ActionItems_Releases">
+            <End Role="Releases" EntitySet="Releases" />
+            <End Role="ActionItems" EntitySet="ActionItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionItems_Statuses" Association="ProjectSafehouseModel.Store.FK_ActionItems_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="ActionItems" EntitySet="ActionItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionItemUsers_ActionItems" Association="ProjectSafehouseModel.Store.FK_ActionItemUsers_ActionItems">
+            <End Role="ActionItems" EntitySet="ActionItems" />
+            <End Role="ActionItemUsers" EntitySet="ActionItemUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionItemUsers_Users" Association="ProjectSafehouseModel.Store.FK_ActionItemUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ActionItemUsers" EntitySet="ActionItemUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Companies_Users" Association="ProjectSafehouseModel.Store.FK_Companies_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Companies" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyPriorities_Companies" Association="ProjectSafehouseModel.Store.FK_CompanyPriorities_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="CompanyPriorities" EntitySet="CompanyPriorities" />
           </AssociationSet>
           <AssociationSet Name="FK_Projects_Companies" Association="ProjectSafehouseModel.Store.FK_Projects_Companies">
             <End Role="Companies" EntitySet="Companies" />
@@ -27,6 +56,41 @@
             <End Role="Releases" EntitySet="Releases" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ActionItems">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="Description" Type="varchar" MaxLength="256" />
+          <Property Name="CreatedByUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="InReleaseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CurrentStatusId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActionItemTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Estimate" Type="bigint" />
+          <Property Name="TimeSpent" Type="bigint" />
+          <Property Name="DateCompleted" Type="datetime" />
+          <Property Name="IndividualTargetDate" Type="datetime" />
+          <Property Name="CurrentPriority" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActionItemTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ActionItemUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ActionItemId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AssignedToUserID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Companies">
           <Key>
             <PropertyRef Name="ID" />
@@ -36,6 +100,15 @@
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="CreatedByUserID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompanyPriorities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PriorityNumber" Type="int" Nullable="false" />
+          <Property Name="PriorityName" Type="varchar" Nullable="false" MaxLength="256" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -60,6 +133,15 @@
           <Property Name="ScheduledByID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
+        <EntityType Name="Statuses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -73,6 +155,66 @@
           <Property Name="OvertimeMultiplier" Type="decimal" Scale="2" />
           <Property Name="OvertimeThreshold" Type="decimal" Scale="2" />
         </EntityType>
+        <Association Name="FK_ActionItems_ActionItemTypes">
+          <End Role="ActionItemTypes" Type="ProjectSafehouseModel.Store.ActionItemTypes" Multiplicity="1" />
+          <End Role="ActionItems" Type="ProjectSafehouseModel.Store.ActionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionItemTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItems">
+              <PropertyRef Name="ActionItemTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionItems_Releases">
+          <End Role="Releases" Type="ProjectSafehouseModel.Store.Releases" Multiplicity="1" />
+          <End Role="ActionItems" Type="ProjectSafehouseModel.Store.ActionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Releases">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItems">
+              <PropertyRef Name="InReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionItems_Statuses">
+          <End Role="Statuses" Type="ProjectSafehouseModel.Store.Statuses" Multiplicity="1" />
+          <End Role="ActionItems" Type="ProjectSafehouseModel.Store.ActionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItems">
+              <PropertyRef Name="CurrentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionItemUsers_ActionItems">
+          <End Role="ActionItems" Type="ProjectSafehouseModel.Store.ActionItems" Multiplicity="1" />
+          <End Role="ActionItemUsers" Type="ProjectSafehouseModel.Store.ActionItemUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionItems">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItemUsers">
+              <PropertyRef Name="ActionItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionItemUsers_Users">
+          <End Role="Users" Type="ProjectSafehouseModel.Store.Users" Multiplicity="1" />
+          <End Role="ActionItemUsers" Type="ProjectSafehouseModel.Store.ActionItemUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItemUsers">
+              <PropertyRef Name="AssignedToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Companies_Users">
           <End Role="Users" Type="ProjectSafehouseModel.Store.Users" Multiplicity="1" />
           <End Role="Companies" Type="ProjectSafehouseModel.Store.Companies" Multiplicity="*" />
@@ -82,6 +224,18 @@
             </Principal>
             <Dependent Role="Companies">
               <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyPriorities_Companies">
+          <End Role="Companies" Type="ProjectSafehouseModel.Store.Companies" Multiplicity="1" />
+          <End Role="CompanyPriorities" Type="ProjectSafehouseModel.Store.CompanyPriorities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyPriorities">
+              <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -146,6 +300,35 @@
             <End Role="SQLProject" EntitySet="SQLProjects" />
             <End Role="Release" EntitySet="SQLReleases" />
           </AssociationSet>
+          <EntitySet Name="SQLActionItems" EntityType="ProjectSafehouseModel.SQLActionItem" />
+          <EntitySet Name="SQLActionItemTypes" EntityType="ProjectSafehouseModel.SQLActionItemType" />
+          <EntitySet Name="SQLCompanyPriorities" EntityType="ProjectSafehouseModel.SQLCompanyPriority" />
+          <EntitySet Name="Statuses" EntityType="ProjectSafehouseModel.SQLStatus" />
+          <AssociationSet Name="FK_ActionItems_ActionItemTypes" Association="ProjectSafehouseModel.FK_ActionItems_ActionItemTypes">
+            <End Role="ActionItemType" EntitySet="SQLActionItemTypes" />
+            <End Role="ActionItem" EntitySet="SQLActionItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionItems_Statuses" Association="ProjectSafehouseModel.FK_ActionItems_Statuses">
+            <End Role="Status" EntitySet="Statuses" />
+            <End Role="ActionItem" EntitySet="SQLActionItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyPriorities_Companies" Association="ProjectSafehouseModel.FK_CompanyPriorities_Companies">
+            <End Role="SQLCompany" EntitySet="SQLCompanies" />
+            <End Role="CompanyPriority" EntitySet="SQLCompanyPriorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionItems_Releases" Association="ProjectSafehouseModel.FK_ActionItems_Releases">
+            <End Role="SQLRelease" EntitySet="SQLReleases" />
+            <End Role="SQLActionItem" EntitySet="SQLActionItems" />
+          </AssociationSet>
+          <EntitySet Name="SQLActionItemUsers" EntityType="ProjectSafehouseModel.SQLActionItemUser" />
+          <AssociationSet Name="FK_ActionItemUsers_ActionItems" Association="ProjectSafehouseModel.FK_ActionItemUsers_ActionItems">
+            <End Role="SQLActionItem" EntitySet="SQLActionItems" />
+            <End Role="ActionItemUser" EntitySet="SQLActionItemUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionItemUsers_Users" Association="ProjectSafehouseModel.FK_ActionItemUsers_Users">
+            <End Role="SQLUser" EntitySet="SQLUsers" />
+            <End Role="ActionItemUser" EntitySet="SQLActionItemUsers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="SQLUser">
           <Key>
@@ -161,6 +344,7 @@
           <Property Name="OvertimeThreshold" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="AdminCompanies" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="SQLUser" ToRole="Company" />
           <NavigationProperty Name="Projects" Relationship="ProjectSafehouseModel.FK_Projects_Users" FromRole="SQLUser" ToRole="Project" />
+          <NavigationProperty Name="ActionItemUsers" Relationship="ProjectSafehouseModel.FK_ActionItemUsers_Users" FromRole="SQLUser" ToRole="ActionItemUser" />
         </EntityType>
         <EntityType Name="SQLCompany">
           <Key>
@@ -173,6 +357,7 @@
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
           <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="Company" ToRole="SQLUser" />
           <NavigationProperty Name="Projects" Relationship="ProjectSafehouseModel.FK_Projects_Companies" FromRole="SQLCompany" ToRole="Project" />
+          <NavigationProperty Name="CompanyPriorities" Relationship="ProjectSafehouseModel.FK_CompanyPriorities_Companies" FromRole="SQLCompany" ToRole="CompanyPriority" />
         </EntityType>
         <Association Name="FK_Companies_Users">
           <End Type="ProjectSafehouseModel.SQLUser" Role="SQLUser" Multiplicity="1" />
@@ -236,6 +421,7 @@
           <Property Type="Guid" Name="ScheduledByID" Nullable="false" />
           <Property Type="Guid" Name="ProjectID" Nullable="false" />
           <NavigationProperty Name="Project" Relationship="ProjectSafehouseModel.FK_Releases_Projects" FromRole="Release" ToRole="SQLProject" />
+          <NavigationProperty Name="ActionItems" Relationship="ProjectSafehouseModel.FK_ActionItems_Releases" FromRole="SQLRelease" ToRole="SQLActionItem" />
         </EntityType>
         <Association Name="FK_Releases_Projects">
           <End Type="ProjectSafehouseModel.SQLProject" Role="SQLProject" Multiplicity="1" />
@@ -246,6 +432,140 @@
             </Principal>
             <Dependent Role="Release">
               <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SQLActionItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="Guid" Name="CreatedByUserId" Nullable="false" />
+          <Property Type="Guid" Name="InReleaseId" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
+          <Property Type="Guid" Name="CurrentStatusId" Nullable="false" />
+          <Property Type="Guid" Name="ActionItemTypeId" Nullable="false" />
+          <Property Type="Int64" Name="Estimate" />
+          <Property Type="Int64" Name="TimeSpent" />
+          <Property Type="DateTime" Name="DateCompleted" Precision="3" />
+          <Property Type="DateTime" Name="IndividualTargetDate" Precision="3" />
+          <Property Type="Int32" Name="CurrentPriority" Nullable="false" />
+          <NavigationProperty Name="ActionItemType" Relationship="ProjectSafehouseModel.FK_ActionItems_ActionItemTypes" FromRole="ActionItem" ToRole="ActionItemType" />
+          <NavigationProperty Name="Status" Relationship="ProjectSafehouseModel.FK_ActionItems_Statuses" FromRole="ActionItem" ToRole="Status" />
+          <NavigationProperty Name="Release" Relationship="ProjectSafehouseModel.FK_ActionItems_Releases" FromRole="SQLActionItem" ToRole="SQLRelease" />
+          <NavigationProperty Name="ActionItemUsers" Relationship="ProjectSafehouseModel.FK_ActionItemUsers_ActionItems" FromRole="SQLActionItem" ToRole="ActionItemUser" />
+        </EntityType>
+        <EntityType Name="SQLActionItemType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="CompanyId" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ActionItems" Relationship="ProjectSafehouseModel.FK_ActionItems_ActionItemTypes" FromRole="ActionItemType" ToRole="ActionItem" />
+        </EntityType>
+        <EntityType Name="SQLCompanyPriority">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="CompanyId" Nullable="false" />
+          <Property Type="Int32" Name="PriorityNumber" Nullable="false" />
+          <Property Type="String" Name="PriorityName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Company" Relationship="ProjectSafehouseModel.FK_CompanyPriorities_Companies" FromRole="CompanyPriority" ToRole="SQLCompany" />
+        </EntityType>
+        <EntityType Name="SQLStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="CompanyId" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ActionItems" Relationship="ProjectSafehouseModel.FK_ActionItems_Statuses" FromRole="Status" ToRole="ActionItem" />
+        </EntityType>
+        <Association Name="FK_ActionItems_ActionItemTypes">
+          <End Type="ProjectSafehouseModel.SQLActionItemType" Role="ActionItemType" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLActionItem" Role="ActionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionItemType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItem">
+              <PropertyRef Name="ActionItemTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionItems_Statuses">
+          <End Type="ProjectSafehouseModel.SQLStatus" Role="Status" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLActionItem" Role="ActionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItem">
+              <PropertyRef Name="CurrentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyPriorities_Companies">
+          <End Type="ProjectSafehouseModel.SQLCompany" Role="SQLCompany" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLCompanyPriority" Role="CompanyPriority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyPriority">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionItems_Releases">
+          <End Type="ProjectSafehouseModel.SQLRelease" Role="SQLRelease" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLActionItem" Role="SQLActionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLRelease">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SQLActionItem">
+              <PropertyRef Name="InReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SQLActionItemUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="ActionItemId" Nullable="false" />
+          <Property Type="Guid" Name="AssignedToUserID" Nullable="false" />
+          <NavigationProperty Name="ActionItem" Relationship="ProjectSafehouseModel.FK_ActionItemUsers_ActionItems" FromRole="ActionItemUser" ToRole="SQLActionItem" />
+          <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_ActionItemUsers_Users" FromRole="ActionItemUser" ToRole="SQLUser" />
+        </EntityType>
+        <Association Name="FK_ActionItemUsers_ActionItems">
+          <End Type="ProjectSafehouseModel.SQLActionItem" Role="SQLActionItem" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLActionItemUser" Role="ActionItemUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLActionItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItemUser">
+              <PropertyRef Name="ActionItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionItemUsers_Users">
+          <End Type="ProjectSafehouseModel.SQLUser" Role="SQLUser" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLActionItemUser" Role="ActionItemUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItemUser">
+              <PropertyRef Name="AssignedToUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -301,6 +621,64 @@
                 <ScalarProperty Name="ScheduledDate" ColumnName="ScheduledDate" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLActionItems">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLActionItem">
+              <MappingFragment StoreEntitySet="ActionItems">
+                <ScalarProperty Name="CurrentPriority" ColumnName="CurrentPriority" />
+                <ScalarProperty Name="IndividualTargetDate" ColumnName="IndividualTargetDate" />
+                <ScalarProperty Name="DateCompleted" ColumnName="DateCompleted" />
+                <ScalarProperty Name="TimeSpent" ColumnName="TimeSpent" />
+                <ScalarProperty Name="Estimate" ColumnName="Estimate" />
+                <ScalarProperty Name="ActionItemTypeId" ColumnName="ActionItemTypeId" />
+                <ScalarProperty Name="CurrentStatusId" ColumnName="CurrentStatusId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="InReleaseId" ColumnName="InReleaseId" />
+                <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLActionItemTypes">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLActionItemType">
+              <MappingFragment StoreEntitySet="ActionItemTypes">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLCompanyPriorities">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLCompanyPriority">
+              <MappingFragment StoreEntitySet="CompanyPriorities">
+                <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+                <ScalarProperty Name="PriorityNumber" ColumnName="PriorityNumber" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statuses">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLStatus">
+              <MappingFragment StoreEntitySet="Statuses">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLActionItemUsers">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLActionItemUser">
+              <MappingFragment StoreEntitySet="ActionItemUsers">
+                <ScalarProperty Name="AssignedToUserID" ColumnName="AssignedToUserID" />
+                <ScalarProperty Name="ActionItemId" ColumnName="ActionItemId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

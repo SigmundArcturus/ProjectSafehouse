@@ -21,6 +21,7 @@ namespace ProjectSafehouse.Abstractions
 
         // Company methods
         Company createNewCompany(User creator, string name, string description);
+        Company loadCompanyById(Guid companyId);
         bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId);
         List<Models.Company> loadUserCompanies(Guid userId, bool includeAdmin, bool includeManager, bool includeUser);
 
@@ -37,7 +38,7 @@ namespace ProjectSafehouse.Abstractions
         Models.Release loadReleaseById(Guid releaseId);
 
         // ActionItem methods
-        Models.ActionItem createNewActionItem(User creator, Release release, string name, string description, ActionItemStatus startingStatus, User assignedTo);
+        Models.ActionItem createNewActionItem(User creator, Release release, ActionItem toCreate, ActionItemStatus startingStatus, User assignedTo);
         List<Models.ActionItem> loadProjectActionItems(Guid projectId);
         List<Models.ActionItem> loadReleaseActionItems(Guid releaseId);
 

@@ -166,7 +166,7 @@ namespace ProjectSafehouse.Abstractions
             throw new NotImplementedException();
         }
 
-        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, string name, string description, Models.ActionItemStatus startingStatus, Models.User assignedTo)
+        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, Models.ActionItem toCreate, Models.ActionItemStatus startingStatus, Models.User assignedTo)
         {
             throw new NotImplementedException();
         }
@@ -177,6 +177,12 @@ namespace ProjectSafehouse.Abstractions
         }
 
         public List<Models.ActionItem> loadReleaseActionItems(Guid releaseId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Models.Company loadCompanyById(Guid companyId)
         {
             throw new NotImplementedException();
         }
