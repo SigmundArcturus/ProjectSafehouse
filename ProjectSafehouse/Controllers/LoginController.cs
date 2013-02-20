@@ -28,7 +28,7 @@ namespace ProjectSafehouse.Controllers
 
         public ViewResult NewUser(User user)
         {
-            CurrentUser = DAL.createNewUser(user.Email, user.Password);
+            CurrentUser = DAL.createNewUser(user);
             return View("Welcome", CurrentUser);
         }
 

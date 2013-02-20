@@ -39,7 +39,11 @@ namespace ProjectSafehouse.Tests
             Company testCompany = DAL.loadUserCompanies(testUser.ID, true, true, true).FirstOrDefault();
 
             //Act
-            DAL.createNewProject(testUser, testCompany, projectName, projectDescription);   
+            DAL.createNewProject(testUser, testCompany, 
+                new Project(){
+                    Name = projectName, 
+                    Description = projectDescription
+                });   
 
             //Assert
             List<Project> foundProjects = DAL.loadCompanyProjects(testCompany.ID);

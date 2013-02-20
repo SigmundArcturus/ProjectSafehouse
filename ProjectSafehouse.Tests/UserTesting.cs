@@ -34,7 +34,11 @@ namespace ProjectSafehouse.Tests
 
             //Act
             bool test = DAL.deleteExistingUser(email, password);
-            User result = DAL.createNewUser(email, password);
+            User result = DAL.createNewUser(new User()
+            {
+                Email = email,
+                Password = password
+            });
             User find = DAL.loadUserById(result.ID, false);
 
             //Assert
@@ -47,12 +51,15 @@ namespace ProjectSafehouse.Tests
         public void CannotCreateDuplicateUser()
         {
             //Arrange
-            string email = "test@test.com";
-            string password = "password";
+            User toInsert = new User()
+            {
+                Email = "test@test.com",
+                Password = "password"
+            };
 
             //Act
-            User result = DAL.createNewUser(email, password);
-            User result1 = DAL.createNewUser(email, password);
+            User result = DAL.createNewUser(toInsert);
+            User result1 = DAL.createNewUser(toInsert);
 
             //Assert
         }
@@ -62,11 +69,14 @@ namespace ProjectSafehouse.Tests
         public void CannotCreateUserNoEmail()
         {
             //Arrange
-            string email = null;
-            string password = "password";
+            User newUser = new User()
+            {
+                Email = null,
+                Password = "password"
+            };
 
             //Act
-            User result = DAL.createNewUser(email, password);
+            User result = DAL.createNewUser(newUser);
 
             //Assert
         }
@@ -76,11 +86,13 @@ namespace ProjectSafehouse.Tests
         public void CannotCreateUserNoPassword()
         {
             //Arrange
-            string email = "test@test.com";
-            string password = null;
+            User newUser = new User(){
+                Email = "test@test.com",
+                Password = null
+            };
 
             //Act
-            User result = DAL.createNewUser(email, password);
+            User result = DAL.createNewUser(newUser);
         }
     }
 }

@@ -182,9 +182,6 @@
     <Compile Include="SQLCompany.cs">
       <DependentUpon>SQLDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="SQLCompanyPriority.cs">
-      <DependentUpon>SQLDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="SQLDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -199,6 +196,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SQLDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="SQLPriority.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
     </Compile>
     <Compile Include="SQLProject.cs">
       <DependentUpon>SQLDB.tt</DependentUpon>

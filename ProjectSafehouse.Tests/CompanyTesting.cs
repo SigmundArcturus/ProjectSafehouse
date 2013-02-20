@@ -37,7 +37,10 @@ namespace ProjectSafehouse.Tests
             }
 
             // Act
-            Models.Company testCompany = DAL.createNewCompany(testUser, "Test Company", "A company created by the test methods.");
+            Models.Company testCompany = DAL.createNewCompany(testUser, new Models.Company(){
+                Name="Test Company", 
+                Description = "A company created by the test methods."
+            });
 
             // Assert
             List<Models.Company> companies = DAL.loadUserCompanies(testUser.ID, true, true, true);

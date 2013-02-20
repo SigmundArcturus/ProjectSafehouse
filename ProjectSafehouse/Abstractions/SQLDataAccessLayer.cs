@@ -40,14 +40,14 @@ namespace ProjectSafehouse.Abstractions
             };
         }
 
-        public Models.User createNewUser(string emailAddress, string unhashedPassword)
+        public Models.User createNewUser(Models.User toCreate)
         {
-            string hashedPassword = hashPassword(unhashedPassword);
+            string hashedPassword = hashPassword(toCreate.Password);
 
             Models.User newUser = new Models.User()
             {
                 ID = Guid.NewGuid(),
-                Email = emailAddress,
+                Email = toCreate.Email,
                 Password = hashedPassword,
                 Companies = new List<Models.Company>()
             };
@@ -182,7 +182,7 @@ namespace ProjectSafehouse.Abstractions
             return FormsAuthentication.HashPasswordForStoringInConfigFile(unhashedPassword, "sha1"); ;
         }
 
-        public Models.Company createNewCompany(Models.User creator, string name, string description)
+        public Models.Company createNewCompany(Models.User creator, Models.Company toCreate)
         {
             Models.Company newCompany = new Models.Company()
             {
@@ -191,8 +191,8 @@ namespace ProjectSafehouse.Abstractions
                 BillableItems = new List<Models.BillingType>(),
                 CreatedBy = creator,
                 CreatedDate = DateTime.UtcNow,
-                Description = description,
-                Name = name,
+                Description = toCreate.Description,
+                Name = toCreate.Name,
                 ID = Guid.NewGuid(),
                 Projects = new List<Models.Project>(),
                 Users = new List<Models.User>()
@@ -274,13 +274,13 @@ namespace ProjectSafehouse.Abstractions
         }
 
 
-        public Models.Project createNewProject(Models.User creator, Models.Company company, string name, string description)
+        public Models.Project createNewProject(Models.User creator, Models.Company company, Models.Project toCreate)
         {
             Models.Project newProject = new Models.Project()
             {
                 ID = Guid.NewGuid(),
-                Name = name,
-                Description = description,
+                Name = toCreate.Name,
+                Description = toCreate.Description,
                 CreatedDate = DateTime.UtcNow,
                 CreatedBy = creator,
                 AssignedUsers = new List<Models.User>(),
@@ -295,8 +295,8 @@ namespace ProjectSafehouse.Abstractions
                 CompanyId = company.ID,
                 CreatedByUserId = creator.ID,
                 CreatedDate = newProject.CreatedDate,
-                Description = description,
-                Name = name,
+                Description = newProject.Description,
+                Name = newProject.Name,
                 ID = newProject.ID
             };
 
@@ -315,6 +315,14 @@ namespace ProjectSafehouse.Abstractions
             if (foundProject != null)
             {
                 Models.User foundUser = loadUserById(foundProject.CreatedByUserId, false);
+
+                List<Models.Release> foundReleases = loadProjectReleases(foundProject.ID);
+
+                foreach (var release in foundReleases)
+                {
+                    deleteExistingRelease(foundUser, unhashedPassword, release.ID);
+                }
+
                 if (foundUser != null && checkPassword(foundUser.Email, unhashedPassword) != null)
                 {
                     db.SQLProjects.Remove(foundProject);
@@ -389,19 +397,26 @@ namespace ProjectSafehouse.Abstractions
             toAdd.ScheduledBy = creator;
 
             db.SQLReleases.Add(toInsert);
+            db.SaveChanges();
 
             return toAdd;
         }
 
-        public bool deleteExistingRelease(Guid releaseId, string unhashedPassword, Guid targetReleaseId)
+        public bool deleteExistingRelease(Models.User deletedBy, string unhashedPassword, Guid targetReleaseId)
         {
             SQLRelease foundRelease = db.SQLReleases.FirstOrDefault(x => x.ID == targetReleaseId);
             bool removedAProject = false;
 
             if (foundRelease != null)
             {
-                Models.User foundUser = loadUserById(foundRelease.ScheduledByID, false);
-                if (foundUser != null && checkPassword(foundUser.Email, unhashedPassword) != null)
+                List<Models.ActionItem> foundActionItems = loadReleaseActionItems(targetReleaseId);
+
+                foreach (Models.ActionItem actionItem in foundActionItems)
+                {
+                    var removedActionItem = deleteExistingActionItem(deletedBy, unhashedPassword, actionItem.ID);
+                }
+
+                if (deletedBy != null && checkPassword(deletedBy.Email, unhashedPassword) != null)
                 {
                     db.SQLReleases.Remove(foundRelease);
                     db.SaveChanges();
@@ -503,9 +518,17 @@ namespace ProjectSafehouse.Abstractions
         private List<Models.Priority> loadPriorityListForCompanyById(Guid companyId)
         {
             List<Models.Priority> returnMe = new List<Models.Priority>();
-            Models.Company selectedCompany = loadCompanyById(companyId);
 
-            returnMe = selectedCompany.Priorities.Count > 0 ? selectedCompany.Priorities : defaultPriorities;
+            List<SQLPriority> foundPriorities = db.SQLPriorities.Where(x => x.CompanyId == companyId).ToList();
+            returnMe = foundPriorities.Select(x => new Models.Priority()
+            {
+                Description = x.Description,
+                CreatedBy = null,
+                CreatedOn = DateTime.UtcNow,
+                Name = x.Name,
+                Order = x.Number
+            }).ToList();
+            
             return returnMe;
         }
 
@@ -614,9 +637,119 @@ namespace ProjectSafehouse.Abstractions
             return returnMe;
         }
 
-        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, Models.ActionItem toCreate, Models.ActionItemStatus startingStatus, Models.User assignedTo)
+        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, Models.ActionItem toCreate, Models.User assignedTo)
         {
-            throw new NotImplementedException();
+            toCreate.AssignedTo = new List<Models.User>(){ assignedTo };
+
+            SQLActionItem toInsert = new SQLActionItem()
+            {
+                ActionItemTypeId = toCreate.CurrentType.ID,
+                CreatedByUserId = toCreate.CreatedBy.ID,
+                CurrentPriority = toCreate.CurrentPriority.Order,
+                CurrentStatusId = toCreate.CurrentStatus.ID,
+                DateCompleted = toCreate.DateCompleted,
+                DateCreated = toCreate.DateCreated,
+                Description = toCreate.Description,
+                ID = toCreate.ID == Guid.Empty ? Guid.NewGuid() : toCreate.ID,
+                Estimate = null,
+                InReleaseId = release.ID,
+                Name = toCreate.Title,
+                TimeSpent = null
+            };
+
+            if (toCreate.Estimate.HasValue)
+                toInsert.Estimate = toCreate.Estimate.Value.Ticks;
+
+            if (toCreate.TimeSpent.HasValue)
+                toInsert.TimeSpent = toCreate.TimeSpent.Value.Ticks;
+
+            db.SQLActionItems.Add(toInsert);
+            db.SaveChanges();
+
+            return toCreate;
+        }
+
+
+        public Models.Priority loadCompanyActionItemPriority(int number, Guid companyId)
+        {
+            Models.Priority returnMe = new Models.Priority();
+            var found = db.SQLPriorities.FirstOrDefault(x => x.CompanyId == companyId && x.Number == number);
+
+            if (found != null)
+            {
+                returnMe.Name = found.Name;
+                returnMe.Description = found.Description;
+                returnMe.CreatedOn = DateTime.UtcNow;
+                returnMe.CreatedBy = null;
+                returnMe.Order = found.Number;
+            }
+            else if (defaultPriorities.Count(x => x.Order == number) > 0)
+            {
+                returnMe = defaultPriorities.FirstOrDefault(x => x.Order == number);
+            }
+            else
+            {
+                returnMe.Name = string.Format("Priority {0}", number);
+                returnMe.Description = "";
+                returnMe.Order = number;
+                returnMe.CreatedOn = DateTime.UtcNow;
+                returnMe.CreatedBy = null;
+            }
+
+            return returnMe;
+        }
+
+        public List<Models.ActionItemStatus> loadCompanyActionItemStatuses(Guid companyId)
+        {
+            List<SQLStatus> found = db.SQLStatuses.Where(x => x.CompanyId == companyId).ToList();
+
+            // if the company doesn't have any statuses setup, then use the defaults.
+            if (found.Count == 0)
+                found = db.SQLStatuses.Where(x => x.CompanyId == null).ToList();
+
+            List<Models.ActionItemStatus> returnMe = found.Select(x => new Models.ActionItemStatus()
+            {
+                Description = x.Description,
+                Name = x.Name,
+                ID = x.ID
+            }).ToList();
+
+            return returnMe;
+        }
+
+        public List<Models.ActionItemType> loadCompanyActionItemTypes(Guid companyId)
+        {
+            List<SQLActionItemType> found = db.SQLActionItemTypes.Where(x => x.CompanyId == companyId).ToList();
+
+            // if the company doesn't have any Action Item Types setup, then load the defaults.
+            if (found.Count == 0)
+                found = db.SQLActionItemTypes.Where(x => x.CompanyId == null).ToList();
+
+            List<Models.ActionItemType> returnMe = found.Select(x => new Models.ActionItemType()
+            {
+                Description = x.Description,
+                Title = x.Name,
+                ID = x.ID
+            }).ToList();
+
+            return returnMe;
+        }
+
+        public bool deleteExistingActionItem(Models.User deletedBy, string unhashedPassword, Guid targetActionItemId)
+        {
+            bool deletedSomething = false;
+
+            if (checkPassword(deletedBy.Email, unhashedPassword) != null)
+            {
+                var toDelete = db.SQLActionItems.FirstOrDefault(x => x.ID == targetActionItemId);
+                if (toDelete != null)
+                {
+                    db.SQLActionItems.Remove(toDelete);
+                    deletedSomething = true;
+                }
+            }
+
+            return deletedSomething;
         }
     }
 }

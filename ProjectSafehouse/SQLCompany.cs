@@ -17,7 +17,7 @@ namespace ProjectSafehouse
         public SQLCompany()
         {
             this.Projects = new HashSet<SQLProject>();
-            this.CompanyPriorities = new HashSet<SQLCompanyPriority>();
+            this.Priorities = new HashSet<SQLPriority>();
         }
     
         public System.Guid ID { get; set; }
@@ -28,6 +28,6 @@ namespace ProjectSafehouse
     
         public virtual SQLUser User { get; set; }
         public virtual ICollection<SQLProject> Projects { get; set; }
-        public virtual ICollection<SQLCompanyPriority> CompanyPriorities { get; set; }
+        public virtual ICollection<SQLPriority> Priorities { get; set; }
     }
 }

@@ -15,12 +15,12 @@ namespace ProjectSafehouse.Abstractions
             _fakeUsersList = new List<Models.User>();
         }
 
-        public Models.User createNewUser(string emailAddress, string unhashedPassword)
+        public Models.User createNewUser(Models.User toCreate)
         {
             Models.User newUser = new Models.User() { 
                 ID = Guid.NewGuid(),
-                Email = emailAddress,
-                Password = unhashedPassword
+                Email = toCreate.Email,
+                Password = toCreate.Password
             };
 
             _fakeUsersList.Add(newUser);
@@ -80,7 +80,7 @@ namespace ProjectSafehouse.Abstractions
         }
 
 
-        public Models.Company createNewCompany(Models.User creator, string name, string description)
+        public Models.Company createNewCompany(Models.User creator, Models.Company toCreate)
         {
             Models.Company company = new Models.Company()
             {
@@ -89,9 +89,9 @@ namespace ProjectSafehouse.Abstractions
                 BillableItems = new List<Models.BillingType>(),
                 CreatedBy = creator,
                 CreatedDate = DateTime.UtcNow,
-                Description = description,
+                Description = toCreate.Description,
                 ID = Guid.NewGuid(),
-                Name = name,
+                Name = toCreate.Name,
                 Projects = new List<Models.Project>(),
                 Users = new List<Models.User>()
             };
@@ -124,7 +124,7 @@ namespace ProjectSafehouse.Abstractions
         }
 
 
-        public Models.Project createNewProject(Models.User creator, Models.Company company, string name, string description)
+        public Models.Project createNewProject(Models.User creator, Models.Company company, Models.Project project)
         {
             throw new NotImplementedException();
         }
@@ -151,7 +151,7 @@ namespace ProjectSafehouse.Abstractions
             throw new NotImplementedException();
         }
 
-        public bool deleteExistingRelease(Guid releaseId, string unhashedPassword, Guid targetReleaseId)
+        public bool deleteExistingRelease(Models.User deletedBy, string unhashedPassword, Guid targetReleaseId)
         {
             throw new NotImplementedException();
         }
@@ -162,11 +162,6 @@ namespace ProjectSafehouse.Abstractions
         }
 
         public Models.Release loadReleaseById(Guid releaseId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, Models.ActionItem toCreate, Models.ActionItemStatus startingStatus, Models.User assignedTo)
         {
             throw new NotImplementedException();
         }
@@ -183,6 +178,34 @@ namespace ProjectSafehouse.Abstractions
 
 
         public Models.Company loadCompanyById(Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Models.ActionItem createNewActionItem(Models.User creator, Models.Release release, Models.ActionItem toCreate, Models.User assignedTo)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Models.Priority loadCompanyActionItemPriority(int number, Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Models.ActionItemStatus> loadCompanyActionItemStatuses(Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Models.ActionItemType> loadCompanyActionItemTypes(Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool deleteExistingActionItem(Models.User deletedBy, string unhashedPassword, Guid targetActionItemId)
         {
             throw new NotImplementedException();
         }

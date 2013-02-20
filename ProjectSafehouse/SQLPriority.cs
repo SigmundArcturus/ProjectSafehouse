@@ -12,12 +12,13 @@ namespace ProjectSafehouse
     using System;
     using System.Collections.Generic;
     
-    public partial class SQLCompanyPriority
+    public partial class SQLPriority
     {
         public int ID { get; set; }
         public System.Guid CompanyId { get; set; }
-        public int PriorityNumber { get; set; }
-        public string PriorityName { get; set; }
+        public int Number { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     
         public virtual SQLCompany Company { get; set; }
     }

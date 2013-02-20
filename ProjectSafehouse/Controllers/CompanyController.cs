@@ -28,7 +28,7 @@ namespace ProjectSafehouse.Controllers
         [HttpPost]
         public ActionResult CreateNewCompany(Models.Company toCreate)
         {
-            DAL.createNewCompany(CurrentUser, toCreate.Name, toCreate.Description);
+            DAL.createNewCompany(CurrentUser, toCreate);
             //List<Models.Company> returnMe = DAL.loadUserCompanies(CurrentUser.ID, true, true, true);
             
             return RedirectToAction("Index", "Login");

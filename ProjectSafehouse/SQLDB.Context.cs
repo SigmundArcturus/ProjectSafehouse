@@ -31,8 +31,8 @@ namespace ProjectSafehouse
         public DbSet<SQLRelease> SQLReleases { get; set; }
         public DbSet<SQLActionItem> SQLActionItems { get; set; }
         public DbSet<SQLActionItemType> SQLActionItemTypes { get; set; }
-        public DbSet<SQLCompanyPriority> SQLCompanyPriorities { get; set; }
-        public DbSet<SQLStatus> Statuses { get; set; }
+        public DbSet<SQLStatus> SQLStatuses { get; set; }
         public DbSet<SQLActionItemUser> SQLActionItemUsers { get; set; }
+        public DbSet<SQLPriority> SQLPriorities { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace ProjectSafehouse.Abstractions
     public interface IDataAccessLayer
     {
         // User methods
-        User createNewUser(string emailAddress, string unhashedPassword);
+        User createNewUser(User toCreate);
         User loadUserById(Guid userId, bool includeCompanies);
         User loadUserByEmail(string userEmail, bool includeCompanies);
         IEnumerable<User> findUsers(string searchDetails);
@@ -20,28 +20,37 @@ namespace ProjectSafehouse.Abstractions
         string hashPassword(string unhashedPassword);
 
         // Company methods
-        Company createNewCompany(User creator, string name, string description);
+        Company createNewCompany(User creator, Company toCreate);
         Company loadCompanyById(Guid companyId);
         bool deleteExistingCompany(Guid creatorID, string unhashedPassword, Guid targetCompanyId);
         List<Models.Company> loadUserCompanies(Guid userId, bool includeAdmin, bool includeManager, bool includeUser);
 
         // Project methods
-        Project createNewProject(User creator, Company company, string name, string description);
+        Project createNewProject(User creator, Company company, Project toCreate);
         bool deleteExistingProject(Guid creatorID, string unhashedPassword, Guid targetProjectId);
         List<Models.Project> loadCompanyProjects(Guid companyId);
         Project loadProjectById(Guid projectId);
 
         // Release methods
         Models.Release createNewRelease(Models.User creator, Models.Project project, Models.Release toAdd);
-        bool deleteExistingRelease(Guid releaseId, string unhashedPassword, Guid targetReleaseId);
+        bool deleteExistingRelease(Models.User deletedBy, string unhashedPassword, Guid targetReleaseId);
         List<Models.Release> loadProjectReleases(Guid projectId);
         Models.Release loadReleaseById(Guid releaseId);
 
         // ActionItem methods
-        Models.ActionItem createNewActionItem(User creator, Release release, ActionItem toCreate, ActionItemStatus startingStatus, User assignedTo);
+        Models.ActionItem createNewActionItem(User creator, Release release, ActionItem toCreate, User assignedTo);
         List<Models.ActionItem> loadProjectActionItems(Guid projectId);
         List<Models.ActionItem> loadReleaseActionItems(Guid releaseId);
+        bool deleteExistingActionItem(Models.User deletedBy, string unhashedPassword, Guid targetActionItemId);
 
+        // Priority methods
+        Models.Priority loadCompanyActionItemPriority(int number, Guid companyId);
+
+        // Status methods
+        List<Models.ActionItemStatus> loadCompanyActionItemStatuses(Guid companyId);
+
+        // Type methods
+        List<Models.ActionItemType> loadCompanyActionItemTypes(Guid companyId);
 
     }
 }
