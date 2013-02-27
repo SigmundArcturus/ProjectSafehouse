@@ -1,0 +1,101 @@
+﻿@model ProjectSafehouse.ViewModels.CreateActionItem
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/StandardPage.cshtml";
+}
+
+@section MainContent{
+
+
+<h2>Create New ActionItem</h2>
+
+@using (Html.BeginForm()) {
+    <p class="TitleSection InputSection">
+        <div class="TextWrapper">
+            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+			@Html.TextBoxFor(x => x.CurrentActionItem.Title, new { placeholder = "Title", id = "createTitle", required = "true", type = "text" })
+		</div>
+
+        <div class="TextWrapper SelectWrapper">
+            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+			@Html.DropDownListFor(x => x.CurrentActionItem.CurrentType.ID,
+                Model.AvailableTypes.Select(x => new SelectListItem(){
+                    Selected = false,
+                    Text = x.Title,
+                    Value = x.ID.ToString()
+                }))
+		</div>
+
+        <div class="TextWrapper SelectWrapper">
+            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+			@Html.DropDownListFor(x => x.CurrentActionItem.CurrentStatus.ID,
+                Model.AvailableStatuses.Select(x => new SelectListItem(){
+                    Selected = false,
+                    Text = x.Name,
+                    Value = x.ID.ToString()
+                }))
+		</div>
+
+        <div class="TextWrapper SelectWrapper">
+            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+			@Html.DropDownListFor(x => x.CurrentActionItem.CurrentPriority.Order,
+                Model.AvailablePriorities.Select(x => new SelectListItem(){
+                    Selected = false,
+                    Text = x.Name,
+                    Value = x.Order.ToString()
+                }))
+		</div>
+
+        <div style="clear:both"></div>
+    </p>
+    
+    <p class="AssignedToSection InputSection">
+        <div class="TextWrapper SelectWrapper">
+            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+			@Html.DropDownListFor(x => x.SelectedUser.ID,
+                Model.AvailableUsers.Select(x => new SelectListItem(){
+                    Text = x.Email,
+                    Value = x.ID.ToString()
+                }))
+		</div>
+
+        <div class="TextWrapper SelectWrapper">
+            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+			@Html.DropDownListFor(x => x.SelectedRelease.ID,
+                Model.AvailableReleases.Select(x => new SelectListItem(){
+                    Text = x.Name,
+                    Value = x.ID.ToString()
+                }))
+		</div>
+
+        
+    </p>
+    
+    <p class="EstimateSection InputSection">
+        This will take about 
+        <div class="TextWrapper">
+            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+			@Html.TextBoxFor(x => x.UnvalidatedEstimate, new { placeholder = "Estimate", id = "createEstimate" })
+		</div> 
+    </p>
+    
+    <p class="DescriptionSection InputSection">
+        <div class="TextAreaWrapper">
+            <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+			@Html.TextAreaFor(x => x.CurrentActionItem.Description)
+		</div> 
+    </p>
+    
+    <input type="submit" value="Create ActionItem" />
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

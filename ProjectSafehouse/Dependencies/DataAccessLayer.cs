@@ -225,5 +225,10 @@ namespace ProjectSafehouse.Dependencies
         {
             return dal.deleteExistingActionItem(deletedBy, unhashedPassword, targetActionItemId);
         }
+
+        public List<Models.User> loadCompanyUsers(Guid companyId)
+        {
+            return dal.loadCompanyUsers(companyId);
+        }
     }
 }

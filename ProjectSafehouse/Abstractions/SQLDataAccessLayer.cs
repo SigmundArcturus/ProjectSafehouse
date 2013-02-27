@@ -374,7 +374,7 @@ namespace ProjectSafehouse.Abstractions
                 Name = foundSQLProject.Name,
                 ProjectFiles = new List<Models.FileRevision>(),
                 ProjectFolders = new List<Models.FileFolder>(),
-                ReleaseList = new List<Models.Release>()
+                ReleaseList = loadProjectReleases(projectId)
             };
 
             return foundProject;
@@ -439,7 +439,8 @@ namespace ProjectSafehouse.Abstractions
                 Name = x.Name,
                 ScheduledDate = x.ScheduledDate,
                 StartDate = x.StartDate,
-                ScheduledBy = loadUserById(x.ScheduledByID, false)
+                ScheduledBy = loadUserById(x.ScheduledByID, false),
+                ActionItems = loadReleaseActionItems(x.ID)
             }).ToList();
 
             return projectReleases;
@@ -458,7 +459,8 @@ namespace ProjectSafehouse.Abstractions
                     Name = found.Name,
                     ScheduledBy = loadUserById(found.ID, false),
                     StartDate = found.StartDate,
-                    ScheduledDate = found.ScheduledDate
+                    ScheduledDate = found.ScheduledDate,
+                    ActionItems = loadReleaseActionItems(releaseId)
                 };
             }
             return returnMe;
@@ -520,14 +522,21 @@ namespace ProjectSafehouse.Abstractions
             List<Models.Priority> returnMe = new List<Models.Priority>();
 
             List<SQLPriority> foundPriorities = db.SQLPriorities.Where(x => x.CompanyId == companyId).ToList();
-            returnMe = foundPriorities.Select(x => new Models.Priority()
+            if (foundPriorities.Count > 0)
             {
-                Description = x.Description,
-                CreatedBy = null,
-                CreatedOn = DateTime.UtcNow,
-                Name = x.Name,
-                Order = x.Number
-            }).ToList();
+                returnMe = foundPriorities.Select(x => new Models.Priority()
+                {
+                    Description = x.Description,
+                    CreatedBy = null,
+                    CreatedOn = DateTime.UtcNow,
+                    Name = x.Name,
+                    Order = x.Number
+                }).ToList();
+            }
+            else
+            {
+                returnMe = defaultPriorities;
+            }
             
             return returnMe;
         }
@@ -750,6 +759,23 @@ namespace ProjectSafehouse.Abstractions
             }
 
             return deletedSomething;
+        }
+
+
+        public List<Models.User> loadCompanyUsers(Guid companyId)
+        {
+            List<Models.User> returnMe = new List<Models.User>();
+
+            var targetCompany = db.SQLCompanies.FirstOrDefault(x => x.ID == companyId);
+            if (targetCompany != null)
+            {
+                // do actual work here
+                #warning loadCompanyUsers in SQLDataAccessLayer does not actually limit by company.  IMPLEMENT!
+            }
+
+            returnMe = loadModelUsersFromSQLUsers(db.SQLUsers.ToList(), false);
+
+            return returnMe;
         }
     }
 }

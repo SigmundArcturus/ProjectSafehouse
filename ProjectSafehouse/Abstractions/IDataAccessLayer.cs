@@ -18,6 +18,7 @@ namespace ProjectSafehouse.Abstractions
         User checkPassword(string emailAddress, string unhashedPassword);
         bool deleteExistingUser(string emailAddress, string unhashedPassword);
         string hashPassword(string unhashedPassword);
+        List<User> loadCompanyUsers(Guid companyId);
 
         // Company methods
         Company createNewCompany(User creator, Company toCreate);

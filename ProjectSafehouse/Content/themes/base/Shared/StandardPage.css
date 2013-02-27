@@ -122,6 +122,18 @@ input[type=text]:hover,input[type=text]:focus,input[type=password]:hover,input[t
     transition: padding .25s;
 }
 
+.SelectWrapper
+{
+
+}
+
+.SelectWrapper select
+{
+   margin: 9px;
+   margin-bottom: 10px;
+   font-size: 14px;
+}
+
 .InputSection label
 {
     margin-left: 0px;

@@ -209,5 +209,11 @@ namespace ProjectSafehouse.Abstractions
         {
             throw new NotImplementedException();
         }
+
+
+        public List<Models.User> loadCompanyUsers(Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

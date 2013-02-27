@@ -6,5 +6,7 @@
 }
 
 @section MainContent{
-<h2>Project Overview:  @Model.Name</h2>
+    <h2>Project Overview:  @Model.Name</h2>
+
+    @Html.Partial("../Release/Partial_ReleaseList", Model.ReleaseList)
 }

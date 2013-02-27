@@ -212,6 +212,7 @@
     <Compile Include="SQLUser.cs">
       <DependentUpon>SQLDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CreateActionItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\arrow_down_alt1_32x32.png" />
@@ -336,7 +337,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\ActionList\Index.cshtml" />
+    <Content Include="Views\ActionItem\Index.cshtml" />
     <Content Include="Views\Login\Welcome.cshtml" />
     <EntityDeploy Include="SQLDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -360,6 +361,11 @@
     <Content Include="Views\Company\Partial_CreateNewCompany.cshtml" />
     <Content Include="Views\Project\Partial_ProjectList.cshtml" />
     <Content Include="Views\Project\ProjectOverview.cshtml" />
+    <Content Include="Views\ActionItem\Partial_ActionItemList.cshtml" />
+    <Content Include="Views\Release\Partial_ReleaseList.cshtml" />
+    <Content Include="Views\ActionItem\Edit.cshtml" />
+    <Content Include="Views\ActionItem\Create.cshtml" />
+    <Content Include="Views\User\Partial_UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,6 +24,49 @@ namespace ProjectSafehouse.Abstractions
             }
         }
 
+        public Models.Company CurrentCompany
+        {
+            get
+            {
+                return (Models.Company)HttpContext.Session["CurrentCompany"];
+            }
+            set
+            {
+                HttpContext.Session["CurrentCompany"] = value;
+                ViewBag.CurrentCompany = value;
+            }
+        }
+
+        public Models.Project CurrentProject
+        {
+            get
+            {
+                return (Models.Project)HttpContext.Session["CurrentProject"];
+            }
+            set
+            {
+                HttpContext.Session["CurrentProject"] = value;
+                ViewBag.CurrentProject = value;
+            }
+        }
+
+        public Models.Release CurrentRelease
+        {
+            get
+            {
+                return (Models.Release)HttpContext.Session["CurrentRelease"];
+            }
+            set
+            {
+                HttpContext.Session["CurrentRelease"] = value;
+                ViewBag.CurrentRelease = value;
+            }
+        }
+
+
+
+
+
         public DataAccessLayer DAL { get; set; } 
 
         public UserAwareController()

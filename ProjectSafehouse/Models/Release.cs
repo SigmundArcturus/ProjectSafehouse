@@ -13,5 +13,6 @@ namespace ProjectSafehouse.Models
         public DateTime? ScheduledDate { get; set; }
         public DateTime? StartDate { get; set; }
         public User ScheduledBy { get; set; }
+        public List<ActionItem> ActionItems { get; set; }
     }
 }

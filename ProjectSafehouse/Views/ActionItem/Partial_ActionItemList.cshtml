@@ -1,0 +1,10 @@
+﻿@model List<ProjectSafehouse.Models.ActionItem>
+
+<ul class="ActionItemList">
+@foreach (var actionItem in Model)
+{
+    <li>
+        @Html.ActionLink(String.Format("{0}-({1})", actionItem.Title,actionItem.ID), "../ActionItem/Edit", actionItem)
+    </li>
+}
+</ul>

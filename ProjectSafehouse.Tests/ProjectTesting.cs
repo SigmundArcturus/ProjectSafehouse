@@ -56,8 +56,8 @@ namespace ProjectSafehouse.Tests
             //Arrange 
             string email = "test@test.com";
             string password = "password";
-            string projectName = "Test Project";
-            string projectDescription = "Test project created by unit testing.";
+            //string projectName = "Test Project";
+            //string projectDescription = "Test project created by unit testing.";
             User testUser = DAL.checkPassword(email, password);
             Company testCompany = DAL.loadUserCompanies(testUser.ID, true, true, true).FirstOrDefault();
             Project firstProject = DAL.loadCompanyProjects(testCompany.ID).FirstOrDefault();
