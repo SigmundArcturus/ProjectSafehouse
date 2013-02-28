@@ -43,6 +43,8 @@ namespace ProjectSafehouse.Abstractions
         List<Models.ActionItem> loadProjectActionItems(Guid projectId);
         List<Models.ActionItem> loadReleaseActionItems(Guid releaseId);
         bool deleteExistingActionItem(Models.User deletedBy, string unhashedPassword, Guid targetActionItemId);
+        Models.ActionItem loadActionItemById(Guid actionItemId);
+        bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease);
 
         // Priority methods
         Models.Priority loadCompanyActionItemPriority(int number, Guid companyId);

@@ -666,6 +666,13 @@ namespace ProjectSafehouse.Abstractions
                 TimeSpent = null
             };
 
+#warning this should accept multiple users instead of just one
+            SQLActionItemUser assignmentsToCreate = new SQLActionItemUser()
+            {
+                ActionItemId = toInsert.ID,
+                AssignedToUserID = assignedTo.ID
+            };
+
             if (toCreate.Estimate.HasValue)
                 toInsert.Estimate = toCreate.Estimate.Value.Ticks;
 
@@ -673,6 +680,8 @@ namespace ProjectSafehouse.Abstractions
                 toInsert.TimeSpent = toCreate.TimeSpent.Value.Ticks;
 
             db.SQLActionItems.Add(toInsert);
+            db.SaveChanges();
+            db.SQLActionItemUsers.Add(assignmentsToCreate);
             db.SaveChanges();
 
             return toCreate;
@@ -776,6 +785,115 @@ namespace ProjectSafehouse.Abstractions
             returnMe = loadModelUsersFromSQLUsers(db.SQLUsers.ToList(), false);
 
             return returnMe;
+        }
+
+
+        public Models.ActionItem loadActionItemById(Guid actionItemId)
+        {
+            Models.ActionItem returnMe = new Models.ActionItem();
+
+            SQLActionItem fromDb = db.SQLActionItems.FirstOrDefault(x => x.ID == actionItemId);
+
+            if (fromDb != null)
+            {
+                var priorities = loadPriorityListForCompanyById(fromDb.Release.Project.CompanyId);
+
+                returnMe = new Models.ActionItem()
+                {
+                    CreatedBy = loadUserById(fromDb.CreatedByUserId, false),
+                    CurrentPriority = priorities.FirstOrDefault(x => x.Order == fromDb.CurrentPriority),
+                    CurrentStatus = new Models.ActionItemStatus()
+                    {
+                        Description = fromDb.Status.Description,
+                        ID = fromDb.Status.ID,
+                        Name = fromDb.Name
+                    },
+                    CurrentType = new Models.ActionItemType()
+                    {
+                        Description = fromDb.ActionItemType.Description,
+                        ID = fromDb.ActionItemType.ID,
+                        Title = fromDb.ActionItemType.Name
+                    },
+                    Description = fromDb.Description,
+                    DateCompleted = fromDb.DateCompleted,
+                    DateCreated = fromDb.DateCreated,
+                    Estimate = null,
+                    ID = fromDb.ID,
+                    TargetDate = null,
+                    Title = fromDb.Name,
+                    TimeSpent = null
+                };
+
+                if (fromDb.ActionItemUsers.Count > 0)
+                {
+                    returnMe.AssignedTo = new List<Models.User> { loadUserById(fromDb.ActionItemUsers.First().User.ID, false) };
+                }
+                else
+                {
+                    returnMe.AssignedTo = new List<Models.User> { returnMe.CreatedBy };
+                }
+
+                if (fromDb.IndividualTargetDate.HasValue || fromDb.Release.ScheduledDate.HasValue)
+                    returnMe.TargetDate = fromDb.IndividualTargetDate ?? fromDb.Release.ScheduledDate;
+
+                if (fromDb.Estimate.HasValue)
+                    returnMe.Estimate = TimeSpan.FromTicks(fromDb.Estimate.Value);
+
+                if (fromDb.TimeSpent.HasValue)
+                    returnMe.TimeSpent = TimeSpan.FromTicks(fromDb.TimeSpent.Value);
+
+            }
+
+            return returnMe;
+        }
+
+        public bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease)
+        {
+            var existingActionItem = db.SQLActionItems.FirstOrDefault(x => x.ID == toUpdate.ID);
+            bool savedUpdate = false;
+
+            if (existingActionItem != null)
+            {
+                existingActionItem.Estimate = null;
+                existingActionItem.ActionItemTypeId = toUpdate.CurrentType.ID;
+                existingActionItem.CurrentPriority = toUpdate.CurrentPriority.Order;
+                existingActionItem.CurrentStatusId = toUpdate.CurrentStatus.ID;
+                existingActionItem.DateCompleted = toUpdate.DateCompleted;
+                existingActionItem.DateCreated = toUpdate.DateCreated;
+                existingActionItem.Description = toUpdate.Description;
+                existingActionItem.IndividualTargetDate = toUpdate.TargetDate;
+                existingActionItem.InReleaseId = targetRelease.ID;
+                existingActionItem.Name = toUpdate.Title;
+                if (toUpdate.Estimate.HasValue)
+                    existingActionItem.Estimate = toUpdate.Estimate.Value.Ticks;
+                else
+                    existingActionItem.Estimate = null;
+
+                if (toUpdate.TimeSpent.HasValue)
+                    existingActionItem.TimeSpent = toUpdate.TimeSpent.Value.Ticks;
+                else
+                    existingActionItem.TimeSpent = null;
+
+                if (toUpdate.TargetDate.HasValue)
+                    existingActionItem.IndividualTargetDate = toUpdate.TargetDate.Value;
+
+                #warning this should accept multiple users instead of just one
+                foreach (var newAssignment in toUpdate.AssignedTo)
+                {
+                    SQLActionItemUser assignmentsToCreate = new SQLActionItemUser()
+                    {
+                        ActionItemId = toUpdate.ID,
+                        AssignedToUserID = newAssignment.ID
+                    };
+                    db.SQLActionItemUsers.Add(assignmentsToCreate);
+                }
+
+                db.Database.ExecuteSqlCommand(string.Format("delete from ProjectSafehouse.dbo.ActionItemUsers where ActionItemID = '{0}'", toUpdate.ID));
+                
+                db.SaveChanges();                 
+            }
+
+            return savedUpdate;
         }
     }
 }

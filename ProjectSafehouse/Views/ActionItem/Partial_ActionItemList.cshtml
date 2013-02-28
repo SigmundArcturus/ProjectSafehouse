@@ -4,7 +4,7 @@
 @foreach (var actionItem in Model)
 {
     <li>
-        @Html.ActionLink(String.Format("{0}-({1})", actionItem.Title,actionItem.ID), "../ActionItem/Edit", actionItem)
+        @Html.ActionLink(String.Format("{0}-({1})", actionItem.Title, actionItem.ID), "../ActionItem/Edit", new { toEditID = actionItem.ID }, new { })
     </li>
 }
 </ul>

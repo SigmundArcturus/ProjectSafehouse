@@ -52,16 +52,48 @@ namespace ProjectSafehouse.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(Models.ActionItem toEdit)
+        public ActionResult Edit(Guid toEditID)
         {
-            return View(toEdit);
+            var toEdit = DAL.loadActionItemById(toEditID);
+
+            List<Models.ActionItemStatus> companyActionItemStatuses = DAL.loadCompanyActionItemStatuses(CurrentCompany.ID);
+            List<Models.ActionItemType> companyActionItemTypes = DAL.loadCompanyActionItemTypes(CurrentCompany.ID);
+
+            var assignedSingleUser = toEdit.AssignedTo.FirstOrDefault();
+
+            #warning Convert the below code to load PROJECT-specific users.
+            List<ViewModels.SimpleUserInfo> projectUsers = DAL.loadCompanyUsers(CurrentCompany.ID).Select(x => new ViewModels.SimpleUserInfo()
+            {
+                ID = x.ID,
+                Name = x.Name,
+                Email = x.Email
+            }).ToList();
+
+            List<Models.Priority> priorities = CurrentCompany.Priorities;
+            List<Models.Release> releases = DAL.loadProjectReleases(CurrentProject.ID);
+
+            ViewModels.EditActionItem toShow = new ViewModels.EditActionItem(toEdit, companyActionItemTypes, companyActionItemStatuses, projectUsers, priorities, releases);
+
+            if (assignedSingleUser != null)
+                toShow.SelectedUser = projectUsers.FirstOrDefault(x => x.ID == assignedSingleUser.ID) ?? new ViewModels.SimpleUserInfo() { };
+
+            return View(toShow);
+
         }
 
-        //[HttpPost]
-        //public ActionResult Edit(Models.ActionItem toEdit)
-        //{
-        //    return View("../Project/ProjectOverview", CurrentProject);
-        //}
+        [HttpPost]
+        public ActionResult Edit(ViewModels.EditActionItem toEdit)
+        {
+            toEdit.CurrentActionItem.AssignedTo = new List<Models.User>() { DAL.loadUserById(toEdit.SelectedUser.ID, false) };
+            toEdit.CurrentActionItem.Estimate = null;
+            toEdit.CurrentActionItem.CreatedBy = CurrentUser;
+            toEdit.CurrentActionItem.DateCreated = DateTime.UtcNow;
+
+            Models.Release targetRelease = DAL.loadReleaseById(toEdit.SelectedRelease.ID);
+
+            DAL.saveChangesToActionItem(toEdit.CurrentActionItem, targetRelease);
+            return RedirectToAction("ProjectOverview", "Project");
+        }
 
     }
 }

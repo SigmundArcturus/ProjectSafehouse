@@ -213,17 +213,23 @@
       <DependentUpon>SQLDB.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CreateActionItem.cs" />
+    <Compile Include="ViewModels\EditActionItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\arrow_down_alt1_32x32.png" />
     <Content Include="Content\themes\base\images\article_24x24.png" />
     <Content Include="Content\themes\base\images\at_24x24.png" />
+    <Content Include="Content\themes\base\images\bars_24x24.png" />
     <Content Include="Content\themes\base\images\BlueStripes.png" />
     <Content Include="Content\themes\base\images\Background.png" />
+    <Content Include="Content\themes\base\images\book_alt_24x24.png" />
+    <Content Include="Content\themes\base\images\calendar_alt_fill_24x24.png" />
+    <Content Include="Content\themes\base\images\clock_24x24.png" />
     <Content Include="Content\themes\base\images\cog_32x32.png" />
     <Content Include="Content\themes\base\images\DeleteIcon.gif" />
     <Content Include="Content\themes\base\images\DownArrow.png" />
     <Content Include="Content\themes\base\images\DownArrowTiny.png" />
+    <Content Include="Content\themes\base\images\equalizer_24x24.png" />
     <Content Include="Content\themes\base\images\home.png" />
     <Content Include="Content\themes\base\images\HomeIcon.png" />
     <Content Include="Content\themes\base\images\home_goldenrod.png" />
@@ -232,10 +238,12 @@
     <Content Include="Content\themes\base\images\lock_stroke_18x24.png" />
     <Content Include="Content\themes\base\images\Overlay.png" />
     <Content Include="Content\themes\base\images\pen_24x24.png" />
+    <Content Include="Content\themes\base\images\pin_24x24.png" />
     <Content Include="Content\themes\base\images\PlusSign.png" />
     <Content Include="Content\themes\base\images\plus_32x32.png" />
     <Content Include="Content\themes\base\images\plus_alt_32x32.png" />
     <Content Include="Content\themes\base\images\selectedTriangle.png" />
+    <Content Include="Content\themes\base\images\tag_stroke_24x24.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

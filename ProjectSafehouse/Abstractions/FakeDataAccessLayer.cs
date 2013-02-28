@@ -13,6 +13,7 @@ namespace ProjectSafehouse.Abstractions
         public FakeDataAccessLayer()
         {
             _fakeUsersList = new List<Models.User>();
+            _fakeCompaniesList = new List<Models.Company>();
         }
 
         public Models.User createNewUser(Models.User toCreate)
@@ -212,6 +213,17 @@ namespace ProjectSafehouse.Abstractions
 
 
         public List<Models.User> loadCompanyUsers(Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Models.ActionItem loadActionItemById(Guid actionItemId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease)
         {
             throw new NotImplementedException();
         }
