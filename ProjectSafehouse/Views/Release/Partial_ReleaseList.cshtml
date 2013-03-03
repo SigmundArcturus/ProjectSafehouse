@@ -1,0 +1,11 @@
+﻿@model List<ProjectSafehouse.Models.Release>
+
+<ul class="ReleaseList">
+@foreach (var release in Model)
+{
+    <h2 class="ReleaseName">@release.Name</h2>
+    <p class="ReleaseDescription">@release.Description</p>    
+    @Html.Partial("../ActionItem/Partial_ActionItemList", release.ActionItems)
+    @Html.ActionLink("Create new action item for this release.", "../ActionItem/Create");
+}
+</ul>
