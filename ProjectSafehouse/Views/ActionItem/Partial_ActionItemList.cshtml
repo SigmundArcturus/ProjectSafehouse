@@ -3,8 +3,29 @@
 <ul class="ActionItemList">
 @foreach (var actionItem in Model)
 {
-    <li>
-        @Html.ActionLink(String.Format("{0}-({1})", actionItem.Title, actionItem.ID), "../ActionItem/Edit", new { toEditID = actionItem.ID }, new { })
+    <li class="ActionItem">
+        <div class="ActionItemDetails">
+            @Html.ActionLink(actionItem.Title, "../ActionItem/Edit", new { toEditID = actionItem.ID }, new { Class ="Title"})
+            <span class="ID">@actionItem.ID</span>
+            <p class="Description">
+                @if(actionItem.Description.Length > 200)
+                    {
+                        <em>@actionItem.Description.Substring(0, 200) ...</em>
+                    }
+                    else   
+                    {
+                        <em>@actionItem.Description</em>
+                    }
+            </p>
+            <ul class="AssigneeList">
+                @foreach (var assignee in actionItem.AssignedTo)
+                {
+                    <li class="Assignee">
+                        @assignee.Email
+                    </li>
+                }
+            </ul>
+        </div>
     </li>
 }
 </ul>

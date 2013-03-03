@@ -14,7 +14,7 @@ GO
 CREATE TABLE [dbo].[ActionItems](
 	[ID] [uniqueidentifier] NOT NULL,
 	[Name] [varchar](256) NOT NULL,
-	[Description] [varchar](256) NULL,
+	[Description] [varchar](MAX) NULL,
 	[CreatedByUserId] [uniqueidentifier] NOT NULL,
 	[InReleaseId] [uniqueidentifier] NOT NULL,
 	[DateCreated] [datetime] NOT NULL,

@@ -442,7 +442,7 @@
           </Key>
           <Property Type="Guid" Name="ID" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Guid" Name="CreatedByUserId" Nullable="false" />
           <Property Type="Guid" Name="InReleaseId" Nullable="false" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
