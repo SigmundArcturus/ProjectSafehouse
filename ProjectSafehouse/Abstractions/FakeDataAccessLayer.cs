@@ -227,5 +227,21 @@ namespace ProjectSafehouse.Abstractions
         {
             throw new NotImplementedException();
         }
+
+
+        public List<Models.User> loadProjectUsers(Guid projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool addUserToCompany(Guid companyId, Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool addUserToProject(Guid projectId, Guid userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

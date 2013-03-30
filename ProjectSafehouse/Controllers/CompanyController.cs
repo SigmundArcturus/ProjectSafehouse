@@ -33,5 +33,14 @@ namespace ProjectSafehouse.Controllers
             
             return RedirectToAction("Index", "Login");
         }
+
+        [HttpGet]
+        public ActionResult Admin(Guid id)
+        {
+            Models.Company current = DAL.loadCompanyById(id);
+            CurrentCompany = current;
+
+            return View("Admin", current);
+        }
     }
 }

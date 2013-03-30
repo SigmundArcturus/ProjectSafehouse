@@ -1,0 +1,31 @@
+﻿@model ProjectSafehouse.ViewModels.AddUserTo
+
+<div>
+    <h2>Currently Assigned Users:</h2>
+    <ul class="CurrentUsersList">
+        @foreach (var user in Model.CurrentUsers)
+        {
+            <li>@user.Email</li>
+        }
+    </ul>
+    @using (Html.BeginForm("Partial_AddUserTo", "User")) {
+        <div class="AddUser">
+            <div class="TitleSection InputSection">
+                @Html.HiddenFor(x => x.DestinationID, new {value=@Model.DestinationID})
+                @Html.HiddenFor(x => x.DestinationType, new {value=@Model.DestinationType})
+                <label for="emailTitle">Email of user to add: </label>
+                <div class="TextWrapper">
+                    <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "at_24x24.png")"/>
+			        @Html.TextBoxFor(x => x.ToAdd.EmailAddress, new { placeholder = "Email", id = "emailTitle", required = "true", type = "text" })
+		        </div>
+                <div style="clear:both"></div>
+            </div>
+            <div class="TitleSection InputSection">
+                <label for="adminTitle">Make user admin? </label>
+			     @Html.CheckBoxFor(x => x.ToAdd.Administrator, new { id = "adminTitle", required = "false"})
+                <div style="clear:both"></div>
+            </div>
+            <input type="submit" id="addUserButton" value="Add User" />
+        </div>
+    }
+</div>

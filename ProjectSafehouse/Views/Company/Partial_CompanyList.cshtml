@@ -15,7 +15,7 @@
         </div>
         <div id="@string.Format("{0}Box", company.ID)" class="CompanyDetailsContainer">
             <div class="CompanyDetailsConstraint">
-                <p class="CompanyName">@company.Name</p>
+                <p class="CompanyName">@company.Name (@Html.ActionLink("Admin Panel", "Admin", new {id = @company.ID}))</p>
                 <p class="CompanyDescription">@company.Description</p>
                 <p class="CompanyCreatedDate">Created On:@company.CreatedDate</p>
             </div>

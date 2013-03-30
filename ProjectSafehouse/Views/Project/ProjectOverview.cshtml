@@ -55,11 +55,20 @@
             font-size: .8em;
         }
 
+        div.FullActionItemList
+        {
+            height: 80%;
+            width: 98%;
+            overflow-y: scroll;
+        }
+
     </style>
 }
 
 @section MainContent{
     <h2>Project Overview:  @Model.Name</h2>
 
-    @Html.Partial("../Release/Partial_ReleaseList", Model.ReleaseList)
+    <div class="FullActionItemList">
+        @Html.Partial("../Release/Partial_ReleaseList", Model.ReleaseList)
+    </div>
 }

@@ -241,5 +241,22 @@ namespace ProjectSafehouse.Dependencies
         {
             return dal.saveChangesToActionItem(toUpdate, targetRelease);
         }
+
+
+        public List<Models.User> loadProjectUsers(Guid projectId)
+        {
+            return dal.loadProjectUsers(projectId);
+        }
+
+        public bool addUserToCompany(Guid companyId, Guid userId)
+        {
+            return dal.addUserToCompany(companyId, userId);
+        }
+
+        public bool addUserToProject(Guid projectId, Guid userId)
+        {
+            return dal.addUserToCompany(projectId, userId);
+        }
+
     }
 }

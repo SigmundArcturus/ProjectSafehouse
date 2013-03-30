@@ -14,6 +14,12 @@ namespace ProjectSafehouse
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "PartialAddUser",
+                url: "User/Partial_AddUserTo/{groupingType}/{groupingId}",
+                defaults: new { controller = "User", action = "Partial_AddUserTo", groupingType = UrlParameter.Optional, groupingId = UrlParameter.Optional }
+             );
+
+            routes.MapRoute(
                 name: "Company",
                 url: "Company/{action}/{id}",
                 defaults: new { controller = "Company", action = "Index", id = UrlParameter.Optional }

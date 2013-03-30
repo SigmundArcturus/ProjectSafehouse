@@ -10,10 +10,12 @@
           <EntitySet Name="ActionItemTypes" EntityType="ProjectSafehouseModel.Store.ActionItemTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ActionItemUsers" EntityType="ProjectSafehouseModel.Store.ActionItemUsers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Companies" EntityType="ProjectSafehouseModel.Store.Companies" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CompanyUsers" EntityType="ProjectSafehouseModel.Store.CompanyUsers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Priorities" EntityType="ProjectSafehouseModel.Store.Priorities" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Projects" EntityType="ProjectSafehouseModel.Store.Projects" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Releases" EntityType="ProjectSafehouseModel.Store.Releases" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Statuses" EntityType="ProjectSafehouseModel.Store.Statuses" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SystemRoles" EntityType="ProjectSafehouseModel.Store.SystemRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="ProjectSafehouseModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_ActionItems_ActionItemTypes" Association="ProjectSafehouseModel.Store.FK_ActionItems_ActionItemTypes">
             <End Role="ActionItemTypes" EntitySet="ActionItemTypes" />
@@ -43,6 +45,22 @@
             <End Role="Companies" EntitySet="Companies" />
             <End Role="Priorities" EntitySet="Priorities" />
           </AssociationSet>
+          <AssociationSet Name="FK_CompanyUsers_Companies" Association="ProjectSafehouseModel.Store.FK_CompanyUsers_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="CompanyUsers" EntitySet="CompanyUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyUsers_SystemRoles" Association="ProjectSafehouseModel.Store.FK_CompanyUsers_SystemRoles">
+            <End Role="SystemRoles" EntitySet="SystemRoles" />
+            <End Role="CompanyUsers" EntitySet="CompanyUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyUsers_Users" Association="ProjectSafehouseModel.Store.FK_CompanyUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CompanyUsers" EntitySet="CompanyUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyUsers_Users1" Association="ProjectSafehouseModel.Store.FK_CompanyUsers_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CompanyUsers" EntitySet="CompanyUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Projects_Companies" Association="ProjectSafehouseModel.Store.FK_Projects_Companies">
             <End Role="Companies" EntitySet="Companies" />
             <End Role="Projects" EntitySet="Projects" />
@@ -62,7 +80,7 @@
           </Key>
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="256" />
-          <Property Name="Description" Type="varchar" MaxLength="256" />
+          <Property Name="Description" Type="varchar(max)" />
           <Property Name="CreatedByUserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="InReleaseId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
@@ -100,6 +118,16 @@
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="CreatedByUserID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompanyUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AddedBy" Type="uniqueidentifier" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Priorities">
           <Key>
@@ -142,6 +170,13 @@
           <Property Name="CompanyId" Type="uniqueidentifier" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="256" />
           <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="SystemRoles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="varchar" Nullable="false" MaxLength="256" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -240,6 +275,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CompanyUsers_Companies">
+          <End Role="Companies" Type="ProjectSafehouseModel.Store.Companies" Multiplicity="1" />
+          <End Role="CompanyUsers" Type="ProjectSafehouseModel.Store.CompanyUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUsers">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUsers_SystemRoles">
+          <End Role="SystemRoles" Type="ProjectSafehouseModel.Store.SystemRoles" Multiplicity="1" />
+          <End Role="CompanyUsers" Type="ProjectSafehouseModel.Store.CompanyUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemRoles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUsers">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUsers_Users">
+          <End Role="Users" Type="ProjectSafehouseModel.Store.Users" Multiplicity="1" />
+          <End Role="CompanyUsers" Type="ProjectSafehouseModel.Store.CompanyUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUsers_Users1">
+          <End Role="Users" Type="ProjectSafehouseModel.Store.Users" Multiplicity="0..1" />
+          <End Role="CompanyUsers" Type="ProjectSafehouseModel.Store.CompanyUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUsers">
+              <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Projects_Companies">
           <End Role="Companies" Type="ProjectSafehouseModel.Store.Companies" Multiplicity="1" />
           <End Role="Projects" Type="ProjectSafehouseModel.Store.Projects" Multiplicity="*" />
@@ -330,6 +413,24 @@
             <End Role="SQLCompany" EntitySet="SQLCompanies" />
             <End Role="Priority" EntitySet="SQLPriorities" />
           </AssociationSet>
+          <EntitySet Name="SQLCompanyUsers" EntityType="ProjectSafehouseModel.SQLCompanyUser" />
+          <EntitySet Name="SQLSystemRoles" EntityType="ProjectSafehouseModel.SQLSystemRole" />
+          <AssociationSet Name="FK_CompanyUsers_Companies" Association="ProjectSafehouseModel.FK_CompanyUsers_Companies">
+            <End Role="SQLCompany" EntitySet="SQLCompanies" />
+            <End Role="CompanyUser" EntitySet="SQLCompanyUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyUsers_SystemRoles" Association="ProjectSafehouseModel.FK_CompanyUsers_SystemRoles">
+            <End Role="SystemRole" EntitySet="SQLSystemRoles" />
+            <End Role="CompanyUser" EntitySet="SQLCompanyUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyUsers_Users" Association="ProjectSafehouseModel.FK_CompanyUsers_Users">
+            <End Role="SQLUser" EntitySet="SQLUsers" />
+            <End Role="CompanyUser" EntitySet="SQLCompanyUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyUsers_Users1" Association="ProjectSafehouseModel.FK_CompanyUsers_Users1">
+            <End Role="SQLUser" EntitySet="SQLUsers" />
+            <End Role="CompanyUser" EntitySet="SQLCompanyUsers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="SQLUser">
           <Key>
@@ -346,6 +447,8 @@
           <NavigationProperty Name="AdminCompanies" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="SQLUser" ToRole="Company" />
           <NavigationProperty Name="Projects" Relationship="ProjectSafehouseModel.FK_Projects_Users" FromRole="SQLUser" ToRole="Project" />
           <NavigationProperty Name="ActionItemUsers" Relationship="ProjectSafehouseModel.FK_ActionItemUsers_Users" FromRole="SQLUser" ToRole="ActionItemUser" />
+          <NavigationProperty Name="CompanyUsers" Relationship="ProjectSafehouseModel.FK_CompanyUsers_Users" FromRole="SQLUser" ToRole="CompanyUser" />
+          <NavigationProperty Name="CompanyUsers1" Relationship="ProjectSafehouseModel.FK_CompanyUsers_Users1" FromRole="SQLUser" ToRole="CompanyUser" />
         </EntityType>
         <EntityType Name="SQLCompany">
           <Key>
@@ -359,6 +462,7 @@
           <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_Companies_Users" FromRole="Company" ToRole="SQLUser" />
           <NavigationProperty Name="Projects" Relationship="ProjectSafehouseModel.FK_Projects_Companies" FromRole="SQLCompany" ToRole="Project" />
           <NavigationProperty Name="Priorities" Relationship="ProjectSafehouseModel.FK_CompanyPriorities_Companies" FromRole="SQLCompany" ToRole="Priority" />
+          <NavigationProperty Name="CompanyUsers" Relationship="ProjectSafehouseModel.FK_CompanyUsers_Companies" FromRole="SQLCompany" ToRole="CompanyUser" />
         </EntityType>
         <Association Name="FK_Companies_Users">
           <End Type="ProjectSafehouseModel.SQLUser" Role="SQLUser" Multiplicity="1" />
@@ -571,6 +675,76 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SQLCompanyUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="CompanyId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="Guid" Name="AddedBy" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="ProjectSafehouseModel.FK_CompanyUsers_Companies" FromRole="CompanyUser" ToRole="SQLCompany" />
+          <NavigationProperty Name="SystemRole" Relationship="ProjectSafehouseModel.FK_CompanyUsers_SystemRoles" FromRole="CompanyUser" ToRole="SystemRole" />
+          <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_CompanyUsers_Users" FromRole="CompanyUser" ToRole="SQLUser" />
+          <NavigationProperty Name="User1" Relationship="ProjectSafehouseModel.FK_CompanyUsers_Users1" FromRole="CompanyUser" ToRole="SQLUser" />
+        </EntityType>
+        <EntityType Name="SQLSystemRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompanyUsers" Relationship="ProjectSafehouseModel.FK_CompanyUsers_SystemRoles" FromRole="SystemRole" ToRole="CompanyUser" />
+        </EntityType>
+        <Association Name="FK_CompanyUsers_Companies">
+          <End Type="ProjectSafehouseModel.SQLCompany" Role="SQLCompany" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLCompanyUser" Role="CompanyUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUser">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUsers_SystemRoles">
+          <End Type="ProjectSafehouseModel.SQLSystemRole" Role="SystemRole" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLCompanyUser" Role="CompanyUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUser">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUsers_Users">
+          <End Type="ProjectSafehouseModel.SQLUser" Role="SQLUser" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLCompanyUser" Role="CompanyUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUsers_Users1">
+          <End Type="ProjectSafehouseModel.SQLUser" Role="SQLUser" Multiplicity="0..1" />
+          <End Type="ProjectSafehouseModel.SQLCompanyUser" Role="CompanyUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUser">
+              <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -682,6 +856,25 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLCompanyUsers">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLCompanyUser">
+              <MappingFragment StoreEntitySet="CompanyUsers">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLSystemRoles">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLSystemRole">
+              <MappingFragment StoreEntitySet="SystemRoles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

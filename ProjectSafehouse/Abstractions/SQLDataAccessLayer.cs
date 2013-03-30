@@ -779,10 +779,8 @@ namespace ProjectSafehouse.Abstractions
             if (targetCompany != null)
             {
                 // do actual work here
-                #warning loadCompanyUsers in SQLDataAccessLayer does not actually limit by company.  IMPLEMENT!
+                returnMe = loadModelUsersFromSQLUsers(targetCompany.CompanyUsers.Select(x => x.User).ToList(), false);
             }
-
-            returnMe = loadModelUsersFromSQLUsers(db.SQLUsers.ToList(), false);
 
             return returnMe;
         }
@@ -894,6 +892,43 @@ namespace ProjectSafehouse.Abstractions
             }
 
             return savedUpdate;
+        }
+
+
+        public List<Models.User> loadProjectUsers(Guid projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool addUserToCompany(Guid companyId, Guid userId)
+        {
+            bool successfulAdd = false;
+            var CurrentUsers = db.SQLCompanyUsers.Where(x => x.CompanyId == companyId).ToList();
+            if (CurrentUsers.Any(x => x.UserId == userId))
+            {
+                successfulAdd = false;
+            }
+            else
+            {
+ #warning Add proper roles and "added by" code
+                SQLCompanyUser toAdd = new SQLCompanyUser()
+                {
+                    AddedBy = null,
+                    CompanyId = companyId,
+                    RoleId = 1,
+                    UserId = userId
+                };
+
+                db.SQLCompanyUsers.Add(toAdd);
+                db.SaveChanges();
+                successfulAdd = true;
+            }
+            return successfulAdd;
+        }
+
+        public bool addUserToProject(Guid projectId, Guid userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

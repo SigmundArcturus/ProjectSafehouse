@@ -24,6 +24,12 @@
         <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItemUsers_Users" />
         <EntityTypeShape EntityType="ProjectSafehouseModel.SQLPriority" Width="1.5" PointX="3.818883437578978" PointY="8.4582943806696189" />
         <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyPriorities_Companies" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLCompanyUser" Width="1.5" PointX="10.622539126604115" PointY="2.1174307326401727" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLSystemRole" Width="1.5" PointX="8.0725281127134938" PointY="3.1257142886173512" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_Companies" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_SystemRoles" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_Users" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_Users1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
