@@ -36,7 +36,8 @@
 <body>
     <div id="mainMenu">
 		<div class="NavOption NavLink NavHome">
-			<img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "home_goldenrod.png")"/><a href="">Project Safehouse</a>
+			<img src="@Url.Content(string.Format("~/Content/themes/{0}/images/{1}", CurrentTheme, "home_goldenrod.png"))"/>
+            <a href="">Project Arsenal</a>
 		</div> 
         @if (ViewBag.CurrentUser != null)
         {
