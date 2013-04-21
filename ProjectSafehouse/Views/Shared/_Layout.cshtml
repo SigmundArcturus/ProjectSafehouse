@@ -21,6 +21,17 @@
 
     @RenderSection("Head", required: false)
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#mainMenu').on('click', '.NavLink', function () {
+                var $this = $(this);
+                if ($this.find('a').length > 0) {
+                    $this.find('a')[0].click();
+                }
+            });
+        })
+    </script>
+
 </head>
 <body>
     <div id="mainMenu">
