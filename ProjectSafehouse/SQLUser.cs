@@ -14,6 +14,15 @@ namespace ProjectSafehouse
     
     public partial class SQLUser
     {
+        public SQLUser()
+        {
+            this.AdminCompanies = new HashSet<SQLCompany>();
+            this.Projects = new HashSet<SQLProject>();
+            this.ActionItemUsers = new HashSet<SQLActionItemUser>();
+            this.CompanyUsers = new HashSet<SQLCompanyUser>();
+            this.CompanyUsers1 = new HashSet<SQLCompanyUser>();
+        }
+    
         public System.Guid ID { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
@@ -22,5 +31,11 @@ namespace ProjectSafehouse
         public Nullable<decimal> HourlyCost { get; set; }
         public Nullable<decimal> OvertimeMultiplier { get; set; }
         public Nullable<decimal> OvertimeThreshold { get; set; }
+    
+        public virtual ICollection<SQLCompany> AdminCompanies { get; set; }
+        public virtual ICollection<SQLProject> Projects { get; set; }
+        public virtual ICollection<SQLActionItemUser> ActionItemUsers { get; set; }
+        public virtual ICollection<SQLCompanyUser> CompanyUsers { get; set; }
+        public virtual ICollection<SQLCompanyUser> CompanyUsers1 { get; set; }
     }
 }

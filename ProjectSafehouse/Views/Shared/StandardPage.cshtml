@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "StandardPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head{
+    <link rel="stylesheet" href="/Content/themes/base/Shared/StandardPage.css" type="text/css" />
+    <script type="text/javascript" src="/Scripts/safehouse.menu.js"></script>
+    <script type="text/javascript" src="/Scripts/safehouse.ajax.js"></script>
+    @RenderSection("Head", required: false)
+}
+
+<div class="MainContent">
+    <div class="PositionedContent">
+    @RenderSection("MainContent", required: true)
+    </div>
+</div>
+
+@section Scripts{
+    @RenderSection("Scripts", required: false)
+}

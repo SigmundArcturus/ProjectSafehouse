@@ -2,7 +2,43 @@
 
 @{
     ViewBag.Title = "Welcome";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/StandardPage.cshtml";
 }
 
-<h2>Welcome to Project Safehouse @Model.Email</h2>
+@section Head{
+    <script type="text/javascript" src="/Scripts/Login/Welcome.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Content/themes/base/Login/Welcome.css" />
+}
+
+@section MainContent{
+    @Html.HiddenFor(x => x.ID, new { id = "userId" })
+
+
+    <h2>Welcome to Project Safehouse, @Model.Email</h2>
+    <p class="FriendlyText">
+        To jump right in, you can select an existing company that you are a member of.
+        Clicking on a company will list all projects that you have access to.  
+        You may also create a new company (your first one is free!) if you'd like to
+        get started with your own projects.  
+    </p>
+ 
+    <div id="companiesList">
+
+    </div>
+
+    <div class="FriendlyBox" id="createCompanyButton" target="createCompanyBox">
+        <img src="~/Content/themes/base/images/plus_alt_32x32.png" />
+        <p>
+            Create a New Company
+        </p>
+    </div>
+    <div id="createCompanyBox" class="CompanyDetailsContainer">
+        <div class="CompanyDetailsConstraint">
+            @Html.Partial("~/Views/Company/Partial_CreateNewCompany.cshtml", new ProjectSafehouse.Models.Company())
+        </div>
+        <img src="~/Content/themes/base/images/x_alt_24x24.png" class="CloseDetailsContainer" />
+    </div>
+}
+
+
+

@@ -6,266 +6,48 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-<style>
-
+    
     @{
       string CurrentTheme = "base";   
     }
 
-   html
-    {
-        margin: 0px;
-        padding: 0px;
-        width: 100%;
-        height: 100%;
-		font-family: 'Cabin Condensed', sans-serif;
-		background: url('@string.Format("Content/themes/{0}/images/{1}", CurrentTheme, "Overlay.png")') top center repeat-y, url('@string.Format("Content/themes/{0}/images/{1}", CurrentTheme, "Background.png")') top left repeat;
-       
-    }
+    <link rel="stylesheet" type="text/css" href="/Content/themes/base/Shared/_Layout.css" />
 
-    body
-    {
-        margin: 0px;
-        padding: 0px;
-        width: 100%;
-        height: 100%;
-    }
-	
-    #mainMenu
-    {
-        width: 100%;
-        height: 72px;
-        background-color: #323232;
-		color: #D1A127;
-		
-		-moz-box-shadow: 3px 0px 6px #666;
-		-webkit-box-shadow: 3px 0px 6px #666;
-		box-shadow: 3px 0px 6px #666;
-    }
-	
-	#subMenu
-	{
-		background-color: #D1A127;
-		width: 100%;
-		height: 0px;
-		color: #323232;
-		border-top: solid 5px #C19117;
-		border-bottom: solid 5px #C19117;
-		
-		overflow: hidden;
-		
-		-moz-box-shadow: 3px 0px 6px #666;
-		-webkit-box-shadow: 3px 0px 6px #666;
-		box-shadow: 3px 0px 6px #666;
-	}
-
-
-        #footer
-    {
-        position: absolute;
-        height: 25px;
-        width: 100%;
-        bottom: 0px;
-        left: 0px;
-        background-color: #323232;
-        color: #D1A127;
-		
-		-moz-box-shadow: -3px 0px 6px #666;
-		-webkit-box-shadow: -3px 0px 6px #666;
-		box-shadow: -3px 0px 6px #666;
-    }
-
-        .NavOption
-		{
-			height: 100%;
-			padding-left: 20px;
-			padding-right: 20px;
-			width: auto;
-		}
-		
-		.NavOption:hover
-		{
-			background-color: #111;
-			cursor: pointer;
-		}
-		
-		#subMenu .NavOption.NavLink:hover
-		{
-			background-color: #C19117;
-			cursor: pointer;
-		}
-		
-		.NavOption img
-		{
-			display: inline-block;
-			float: left;
-			margin-right: 5px;
-			vertical-align: middle;
-		}
-
-		.NavOption.NavDropDown
-		{
-			float: right;
-            overflow: hidden;
-		}
-		
-		.NavOption.NavDropDown img
-		{
-			margin-top: 20px;
-		}
-		
-		.NavOption.NavLink
-		{
-			float: left;
-		}
-		
-		.NavOption.NavDropDown h2
-		{
-			margin-top: 24px;
-            float: left;
-		}
-
-		.NavOption a
-		{
-			vertical-align: central;
-			font-size: 20pt;
-			display: inline-block;
-			color: #D1A127;
-			float: left;
-			margin-top: 20px;
-		}
-		
-		.NavHome a
-		{
-			font-size: 30pt;
-			margin-top: 12px;
-			text-decoration: none;
-		}
-
-		div.CleanHeader
-		{
-            margin-top: -5px;
-			border-bottom: solid 2px #D1A127;
-			height: 40px;
-			width: auto;
-			background-color: #323232;/*#1B5A83*/;
-		}
-
-		div.CleanHeader h3
-		{
-			margin-left: 10px;
-			color: #D1A127;
-			font-size: 20pt;
-			vertical-align: central;
-			margin-top: 5px;
-		}
-
-		
-		div.InputDuo
-		{
-			width: 80%;
-			margin-left: auto;
-			margin-right: auto;
-			clear: both;
-			margin-bottom: 10px;
-			height: 20px;
-		}
-		
-		div.InputDuo span.InputLabel
-		{
-			float: left;
-		}
-		
-		div.InputDuo input[type=text], div.InputDuo input[type=password]
-		{
-			float: right;
-		}
-
-		div.Content .ActionLink
-		{
-			float: right;
-			margin-top: 20px;
-		}
-		
-		div.Content .SplitLeft
-		{
-			float: left;
-			height: 100%;
-			width: 59%;
-            position: relative;
-		}
-		
-		div.Content .SplitRight
-		{
-			float: right;
-			height: 100%;
-			width: 35%;
-			border-left: solid 1px #CCC;
-			padding-left: 10px;
-			padding-right: 15px;
-			margin-top: -10px;
-		}
-		
-		div.IconAndHeader
-		{
-			width: 75%;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		
-		div.IconAndHeader img
-		{
-			float: left;
-			margin-right: 10px;
-		}
-		
-		div.IconAndHeader h2
-		{
-			float: left;
-		}
-    </style>
-
-    <script src="Scripts/jquery-1.9.0.min.js"></script>
-	
-	<script>
-	    $(document).ready(function () {
-	        $('.NavDropDown').click(function () {
-	            if ($('#subMenu').height() < 1) {
-	                $('#subMenu').animate(
-						{
-						    height: '72px'
-						},
-						400,
-						function () { }
-					);
-	            }
-	            else {
-	                $('#subMenu').animate(
-						{
-						    height: '0px'
-						},
-						400,
-						function () { }
-					);
-	            }
-	        });
-	    });
-	</script>
+    <script src="~/Scripts/jquery-1.9.0.min.js"></script>
+	<script src="~/Scripts/Shared/_Layout.js"></script>
+    <script src="~/Scripts/safehouse.namespacing.js"></script>
 	
 	<link href='http://fonts.googleapis.com/css?family=Cabin+Condensed:400,600' rel='stylesheet' type='text/css'>
 
-
     @RenderSection("Head", required: false)
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#mainMenu').on('click', '.NavLink', function () {
+                var $this = $(this);
+                if ($this.find('a').length > 0) {
+                    $this.find('a')[0].click();
+                }
+            });
+        })
+    </script>
+
 </head>
 <body>
     <div id="mainMenu">
 		<div class="NavOption NavLink NavHome">
-			<img src="@string.Format("Content\\themes\\{0}\\images\\{1}", CurrentTheme, "home_goldenrod.png")"/><a href="">Project Safehouse</a>
+			<img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "home_goldenrod.png")"/><a href="">Project Safehouse</a>
 		</div> 
-        @RenderSection("MenuOptions", required: false)
+        @if (ViewBag.CurrentUser != null)
+        {
+            <div class="NavOption NavLink">
+		        <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", CurrentTheme, "undo_32x32.png")"/><a href="~/LogOut">Sign Out</a>
+	        </div> 
+        }
+
     </div>
 	<div id="subMenu">
-        @RenderSection("SubMenuOptions", required: false)
+        
     </div>
 
     @RenderBody()

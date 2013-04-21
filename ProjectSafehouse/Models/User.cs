@@ -15,5 +15,6 @@ namespace ProjectSafehouse.Models
         public decimal? HourlyCost { get; set; }
         public decimal? OvertimeMultiplier { get; set; }
         public decimal? OvertimeThreshold { get; set; }
+        public List<Company> Companies { get; set; }
     }
 }

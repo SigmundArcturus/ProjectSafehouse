@@ -17,5 +17,6 @@ namespace ProjectSafehouse.Models
         public List<User> Administrators { get; set; }
         public List<Project> Projects { get; set; }
         public List<User> Users { get; set; }
+        public List<Priority> Priorities { get; set; }
     }
 }

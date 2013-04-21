@@ -1,0 +1,40 @@
+﻿@model List<ProjectSafehouse.Models.Company>
+
+@if (Model.Count > 0)
+{
+    
+    <p class="FriendlyText">Get work done for one of these companies:</p>
+    
+    foreach (var company in Model)
+    {
+        <div class="FriendlyBox" id="@string.Format("{0}Button", company.ID)" target="@string.Format("{0}Box", company.ID)" companyid="@company.ID">
+            <img src="~/Content/themes/base/images/layers_32x28.png" />
+            <p>
+                @company.Name
+            </p>
+        </div>
+        <div id="@string.Format("{0}Box", company.ID)" class="CompanyDetailsContainer">
+            <div class="CompanyDetailsConstraint">
+                <p class="CompanyName">@company.Name (@Html.ActionLink("Admin Panel", "Admin", new {id = @company.ID}))</p>
+                <p class="CompanyDescription">@company.Description</p>
+                <p class="CompanyCreatedDate">Created On:@company.CreatedDate</p>
+            </div>
+            <ul class="ProjectList">
+
+            </ul>
+            <img src="~/Content/themes/base/images/x_alt_24x24.png" class="CloseDetailsContainer" />
+        </div>
+    }
+    <div style="clear:both">
+        <p class="FriendlyText">or you could</p>
+    </div>
+}
+else
+{
+    <div>
+        <p class="FriendlyText">
+            Looks like you are't associated with any companies yet.  You can create one for free to get started!
+        </p>
+    </div>   
+    
+}

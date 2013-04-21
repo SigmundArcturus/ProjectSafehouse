@@ -1,0 +1,140 @@
+﻿@model ProjectSafehouse.ViewModels.EditActionItem
+
+@{
+    ViewBag.Title = "View & Edit ActionItem";
+    Layout = "~/Views/Shared/StandardPage.cshtml";
+}
+
+@section Head{
+
+    <style>
+        div.CreationColumn
+        {
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #createActionItemButton
+        {
+            margin-left: auto;
+            margin-right: auto;
+            clear: both;
+            margin-top: 10px;
+        }
+
+        #createTitle
+        {
+            width: 400px;
+        }
+
+        #createDetails
+        {
+            width: 450px;
+        }
+
+    </style>
+    
+}
+
+@section MainContent{
+
+<div class="CreationColumn">
+    <h2>View & Edit ActionItem </h2>
+
+    @using (Html.BeginForm()) {
+       @Html.HiddenFor(x => x.CurrentActionItem.ID, new { value = Model.CurrentActionItem.ID })
+        <div class="TitleSection InputSection">
+            <label for="createTitle">ActionItem Title </label>
+            <div class="TextWrapper">
+                <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "book_alt_24x24.png")"/>
+			    @Html.TextBoxFor(x => x.CurrentActionItem.Title, new { placeholder = "Title", id = "createTitle", required = "true", type = "text" })
+		    </div>
+
+            <div style="clear:both"></div>
+        </div>
+    
+        <div class="CategorizationSection InputSection">
+            <label>Type / Status / Priority </label>
+            <div class="TextWrapper SelectWrapper">
+                <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "tag_stroke_24x24.png")"/>
+			    @Html.DropDownListFor(x => x.CurrentActionItem.CurrentType.ID,
+                    Model.AvailableTypes.Select(x => new SelectListItem(){
+                        Selected = false,
+                        Text = x.Title,
+                        Value = x.ID.ToString()
+                    }))
+                <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "equalizer_24x24.png")"/>
+			    @Html.DropDownListFor(x => x.CurrentActionItem.CurrentStatus.ID,
+                    Model.AvailableStatuses.Select(x => new SelectListItem(){
+                        Selected = false,
+                        Text = x.Name,
+                        Value = x.ID.ToString()
+                    }))
+
+                <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "bars_24x24.png")"/>
+			    @Html.DropDownListFor(x => x.CurrentActionItem.CurrentPriority.Order,
+                    Model.AvailablePriorities.Select(x => new SelectListItem(){
+                        Selected = false,
+                        Text = x.Name,
+                        Value = x.Order.ToString()
+                    }))
+		    </div>
+
+            <div style="clear:both"></div>
+        </div>
+    
+        <div class="AssignedToSection InputSection">
+            <label>Assigned to</label>
+            <div class="TextWrapper SelectWrapper">
+                <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "pin_24x24.png")"/>
+			    @Html.DropDownListFor(x => x.SelectedUser.ID,
+                    Model.AvailableUsers.Select(x => new SelectListItem(){
+                        Text = x.Email,
+                        Value = x.ID.ToString()
+                    }))
+
+                <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "calendar_alt_fill_24x24.png")"/>
+			    @Html.DropDownListFor(x => x.SelectedRelease.ID,
+                    Model.AvailableReleases.Select(x => new SelectListItem(){
+                        Text = x.Name,
+                        Value = x.ID.ToString()
+                    }))
+		    </div>
+
+            <div style="clear:both"></div>
+        
+        </div>
+    
+        <div class="EstimateSection InputSection">
+            <label for="createEstimate">This will take about </label>
+            <div class="TextWrapper">
+                <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "clock_24x24.png")"/>
+			    @Html.TextBoxFor(x => x.UnvalidatedEstimate, new { placeholder = "Time Estimate", id = "createEstimate" })
+		    </div> 
+            <div style="clear:both"></div>
+        </div>
+    
+        <div class="DescriptionSection InputSection">
+            <label for="createDetails">Detailed description of the ActionItem.</label>
+            <div class="TextAreaWrapper TextWrapper">
+                <img src="@string.Format("..\\Content\\themes\\{0}\\images\\{1}", "base", "pen_24x24.png")"/>
+			    @Html.TextAreaFor(x => x.CurrentActionItem.Description, new { id="createDetails" })
+		    </div> 
+        </div>
+        
+        <div style="clear:both"></div>
+    
+        <input type="submit" id="createActionItemButton" value="Save Changes" />
+    }
+ </div>
+
+<div style="clear:both;">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

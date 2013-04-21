@@ -1,0 +1,15 @@
+﻿@model ProjectSafehouse.Models.Company
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/StandardPage.cshtml";
+}
+
+@section MainContent{
+    <h2>Administration for @Model.Name</h2>
+
+    @Html.Action("Partial_AddUserTo", "User", new { groupingId = @Model.ID, groupingType = @ProjectSafehouse.ViewModels.GroupingType.Company })
+@*    @Html.Partial(string.Format("~/User/Partial_AddUserTo/{0}/{1}", @ProjectSafehouse.ViewModels.GroupingType.Company, @Model.ID))*@
+
+
+}

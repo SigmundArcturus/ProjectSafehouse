@@ -1,0 +1,146 @@
+﻿div.FriendlyBox
+{
+    -moz-box-shadow: 3px 3px 3px #666;
+	-webkit-box-shadow: 3px 3px 3px #666;
+	box-shadow: 3px 3px 3px #666;
+
+    -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+    margin-left: 10px;
+    margin-top: 10px;
+    border: 1px solid #CCC;
+    padding: 10px;
+    width: 200px;
+
+    display: inline-block;
+    cursor: pointer;
+
+            
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(47%,rgba(246,246,246,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+
+}
+
+div.FriendlyBox:hover
+{
+    -moz-box-shadow: 1px 1px 1px #333;
+	-webkit-box-shadow: 1px 1px 1px #333;
+	box-shadow: 1px 1px 1px #333;
+
+    background: rgb(244,247,237); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(244,247,237,1) 0%, rgba(226,226,201,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(244,247,237,1)), color-stop(100%,rgba(226,226,201,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(244,247,237,1) 0%,rgba(226,226,201,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(244,247,237,1) 0%,rgba(226,226,201,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(244,247,237,1) 0%,rgba(226,226,201,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(244,247,237,1) 0%,rgba(226,226,201,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f7ed', endColorstr='#e2e2c9',GradientType=0 ); /* IE6-9 */
+
+
+}
+
+div.FriendlyBox img
+{
+    float: left;
+    vertical-align: middle;
+    margin-top: 5px;
+}
+
+div.FriendlyBox p
+{
+    width: auto;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div.CompanyDetailsContainer
+{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 0px;
+    overflow: hidden;
+    display: none;
+    border-top:1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    margin-left: -13px;
+    padding: 10px;
+            
+    -moz-box-shadow: inset 0 0 3px #666;
+    -webkit-box-shadow: inset 0 0 3px #666;
+    box-shadow: inner 0 0 0px #666;
+
+    position: relative;
+
+    background: rgb(233,233,206); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(233,233,206,1) 0%, rgba(252,255,244,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(233,233,206,1)), color-stop(100%,rgba(252,255,244,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(233,233,206,1) 0%,rgba(252,255,244,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(233,233,206,1) 0%,rgba(252,255,244,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(233,233,206,1) 0%,rgba(252,255,244,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(233,233,206,1) 0%,rgba(252,255,244,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e9e9ce', endColorstr='#fcfff4',GradientType=0 ); /* IE6-9 */
+
+    float: left;
+}
+
+div.CompanyDetailsConstraint
+{
+    width: 400px;
+}
+
+div#companiesList
+{
+    padding: 0px;
+}
+
+div.CompanyDetailsContainer img.CloseDetailsContainer
+{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+div.CompanyDetailsContainer p.CompanyName
+{
+    font-size: 1.2em;
+    display: block;
+}
+
+div.CompanyDetailsContainer p.CompanyDescription
+{
+    font-size: 1.0em;
+    line-height: 1.0em;
+    font-style: italic;
+    margin-top: 5px;
+    margin-left: 5px;
+    display: block;
+    max-width: 80%;
+}
+
+div.CompanyDetailsContainer p.CompanyCreatedDate
+{
+    position: absolute;
+    top: 5px;
+    right: 55px;
+    font-size: .8em;
+}
+
+p.FriendlyText
+{
+    font-size: 1.2em;
+    max-width: 80%;
+    padding: 10px;
+    /*background-color: #e7ecf5;*/
+    line-height: 1.2em;
+    color: #323232;
+}

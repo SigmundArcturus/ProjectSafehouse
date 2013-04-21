@@ -139,12 +139,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\ActionListController.cs" />
+    <Compile Include="Controllers\ActionItemController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomAttributes\CustomAuthorize.cs" />
+    <Compile Include="CustomExceptions\UserExceptions.cs" />
     <Compile Include="Dependencies\DataAccessLayer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HTMLHelpers\JSON.cs" />
     <Compile Include="Models\ActionItem.cs" />
     <Compile Include="Models\ActionItemStatus.cs" />
     <Compile Include="Models\ActionItemType.cs" />
@@ -166,6 +172,21 @@
     <Compile Include="Models\UniversalCompanyDiscount.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLActionItem.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLActionItemType.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLActionItemUser.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLCompany.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLCompanyUser.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="SQLDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -181,26 +202,58 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SQLDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="SQLPriority.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLProject.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLRelease.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLStatus.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLSystemRole.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="SQLUser.cs">
       <DependentUpon>SQLDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AddUserTo.cs" />
+    <Compile Include="ViewModels\CreateActionItem.cs" />
+    <Compile Include="ViewModels\EditActionItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\arrow_down_alt1_32x32.png" />
+    <Content Include="Content\themes\base\images\article_24x24.png" />
     <Content Include="Content\themes\base\images\at_24x24.png" />
+    <Content Include="Content\themes\base\images\bars_24x24.png" />
     <Content Include="Content\themes\base\images\BlueStripes.png" />
     <Content Include="Content\themes\base\images\Background.png" />
+    <Content Include="Content\themes\base\images\book_alt_24x24.png" />
+    <Content Include="Content\themes\base\images\calendar_alt_fill_24x24.png" />
+    <Content Include="Content\themes\base\images\clock_24x24.png" />
     <Content Include="Content\themes\base\images\cog_32x32.png" />
     <Content Include="Content\themes\base\images\DeleteIcon.gif" />
     <Content Include="Content\themes\base\images\DownArrow.png" />
     <Content Include="Content\themes\base\images\DownArrowTiny.png" />
+    <Content Include="Content\themes\base\images\drive_go.png" />
+    <Content Include="Content\themes\base\images\equalizer_24x24.png" />
     <Content Include="Content\themes\base\images\home.png" />
     <Content Include="Content\themes\base\images\HomeIcon.png" />
     <Content Include="Content\themes\base\images\home_goldenrod.png" />
     <Content Include="Content\themes\base\images\key_stroke_24x24.png" />
+    <Content Include="Content\themes\base\images\layers_32x28.png" />
     <Content Include="Content\themes\base\images\lock_stroke_18x24.png" />
     <Content Include="Content\themes\base\images\Overlay.png" />
+    <Content Include="Content\themes\base\images\pen_24x24.png" />
+    <Content Include="Content\themes\base\images\pin_24x24.png" />
     <Content Include="Content\themes\base\images\PlusSign.png" />
+    <Content Include="Content\themes\base\images\plus_32x32.png" />
+    <Content Include="Content\themes\base\images\plus_alt_32x32.png" />
+    <Content Include="Content\themes\base\images\selectedTriangle.png" />
+    <Content Include="Content\themes\base\images\tag_stroke_24x24.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -214,7 +267,9 @@
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\undo_32x32.png" />
     <Content Include="Content\themes\base\images\user_24x32.png" />
+    <Content Include="Content\themes\base\images\x_alt_24x24.png" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\jquery.ui.accordion.css" />
     <Content Include="Content\themes\base\jquery.ui.all.css" />
@@ -230,6 +285,7 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\Login\Index.css" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -256,9 +312,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\themes\blue\ActionList.css" />
+    <Content Include="Content\themes\base\Login\Welcome.css" />
+    <Content Include="Content\themes\base\Shared\StandardPage.css" />
+    <Content Include="Content\themes\base\Shared\_Layout.css" />
     <Content Include="Content\themes\blue\images\YellowUser.png" />
-    <Content Include="Content\themes\blue\Login.css" />
     <Content Include="Content\themes\blue\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -277,7 +334,14 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\Login\Index.js" />
+    <Content Include="Scripts\Login\Welcome.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\safehouse.menu.js" />
+    <Content Include="Scripts\safehouse.namespacing.js" />
+    <Content Include="Scripts\safehouse.ajax.js" />
+    <Content Include="Scripts\Shared\StandardPage.js" />
+    <Content Include="Scripts\Shared\_Layout.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -291,7 +355,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\ActionList\Index.cshtml" />
+    <Content Include="Views\ActionItem\Index.cshtml" />
     <Content Include="Views\Login\Welcome.cshtml" />
     <EntityDeploy Include="SQLDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -310,6 +374,18 @@
       <DependentUpon>SQLDB.edmx</DependentUpon>
       <LastGenOutput>SQLDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Shared\StandardPage.cshtml" />
+    <Content Include="Views\Company\Partial_CompanyList.cshtml" />
+    <Content Include="Views\Company\Partial_CreateNewCompany.cshtml" />
+    <Content Include="Views\Project\Partial_ProjectList.cshtml" />
+    <Content Include="Views\Project\ProjectOverview.cshtml" />
+    <Content Include="Views\ActionItem\Partial_ActionItemList.cshtml" />
+    <Content Include="Views\Release\Partial_ReleaseList.cshtml" />
+    <Content Include="Views\ActionItem\Edit.cshtml" />
+    <Content Include="Views\ActionItem\Create.cshtml" />
+    <Content Include="Views\User\Partial_UserList.cshtml" />
+    <Content Include="Views\User\Partial_AddUserTo.cshtml" />
+    <Content Include="Views\Company\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -349,7 +425,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
-<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

@@ -109,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CompanyTesting.cs" />
+    <Compile Include="ProjectTesting.cs" />
+    <Compile Include="ReleaseTesting.cs" />
     <Compile Include="UserTesting.cs" />
   </ItemGroup>
   <ItemGroup>
