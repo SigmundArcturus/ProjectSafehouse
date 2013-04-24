@@ -248,10 +248,12 @@ namespace ProjectSafehouse.Abstractions
 
         public List<Models.Company> loadUserCompanies(Guid userId, bool includeAdmin, bool includeManager, bool includeUser)
         {
-            List<SQLCompany> foundCompanies = new List<SQLCompany>();
+            List<SQLCompany> foundCompanies = db.SQLCompanyUsers.Where(x => x.UserId == userId).Select(y => y.Company).ToList();
             List<Models.Company> returnMe = new List<Models.Company>();
             if (includeAdmin)
                 foundCompanies.AddRange(db.SQLCompanies.Where(x => x.CreatedByUserID == userId));
+
+            foundCompanies = foundCompanies.Distinct().ToList();
 
             foreach (SQLCompany comp in foundCompanies)
             {

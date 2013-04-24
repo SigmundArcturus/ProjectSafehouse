@@ -37,7 +37,7 @@ namespace ProjectSafehouse.Controllers
         }
 
         [HttpPost]
-        public ViewResult Partial_AddUserTo(AddUserTo AddUserTo)
+        public ActionResult Partial_AddUserTo(AddUserTo AddUserTo)
         {
             Models.User thisUser = DAL.loadUserByEmail(AddUserTo.ToAdd.EmailAddress, false);
 
@@ -54,7 +54,8 @@ namespace ProjectSafehouse.Controllers
                 }
             }
 
-            return View("~/Company/Admin/" + AddUserTo.DestinationID);
+            return RedirectToAction("Admin", "Company", new { id = AddUserTo.DestinationID });
+            //return View("~/Company/Admin/" + AddUserTo.DestinationID);
         }
 
     }
