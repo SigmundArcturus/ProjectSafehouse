@@ -1,0 +1,16 @@
+﻿@model ProjectSafehouse.Models.User
+
+@{
+    ViewBag.Title = "FAQ";
+    Layout = "~/Views/Shared/StandardPage.cshtml";
+}
+
+@section MainContent{
+    <b>><h1>Fequently Asked Questions</h1></b>
+    @if (Model != null)
+    {
+        @Model.Email
+    }
+
+    <div><b>What is Project Arsenal?</b></div>
+}
