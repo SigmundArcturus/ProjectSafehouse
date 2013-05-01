@@ -19,7 +19,6 @@ namespace ProjectSafehouse.Controllers
         }
 
         [HttpGet]
-        [CustomAuthorize]
         public PartialViewResult LoadUserCompanies(Guid userId)
         {
             List<Models.Company> returnMe = DAL.loadUserCompanies(userId, true, true, true);
