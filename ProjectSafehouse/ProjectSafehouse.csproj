@@ -141,10 +141,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActionItemController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAttributes\CustomAuthorize.cs" />
+    <Compile Include="CustomAttributes\ProjectArsenalAuthorizeAttribute.cs" />
     <Compile Include="CustomExceptions\UserExceptions.cs" />
     <Compile Include="Dependencies\DataAccessLayer.cs" />
     <Compile Include="Global.asax.cs">
@@ -387,6 +389,7 @@
     <Content Include="Views\User\Partial_UserList.cshtml" />
     <Content Include="Views\User\Partial_AddUserTo.cshtml" />
     <Content Include="Views\Company\Admin.cshtml" />
+    <Content Include="Views\Information\FAQ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

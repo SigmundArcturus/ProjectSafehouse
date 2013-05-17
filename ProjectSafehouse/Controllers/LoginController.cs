@@ -14,7 +14,8 @@ namespace ProjectSafehouse.Controllers
     {
         //
         // GET: /Login/
-
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             //return View();
@@ -27,20 +28,24 @@ namespace ProjectSafehouse.Controllers
             }
         }
 
-        public ViewResult NewUser(User user)
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult NewUser(User user)
         {
             CurrentUser = DAL.createNewUser(user);
-            return View("Welcome", CurrentUser);
+            return RedirectToAction("Welcome");
         }
 
-        public ViewResult ReturningUser(User user)
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ReturningUser(User user)
         {
             ViewBag.Error = null;
 
             CurrentUser = DAL.checkPassword(user.Email, user.Password);
 
             if (CurrentUser != null)
-                return View("Welcome", CurrentUser);
+                return RedirectToAction("Welcome");
             else
             {
                 ViewBag.Error = "Login error.  Please check your email and password.";
@@ -48,6 +53,13 @@ namespace ProjectSafehouse.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Welcome()
+        {
+            return View(CurrentUser);
+        }
+
+        [AllowAnonymous]
         public ViewResult LogOut()
         {
             ViewBag.Error = null;
