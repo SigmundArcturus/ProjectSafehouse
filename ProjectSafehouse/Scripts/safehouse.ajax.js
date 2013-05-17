@@ -12,5 +12,5 @@ ajaxMethod.LoadPartialView = function (params) {
         success: function (data) {
             $(params.resultTarget).html(data);
         }
-    });
+    }); 
 };
