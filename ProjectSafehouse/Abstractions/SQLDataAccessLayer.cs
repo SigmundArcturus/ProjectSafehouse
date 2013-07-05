@@ -847,13 +847,23 @@ namespace ProjectSafehouse.Abstractions
             return returnMe;
         }
 
-        public bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease)
+        public bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease, Models.User changedBy)
         {
             var existingActionItem = db.SQLActionItems.FirstOrDefault(x => x.ID == toUpdate.ID);
             bool savedUpdate = false;
 
             if (existingActionItem != null)
             {
+                var historyToAdd = findDifferences(existingActionItem, toUpdate);
+                var changeDate = DateTime.UtcNow;
+                foreach (var history in historyToAdd)
+                {
+                    history.ChangedWhen = changeDate;
+                    history.ChangedBy = changedBy.ID;
+                    history.ID = Guid.NewGuid();
+                    db.SQLActionItemHistories.Add(history);
+                }
+
                 existingActionItem.Estimate = null;
                 existingActionItem.ActionItemTypeId = toUpdate.CurrentType.ID;
                 existingActionItem.CurrentPriority = toUpdate.CurrentPriority.Order;
@@ -896,6 +906,124 @@ namespace ProjectSafehouse.Abstractions
             return savedUpdate;
         }
 
+        private List<SQLActionItemHistory> findDifferences(SQLActionItem oldItem, Models.ActionItem newItem)
+        {
+            List<SQLActionItemHistory> returnMe = new List<SQLActionItemHistory>();
+
+            var actionType = oldItem.GetType();
+            var properties = actionType.GetProperties();
+
+            #warning TODO:  Use reflection for this when you have time to figure out how to easily get user-friendly names for properties
+            //foreach (var prop in properties)
+            //{
+            //    var oldProp = prop.GetValue(oldItem);
+            //    var newProp = prop.GetValue(newItem);
+
+            //    if (oldProp != newProp)
+            //    {
+            //        returnMe.Add(new SQLActionItemHistory()
+            //        {
+            //            ActionItemID = newItem.ID,
+            //            DescriptionOfChange = newProp.ToString(),
+            //            ThingChanged = prop.Name,
+            //            ID = Guid.NewGuid()
+            //        });
+            //    }
+            //}
+
+            if (oldItem.Estimate != (newItem.Estimate.HasValue ? newItem.Estimate.Value : new TimeSpan(0)).TotalMilliseconds)
+                returnMe.Add(new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = newItem.Estimate.HasValue ? string.Format("updated estimate to: {0}", newItem.Estimate.Value) : "removed estimate",
+                    ThingChanged = "Estimate"
+                });
+
+            if (oldItem.ActionItemTypeId != newItem.CurrentType.ID)
+                returnMe.Add(new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = string.Format("updated type to: {0}", newItem.CurrentType.Title),
+                    ThingChanged = "Type"
+                });
+
+            if (oldItem.CurrentPriority != newItem.CurrentPriority.Order)
+                returnMe.Add(new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = string.Format("updated priority to: {0}", newItem.CurrentPriority.Name),
+                    ThingChanged = "Priority"
+                });
+
+            if (oldItem.Status.ID != newItem.CurrentStatus.ID)
+                returnMe.Add(new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = string.Format("updated status to: {0}", newItem.CurrentStatus.Name),
+                    ThingChanged = "Status"
+                });
+
+            if (oldItem.DateCompleted != newItem.DateCompleted)
+                returnMe.Add(new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = oldItem.DateCompleted.HasValue ? 
+                        (newItem.DateCompleted.HasValue ? string.Format("updated completed date / time to: {0}", newItem.DateCompleted.Value) : "removed completion date / time") :
+                        (newItem.DateCompleted.HasValue ? string.Format("added a completion date / time: {0}", newItem.DateCompleted.Value) : ""),
+                    ThingChanged = "Date Completed"
+                });
+
+            if (oldItem.Description != newItem.Description)
+                returnMe.Add(new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = "updated action-item description",
+                    ThingChanged = "Description"
+                });
+
+            if (oldItem.IndividualTargetDate != newItem.TargetDate)
+                returnMe.Add(new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = oldItem.IndividualTargetDate.HasValue ? 
+                        (newItem.TargetDate.HasValue ? string.Format("updated target date / time to: {0}", newItem.TargetDate.Value) : "removed target date / time") :
+                        (newItem.TargetDate.HasValue ? string.Format("added a target date / time: {0}", newItem.TargetDate.Value) : ""),
+                    ThingChanged = "Target Date"
+                });
+
+            if (oldItem.ActionItemUsers.Select(x => x.User.Name).OrderBy(y => y) != newItem.AssignedTo.Select(x => x.Name).OrderBy(y => y))
+            {
+                var toAdd = new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = "",
+                    ThingChanged = "Assigned To"
+                };
+                foreach (var assignedUser in oldItem.ActionItemUsers)
+                {
+                    toAdd.DescriptionOfChange += string.Format("{0},", assignedUser.User.Name);
+                }
+                returnMe.Add(toAdd);
+            }
+
+            if (oldItem.Name != newItem.Title)
+                returnMe.Add(new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = string.Format("updated title to: {0}", newItem.Title),
+                    ThingChanged = "Title"
+                });
+
+            if (newItem.TimeSpent != newItem.TimeSpent)
+                returnMe.Add(new SQLActionItemHistory()
+                {
+                    ActionItemID = oldItem.ID,
+                    DescriptionOfChange = newItem.TimeSpent.HasValue ? string.Format("updated title to: {0}", newItem.TimeSpent.Value) : "removed time spent",
+                    ThingChanged = "Time Spent"
+                });
+
+            return returnMe;
+        }
 
         public List<Models.User> loadProjectUsers(Guid projectId)
         {
@@ -936,7 +1064,7 @@ namespace ProjectSafehouse.Abstractions
         public List<Models.ActionItemHistoryEvent> loadActionItemHistory(Guid actionItemId)
         {
             List<Models.ActionItemHistoryEvent> returnMe = new List<Models.ActionItemHistoryEvent>();
-            var events = db.SQLActionItemHistories.Where(x => x.ActionItemID = actionItemId);
+            var events = db.SQLActionItemHistories.Where(x => x.ActionItemID == actionItemId);
             return returnMe;
         }
     }

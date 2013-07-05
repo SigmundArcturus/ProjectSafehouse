@@ -87,7 +87,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="None" />
           <Property Name="ActionItemID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ThingChanged" Type="varchar" Nullable="false" MaxLength="250" />
           <Property Name="DescriptionOfChange" Type="varchar(max)" />
@@ -804,7 +804,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Type="Guid" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Type="String" Name="ThingChanged" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="DescriptionOfChange" Unicode="false" FixedLength="false" MaxLength="Max" />
           <Property Type="DateTime" Name="ChangedWhen" Nullable="false" Precision="3" />

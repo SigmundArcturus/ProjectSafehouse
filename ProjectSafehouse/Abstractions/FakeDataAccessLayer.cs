@@ -223,7 +223,7 @@ namespace ProjectSafehouse.Abstractions
             throw new NotImplementedException();
         }
 
-        public bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease)
+        public bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease, Models.User changedBy)
         {
             throw new NotImplementedException();
         }

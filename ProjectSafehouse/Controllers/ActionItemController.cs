@@ -91,7 +91,7 @@ namespace ProjectSafehouse.Controllers
 
             Models.Release targetRelease = DAL.loadReleaseById(toEdit.SelectedRelease.ID);
 
-            DAL.saveChangesToActionItem(toEdit.CurrentActionItem, targetRelease);
+            DAL.saveChangesToActionItem(toEdit.CurrentActionItem, targetRelease, CurrentUser);
             return RedirectToAction("ProjectOverview", "Project");
         }
 

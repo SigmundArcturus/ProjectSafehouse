@@ -47,7 +47,7 @@ namespace ProjectSafehouse.Abstractions
         List<Models.ActionItem> loadReleaseActionItems(Guid releaseId);
         bool deleteExistingActionItem(Models.User deletedBy, string unhashedPassword, Guid targetActionItemId);
         Models.ActionItem loadActionItemById(Guid actionItemId);
-        bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease);
+        bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease, Models.User changedBy);
 
         // ActionItemHistory methods
         List<Models.ActionItemHistoryEvent> loadActionItemHistory(Guid actionItemId);

@@ -87,6 +87,9 @@ namespace ProjectSafehouse.Dependencies
             // always create a default project for any new company
             if (createdCompany != null)
             {
+
+                addUserToCompany(createdCompany.ID, creator.ID);
+
                 List<Models.ActionItemType> companyActionItemTypes = loadCompanyActionItemTypes(createdCompany.ID);
                 List<Models.ActionItemStatus> companyActionItemStatuses = loadCompanyActionItemStatuses(createdCompany.ID);
 
@@ -237,9 +240,9 @@ namespace ProjectSafehouse.Dependencies
             return dal.loadActionItemById(actionItemId);
         }
 
-        public bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease)
+        public bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease, Models.User changedBy)
         {
-            return dal.saveChangesToActionItem(toUpdate, targetRelease);
+            return dal.saveChangesToActionItem(toUpdate, targetRelease, changedBy);
         }
 
 
