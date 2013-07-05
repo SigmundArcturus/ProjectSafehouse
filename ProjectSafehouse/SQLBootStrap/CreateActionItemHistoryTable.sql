@@ -1,7 +1,7 @@
 USE [ProjectSafehouse]
 GO
 
-/****** Object:  Table [dbo].[ActionItemHistory]    Script Date: 7/3/2013 10:43:12 PM ******/
+/****** Object:  Table [dbo].[ActionItemHistory]    Script Date: 7/5/2013 9:57:33 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -18,6 +18,7 @@ CREATE TABLE [dbo].[ActionItemHistory](
 	[DescriptionOfChange] [varchar](max) NULL,
 	[ChangedBy] [uniqueidentifier] NOT NULL,
 	[ChangedWhen] [datetime] NOT NULL,
+	[ChangeGrouping] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_ActionItemHistory] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC

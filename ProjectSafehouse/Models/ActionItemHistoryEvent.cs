@@ -12,5 +12,6 @@ namespace ProjectSafehouse.Models
         public string ChangeMade { get; set; }
         public User WhoChangedIt { get; set; }
         public DateTime WhenItChanged { get; set; }
+        public Guid Grouping { get; set; }
     }
 }

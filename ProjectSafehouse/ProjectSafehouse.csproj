@@ -163,7 +163,6 @@
     <Compile Include="Models\FileFolder.cs" />
     <Compile Include="Models\FileRevision.cs" />
     <Compile Include="Models\FinanceCode.cs" />
-    <Compile Include="Models\HistoricEvent.cs" />
     <Compile Include="Models\Path.cs" />
     <Compile Include="Models\Priority.cs" />
     <Compile Include="Models\Project.cs" />
@@ -229,6 +228,7 @@
     <Compile Include="ViewModels\AddUserTo.cs" />
     <Compile Include="ViewModels\CreateActionItem.cs" />
     <Compile Include="ViewModels\EditActionItem.cs" />
+    <Compile Include="ViewModels\HistoricEventGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\arrow_down_alt1_32x32.png" />
@@ -396,6 +396,7 @@
     <Content Include="Views\User\Partial_AddUserTo.cshtml" />
     <Content Include="Views\Company\Admin.cshtml" />
     <Content Include="Views\Information\FAQ.cshtml" />
+    <Content Include="Views\ActionItem\Partial_ActionItemHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

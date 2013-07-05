@@ -245,7 +245,6 @@ namespace ProjectSafehouse.Dependencies
             return dal.saveChangesToActionItem(toUpdate, targetRelease, changedBy);
         }
 
-
         public List<Models.User> loadProjectUsers(Guid projectId)
         {
             return dal.loadProjectUsers(projectId);

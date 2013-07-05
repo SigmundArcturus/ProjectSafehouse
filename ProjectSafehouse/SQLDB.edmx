@@ -87,12 +87,13 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="None" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ActionItemID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ThingChanged" Type="varchar" Nullable="false" MaxLength="250" />
           <Property Name="DescriptionOfChange" Type="varchar(max)" />
           <Property Name="ChangedBy" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ChangedWhen" Type="datetime" Nullable="false" />
+          <Property Name="ChangeGrouping" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="ActionItems">
           <Key>
@@ -812,6 +813,7 @@
           <Property Type="Guid" Name="ActionItemID" Nullable="false" />
           <NavigationProperty Name="ActionItem" Relationship="ProjectSafehouseModel.FK_ActionItemHistory_ActionItems" FromRole="SQLActionItemHistory" ToRole="SQLActionItem" />
           <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_ActionItemHistory_Users" FromRole="SQLActionItemHistory" ToRole="SQLUser" />
+          <Property Type="Guid" Name="ChangeGrouping" Nullable="false" />
         </EntityType>
         <Association Name="FK_ActionItemHistory_ActionItems">
           <End Type="ProjectSafehouseModel.SQLActionItem" Role="SQLActionItem" Multiplicity="1" />
@@ -974,6 +976,7 @@
           <EntitySetMapping Name="SQLActionItemHistories">
             <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLActionItemHistory">
               <MappingFragment StoreEntitySet="ActionItemHistory">
+                <ScalarProperty Name="ChangeGrouping" ColumnName="ChangeGrouping" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ActionItemID" ColumnName="ActionItemID" />
                 <ScalarProperty Name="ThingChanged" ColumnName="ThingChanged" />

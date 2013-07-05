@@ -684,6 +684,101 @@ namespace ProjectSafehouse.Abstractions
             db.SQLActionItems.Add(toInsert);
             db.SaveChanges();
             db.SQLActionItemUsers.Add(assignmentsToCreate);
+            List<SQLActionItemHistory> historicEvents = new List<SQLActionItemHistory>();
+
+            if (toInsert.Estimate.HasValue)
+            historicEvents.Add(new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = string.Format("set estimate to: {0}", toInsert.Estimate.Value),
+                ThingChanged = "Estimate"
+            });
+
+            historicEvents.Add(new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = string.Format("set type to: {0}", toInsert.ActionItemType.Name),
+                ThingChanged = "Type"
+            });
+
+            historicEvents.Add(new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = string.Format("set priority to: {0}", toInsert.CurrentPriority),
+                ThingChanged = "Priority"
+            });
+
+
+            historicEvents.Add(new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = string.Format("set status to: {0}", toInsert.Status.Name),
+                ThingChanged = "Status"
+            });
+
+            if (toInsert.DateCompleted.HasValue)
+            historicEvents.Add(new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = string.Format("set completion date to: {0}", toInsert.DateCompleted.Value),
+                ThingChanged = "Date Completed"
+            });
+
+
+            historicEvents.Add(new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = string.Format("set action-item description: {0}", toInsert.Description),
+                ThingChanged = "Description"
+            });
+
+            if (toInsert.IndividualTargetDate.HasValue)
+            historicEvents.Add(new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = string.Format("set target date: {0}", toInsert.IndividualTargetDate.Value),
+                ThingChanged = "Target Date"
+            });
+
+            var toAdd = new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = "",
+                ThingChanged = "Assigned To"
+            };
+            foreach (var assignedUser in toInsert.ActionItemUsers)
+            {
+                toAdd.DescriptionOfChange += string.Format("{0},", assignedUser.User.Email);
+            }
+            historicEvents.Add(toAdd);
+
+
+            historicEvents.Add(new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = string.Format("set title to: {0}", toInsert.Name),
+                ThingChanged = "Title"
+            });
+
+            if (toInsert.TimeSpent.HasValue)
+            historicEvents.Add(new SQLActionItemHistory()
+            {
+                ActionItemID = toInsert.ID,
+                DescriptionOfChange = string.Format("set time spent to: {0}", toInsert.TimeSpent.Value),
+                ThingChanged = "Time Spent"
+            });
+
+            Guid createEventID = Guid.NewGuid();
+
+            foreach (var history in historicEvents)
+            {
+                history.ID = Guid.NewGuid();
+                history.ChangeGrouping = createEventID;
+                history.ChangedWhen = toInsert.DateCreated;
+                history.ChangedBy = creator.ID;
+                db.SQLActionItemHistories.Add(history);
+            }
+
             db.SaveChanges();
 
             return toCreate;
@@ -856,11 +951,13 @@ namespace ProjectSafehouse.Abstractions
             {
                 var historyToAdd = findDifferences(existingActionItem, toUpdate);
                 var changeDate = DateTime.UtcNow;
+                var uniqueChangeSetID = Guid.NewGuid();
                 foreach (var history in historyToAdd)
                 {
                     history.ChangedWhen = changeDate;
                     history.ChangedBy = changedBy.ID;
                     history.ID = Guid.NewGuid();
+                    history.ChangeGrouping = uniqueChangeSetID;
                     db.SQLActionItemHistories.Add(history);
                 }
 
@@ -991,7 +1088,7 @@ namespace ProjectSafehouse.Abstractions
                     ThingChanged = "Target Date"
                 });
 
-            if (oldItem.ActionItemUsers.Select(x => x.User.Name).OrderBy(y => y) != newItem.AssignedTo.Select(x => x.Name).OrderBy(y => y))
+            if (oldItem.ActionItemUsers.Select(x => x.User.Email).OrderBy(y => y) != newItem.AssignedTo.Select(x => x.Email).OrderBy(y => y))
             {
                 var toAdd = new SQLActionItemHistory()
                 {
@@ -1001,7 +1098,7 @@ namespace ProjectSafehouse.Abstractions
                 };
                 foreach (var assignedUser in oldItem.ActionItemUsers)
                 {
-                    toAdd.DescriptionOfChange += string.Format("{0},", assignedUser.User.Name);
+                    toAdd.DescriptionOfChange += string.Format("{0},", assignedUser.User.Email);
                 }
                 returnMe.Add(toAdd);
             }
@@ -1018,7 +1115,7 @@ namespace ProjectSafehouse.Abstractions
                 returnMe.Add(new SQLActionItemHistory()
                 {
                     ActionItemID = oldItem.ID,
-                    DescriptionOfChange = newItem.TimeSpent.HasValue ? string.Format("updated title to: {0}", newItem.TimeSpent.Value) : "removed time spent",
+                    DescriptionOfChange = newItem.TimeSpent.HasValue ? string.Format("updated time spent to: {0}", newItem.TimeSpent.Value) : "removed time spent",
                     ThingChanged = "Time Spent"
                 });
 
@@ -1065,6 +1162,25 @@ namespace ProjectSafehouse.Abstractions
         {
             List<Models.ActionItemHistoryEvent> returnMe = new List<Models.ActionItemHistoryEvent>();
             var events = db.SQLActionItemHistories.Where(x => x.ActionItemID == actionItemId);
+            returnMe.AddRange(events.Select(x => new Models.ActionItemHistoryEvent()
+                {
+                    ChangeMade = x.DescriptionOfChange,
+                    Grouping = x.ChangeGrouping,
+                    WhatChanged = x.ThingChanged,
+                    WhenItChanged = x.ChangedWhen,
+                    ID = x.ID,
+                    WhoChangedIt = new Models.User()
+                    {
+                        ID = x.ChangedBy
+                    }
+                })
+            );
+
+            foreach(var item in returnMe)
+            {
+                item.WhoChangedIt = loadUserById(item.WhoChangedIt.ID, false);
+            }
+
             return returnMe;
         }
     }

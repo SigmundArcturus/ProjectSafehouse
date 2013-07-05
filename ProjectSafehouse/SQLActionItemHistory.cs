@@ -20,6 +20,7 @@ namespace ProjectSafehouse
         public System.DateTime ChangedWhen { get; set; }
         public System.Guid ChangedBy { get; set; }
         public System.Guid ActionItemID { get; set; }
+        public System.Guid ChangeGrouping { get; set; }
     
         public virtual SQLActionItem ActionItem { get; set; }
         public virtual SQLUser User { get; set; }

@@ -1,0 +1,14 @@
+﻿@model List<ProjectSafehouse.ViewModels.HistoricEventGroup>
+
+@foreach (var historicEvent in Model)
+{
+    <div class="HistoricEvent">
+        <h4>@historicEvent.EventCausedBy.Email on @historicEvent.EventDateTime.ToString("MM/dd/yyyy hh:mm")</h4>
+        <ul class="ChangesList">
+            @foreach (var change in historicEvent.RelatedEvents)
+            {
+                <li>@change.WhatChanged: @change.ChangeMade</li>
+            }
+        </ul>
+    </div>
+}

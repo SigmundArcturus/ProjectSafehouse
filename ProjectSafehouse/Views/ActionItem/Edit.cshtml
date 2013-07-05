@@ -39,6 +39,10 @@
 
 @section MainContent{
 
+<div style="clear:both;">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
 <div class="CreationColumn">
     <h2>View & Edit ActionItem </h2>
 
@@ -130,7 +134,7 @@
  </div>
 
 <div style="clear:both;">
-    @Html.ActionLink("Back to List", "Index")
+    @Html.Partial("Partial_ActionItemHistory", Model.ActionItemHistory);
 </div>
 
 }
