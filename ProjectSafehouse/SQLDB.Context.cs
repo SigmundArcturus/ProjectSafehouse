@@ -36,5 +36,6 @@ namespace ProjectSafehouse
         public DbSet<SQLPriority> SQLPriorities { get; set; }
         public DbSet<SQLCompanyUser> SQLCompanyUsers { get; set; }
         public DbSet<SQLSystemRole> SQLSystemRoles { get; set; }
+        public DbSet<SQLActionItemHistory> SQLActionItemHistories { get; set; }
     }
 }

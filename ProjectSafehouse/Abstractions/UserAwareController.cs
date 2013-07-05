@@ -71,7 +71,7 @@ namespace ProjectSafehouse.Abstractions
 
         public UserAwareController()
         {
-
+            //DependencyInjection
             UnityConfigurationSection config =
                     ConfigurationManager.GetSection("unity") as UnityConfigurationSection;
 

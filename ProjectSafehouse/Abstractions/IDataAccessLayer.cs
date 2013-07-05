@@ -49,6 +49,9 @@ namespace ProjectSafehouse.Abstractions
         Models.ActionItem loadActionItemById(Guid actionItemId);
         bool saveChangesToActionItem(Models.ActionItem toUpdate, Models.Release targetRelease);
 
+        // ActionItemHistory methods
+        List<Models.ActionItemHistoryEvent> loadActionItemHistory(Guid actionItemId);
+
         // Priority methods
         Models.Priority loadCompanyActionItemPriority(int number, Guid companyId);
 

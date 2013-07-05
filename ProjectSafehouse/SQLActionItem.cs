@@ -17,6 +17,7 @@ namespace ProjectSafehouse
         public SQLActionItem()
         {
             this.ActionItemUsers = new HashSet<SQLActionItemUser>();
+            this.ActionItemHistories = new HashSet<SQLActionItemHistory>();
         }
     
         public System.Guid ID { get; set; }
@@ -37,5 +38,6 @@ namespace ProjectSafehouse
         public virtual SQLStatus Status { get; set; }
         public virtual SQLRelease Release { get; set; }
         public virtual ICollection<SQLActionItemUser> ActionItemUsers { get; set; }
+        public virtual ICollection<SQLActionItemHistory> ActionItemHistories { get; set; }
     }
 }

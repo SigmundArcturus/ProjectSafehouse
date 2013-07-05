@@ -258,5 +258,9 @@ namespace ProjectSafehouse.Dependencies
             return dal.addUserToCompany(projectId, userId);
         }
 
+        public List<Models.ActionItemHistoryEvent> loadActionItemHistory(Guid actionItemId)
+        {
+            return dal.loadActionItemHistory(actionItemId);
+        }
     }
 }

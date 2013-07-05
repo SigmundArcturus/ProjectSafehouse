@@ -20,5 +20,6 @@ namespace ProjectSafehouse.Models
         public DateTime? DateCompleted { get; set; }
         public Priority CurrentPriority { get; set; }
         public DateTime? TargetDate { get; set; }
+        public IEnumerable<ActionItemHistoryEvent> History { get; set; }
     }
 }

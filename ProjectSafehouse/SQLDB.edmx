@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="ProjectSafehouseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ProjectSafehouseModelStoreContainer">
+          <EntitySet Name="ActionItemHistory" EntityType="ProjectSafehouseModel.Store.ActionItemHistory" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ActionItems" EntityType="ProjectSafehouseModel.Store.ActionItems" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ActionItemTypes" EntityType="ProjectSafehouseModel.Store.ActionItemTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ActionItemUsers" EntityType="ProjectSafehouseModel.Store.ActionItemUsers" store:Type="Tables" Schema="dbo" />
@@ -17,6 +18,14 @@
           <EntitySet Name="Statuses" EntityType="ProjectSafehouseModel.Store.Statuses" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SystemRoles" EntityType="ProjectSafehouseModel.Store.SystemRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="ProjectSafehouseModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ActionItemHistory_ActionItems" Association="ProjectSafehouseModel.Store.FK_ActionItemHistory_ActionItems">
+            <End Role="ActionItems" EntitySet="ActionItems" />
+            <End Role="ActionItemHistory" EntitySet="ActionItemHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionItemHistory_Users" Association="ProjectSafehouseModel.Store.FK_ActionItemHistory_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ActionItemHistory" EntitySet="ActionItemHistory" />
+          </AssociationSet>
           <AssociationSet Name="FK_ActionItems_ActionItemTypes" Association="ProjectSafehouseModel.Store.FK_ActionItems_ActionItemTypes">
             <End Role="ActionItemTypes" EntitySet="ActionItemTypes" />
             <End Role="ActionItems" EntitySet="ActionItems" />
@@ -74,6 +83,17 @@
             <End Role="Releases" EntitySet="Releases" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ActionItemHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ActionItemID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ThingChanged" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="DescriptionOfChange" Type="varchar(max)" />
+          <Property Name="ChangedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ChangedWhen" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="ActionItems">
           <Key>
             <PropertyRef Name="ID" />
@@ -191,6 +211,30 @@
           <Property Name="OvertimeMultiplier" Type="decimal" Scale="2" />
           <Property Name="OvertimeThreshold" Type="decimal" Scale="2" />
         </EntityType>
+        <Association Name="FK_ActionItemHistory_ActionItems">
+          <End Role="ActionItems" Type="ProjectSafehouseModel.Store.ActionItems" Multiplicity="1" />
+          <End Role="ActionItemHistory" Type="ProjectSafehouseModel.Store.ActionItemHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionItems">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItemHistory">
+              <PropertyRef Name="ActionItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionItemHistory_Users">
+          <End Role="Users" Type="ProjectSafehouseModel.Store.Users" Multiplicity="1" />
+          <End Role="ActionItemHistory" Type="ProjectSafehouseModel.Store.ActionItemHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionItemHistory">
+              <PropertyRef Name="ChangedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ActionItems_ActionItemTypes">
           <End Role="ActionItemTypes" Type="ProjectSafehouseModel.Store.ActionItemTypes" Multiplicity="1" />
           <End Role="ActionItems" Type="ProjectSafehouseModel.Store.ActionItems" Multiplicity="*" />
@@ -431,6 +475,15 @@
             <End Role="SQLUser" EntitySet="SQLUsers" />
             <End Role="CompanyUser" EntitySet="SQLCompanyUsers" />
           </AssociationSet>
+          <EntitySet Name="SQLActionItemHistories" EntityType="ProjectSafehouseModel.SQLActionItemHistory" />
+          <AssociationSet Name="FK_ActionItemHistory_ActionItems" Association="ProjectSafehouseModel.FK_ActionItemHistory_ActionItems">
+            <End Role="SQLActionItem" EntitySet="SQLActionItems" />
+            <End Role="SQLActionItemHistory" EntitySet="SQLActionItemHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionItemHistory_Users" Association="ProjectSafehouseModel.FK_ActionItemHistory_Users">
+            <End Role="SQLUser" EntitySet="SQLUsers" />
+            <End Role="SQLActionItemHistory" EntitySet="SQLActionItemHistories" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="SQLUser">
           <Key>
@@ -449,6 +502,7 @@
           <NavigationProperty Name="ActionItemUsers" Relationship="ProjectSafehouseModel.FK_ActionItemUsers_Users" FromRole="SQLUser" ToRole="ActionItemUser" />
           <NavigationProperty Name="CompanyUsers" Relationship="ProjectSafehouseModel.FK_CompanyUsers_Users" FromRole="SQLUser" ToRole="CompanyUser" />
           <NavigationProperty Name="CompanyUsers1" Relationship="ProjectSafehouseModel.FK_CompanyUsers_Users1" FromRole="SQLUser" ToRole="CompanyUser" />
+          <NavigationProperty Name="ActionItemHistories" Relationship="ProjectSafehouseModel.FK_ActionItemHistory_Users" FromRole="SQLUser" ToRole="SQLActionItemHistory" />
         </EntityType>
         <EntityType Name="SQLCompany">
           <Key>
@@ -561,6 +615,7 @@
           <NavigationProperty Name="Status" Relationship="ProjectSafehouseModel.FK_ActionItems_Statuses" FromRole="ActionItem" ToRole="Status" />
           <NavigationProperty Name="Release" Relationship="ProjectSafehouseModel.FK_ActionItems_Releases" FromRole="SQLActionItem" ToRole="SQLRelease" />
           <NavigationProperty Name="ActionItemUsers" Relationship="ProjectSafehouseModel.FK_ActionItemUsers_ActionItems" FromRole="SQLActionItem" ToRole="ActionItemUser" />
+          <NavigationProperty Name="ActionItemHistories" Relationship="ProjectSafehouseModel.FK_ActionItemHistory_ActionItems" FromRole="SQLActionItem" ToRole="SQLActionItemHistory" />
         </EntityType>
         <EntityType Name="SQLActionItemType">
           <Key>
@@ -745,6 +800,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SQLActionItemHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ThingChanged" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DescriptionOfChange" Unicode="false" FixedLength="false" MaxLength="Max" />
+          <Property Type="DateTime" Name="ChangedWhen" Nullable="false" Precision="3" />
+          <Property Type="Guid" Name="ChangedBy" Nullable="false" />
+          <Property Type="Guid" Name="ActionItemID" Nullable="false" />
+          <NavigationProperty Name="ActionItem" Relationship="ProjectSafehouseModel.FK_ActionItemHistory_ActionItems" FromRole="SQLActionItemHistory" ToRole="SQLActionItem" />
+          <NavigationProperty Name="User" Relationship="ProjectSafehouseModel.FK_ActionItemHistory_Users" FromRole="SQLActionItemHistory" ToRole="SQLUser" />
+        </EntityType>
+        <Association Name="FK_ActionItemHistory_ActionItems">
+          <End Type="ProjectSafehouseModel.SQLActionItem" Role="SQLActionItem" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLActionItemHistory" Role="SQLActionItemHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLActionItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SQLActionItemHistory">
+              <PropertyRef Name="ActionItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionItemHistory_Users">
+          <End Type="ProjectSafehouseModel.SQLUser" Role="SQLUser" Multiplicity="1" />
+          <End Type="ProjectSafehouseModel.SQLActionItemHistory" Role="SQLActionItemHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SQLUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SQLActionItemHistory">
+              <PropertyRef Name="ChangedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -876,6 +968,18 @@
               <MappingFragment StoreEntitySet="SystemRoles">
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQLActionItemHistories">
+            <EntityTypeMapping TypeName="ProjectSafehouseModel.SQLActionItemHistory">
+              <MappingFragment StoreEntitySet="ActionItemHistory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ActionItemID" ColumnName="ActionItemID" />
+                <ScalarProperty Name="ThingChanged" ColumnName="ThingChanged" />
+                <ScalarProperty Name="DescriptionOfChange" ColumnName="DescriptionOfChange" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="ChangedWhen" ColumnName="ChangedWhen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

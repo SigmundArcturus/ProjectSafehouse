@@ -154,6 +154,7 @@
     </Compile>
     <Compile Include="HTMLHelpers\JSON.cs" />
     <Compile Include="Models\ActionItem.cs" />
+    <Compile Include="Models\ActionItemHistoryEvent.cs" />
     <Compile Include="Models\ActionItemStatus.cs" />
     <Compile Include="Models\ActionItemType.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -175,6 +176,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLActionItem.cs">
+      <DependentUpon>SQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQLActionItemHistory.cs">
       <DependentUpon>SQLDB.tt</DependentUpon>
     </Compile>
     <Compile Include="SQLActionItemType.cs">
@@ -346,7 +350,9 @@
     <Content Include="Scripts\Shared\StandardPage.js" />
     <Content Include="Scripts\Shared\_Layout.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

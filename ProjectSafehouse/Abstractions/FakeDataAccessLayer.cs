@@ -243,5 +243,11 @@ namespace ProjectSafehouse.Abstractions
         {
             throw new NotImplementedException();
         }
+
+
+        public List<Models.ActionItemHistoryEvent> loadActionItemHistory(Guid actionItemId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -932,5 +932,12 @@ namespace ProjectSafehouse.Abstractions
         {
             throw new NotImplementedException();
         }
+
+        public List<Models.ActionItemHistoryEvent> loadActionItemHistory(Guid actionItemId)
+        {
+            List<Models.ActionItemHistoryEvent> returnMe = new List<Models.ActionItemHistoryEvent>();
+            var events = db.SQLActionItemHistories.Where(x => x.ActionItemID = actionItemId);
+            return returnMe;
+        }
     }
 }

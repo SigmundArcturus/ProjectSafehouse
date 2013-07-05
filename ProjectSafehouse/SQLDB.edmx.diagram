@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4c4f33529e374a979b98da99ad4b902a" Name="Diagram1">
+      <Diagram DiagramId="4c4f33529e374a979b98da99ad4b902a" Name="Diagram1" ZoomLevel="63">
         <EntityTypeShape EntityType="ProjectSafehouseModel.SQLUser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSafehouseModel.SQLCompany" Width="1.5" PointX="2.875" PointY="0.75" />
         <AssociationConnector Association="ProjectSafehouseModel.FK_Companies_Users" />
@@ -30,6 +30,9 @@
         <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_SystemRoles" />
         <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_Users" />
         <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_Users1" />
+        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLActionItemHistory" Width="2.375" PointX="10.625" PointY="5.5" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItemHistory_ActionItems" />
+        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItemHistory_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

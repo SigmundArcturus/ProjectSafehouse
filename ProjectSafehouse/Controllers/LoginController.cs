@@ -24,7 +24,7 @@ namespace ProjectSafehouse.Controllers
             else
             {
                 ViewBag.CurrentUser = CurrentUser;
-                return View("Welcome", CurrentUser);
+                return RedirectToAction("Welcome");
             }
         }
 
