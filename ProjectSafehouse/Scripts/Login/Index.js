@@ -21,8 +21,8 @@
 $(document).ready(function () {
 
     var loginMenu = ProjectSafehouse.Utilities.Menu;
-    loginMenu.SetCurrentMenu(loginMenu.ExampleMenu);
-    loginMenu.LoadTopLevel(loginMenu.ExampleMenu);
+    //loginMenu.SetCurrentMenu(loginMenu.ExampleMenu);
+    //loginMenu.LoadTopLevel(loginMenu.ExampleMenu);
 
     $('div.CleanBox').on('focus', 'input', function () {
         var parent = $(this).parent();

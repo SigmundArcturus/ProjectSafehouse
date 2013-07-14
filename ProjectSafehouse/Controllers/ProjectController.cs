@@ -27,7 +27,7 @@ namespace ProjectSafehouse.Controllers
         }
 
         [HttpGet]
-        public ViewResult ProjectOverview(Guid? projectId)
+        public ViewResult Overview(Guid? projectId)
         {
             Guid? targetId = projectId;
 

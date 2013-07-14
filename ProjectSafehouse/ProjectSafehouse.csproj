@@ -51,6 +51,9 @@
     <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="MvcSiteMapProvider">
+      <HintPath>..\packages\MvcSiteMapProvider.3.3.6.0\lib\net40\MvcSiteMapProvider.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -251,6 +254,7 @@
     <Content Include="Content\themes\base\images\home_goldenrod.png" />
     <Content Include="Content\themes\base\images\key_stroke_24x24.png" />
     <Content Include="Content\themes\base\images\layers_32x28.png" />
+    <Content Include="Content\themes\base\images\loading.gif" />
     <Content Include="Content\themes\base\images\lock_stroke_18x24.png" />
     <Content Include="Content\themes\base\images\Overlay.png" />
     <Content Include="Content\themes\base\images\pen_24x24.png" />
@@ -325,6 +329,10 @@
     <Content Include="Content\themes\blue\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Mvc.sitemap" />
+    <None Include="MvcSiteMapSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\To Desktop.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -387,7 +395,7 @@
     <Content Include="Views\Company\Partial_CompanyList.cshtml" />
     <Content Include="Views\Company\Partial_CreateNewCompany.cshtml" />
     <Content Include="Views\Project\Partial_ProjectList.cshtml" />
-    <Content Include="Views\Project\ProjectOverview.cshtml" />
+    <Content Include="Views\Project\Overview.cshtml" />
     <Content Include="Views\ActionItem\Partial_ActionItemList.cshtml" />
     <Content Include="Views\Release\Partial_ReleaseList.cshtml" />
     <Content Include="Views\ActionItem\Edit.cshtml" />
@@ -397,6 +405,12 @@
     <Content Include="Views\Company\Admin.cshtml" />
     <Content Include="Views\Information\FAQ.cshtml" />
     <Content Include="Views\ActionItem\Partial_ActionItemHistory.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -71,8 +71,8 @@ companyCreator.CreateCompany = function (newCompany) {
 
 $(document).ready(function () {
     var loginMenu = ProjectSafehouse.Utilities.Menu;
-    loginMenu.SetCurrentMenu(welcomeMainMenu);
-    loginMenu.LoadTopLevel();
+    //loginMenu.SetCurrentMenu(welcomeMainMenu);
+    //loginMenu.LoadTopLevel();
 
     var ajaxMethods = ProjectSafehouse.Utilities.AJAX;
     ajaxMethods.LoadPartialView({

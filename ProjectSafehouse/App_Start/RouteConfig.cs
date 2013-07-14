@@ -33,8 +33,8 @@ namespace ProjectSafehouse
 
             routes.MapRoute(
                 name: "ProjectOverview",
-                url: "Project/{projectId}/ProjectOverview",
-                defaults: new { controller = "Project", action = "ProjectOverview", projectId = UrlParameter.Optional }
+                url: "Project/{projectId}/Overview",
+                defaults: new { controller = "Project", action = "Overview", projectId = UrlParameter.Optional }
             );
 
             routes.MapRoute(

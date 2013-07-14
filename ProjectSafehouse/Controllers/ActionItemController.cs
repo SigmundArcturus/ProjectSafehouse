@@ -61,7 +61,7 @@ namespace ProjectSafehouse.Controllers
 
             DAL.createNewActionItem(CurrentUser, targetRelease, toCreate.CurrentActionItem, CurrentUser);
 
-            return RedirectToAction("ProjectOverview", "Project");
+            return RedirectToAction("Overview", "Project");
         }
 
         [HttpGet]
@@ -118,7 +118,7 @@ namespace ProjectSafehouse.Controllers
             Models.Release targetRelease = DAL.loadReleaseById(toEdit.SelectedRelease.ID);
 
             DAL.saveChangesToActionItem(toEdit.CurrentActionItem, targetRelease, CurrentUser);
-            return RedirectToAction("ProjectOverview", "Project");
+            return RedirectToAction("Overview", "Project");
         }
 
     }

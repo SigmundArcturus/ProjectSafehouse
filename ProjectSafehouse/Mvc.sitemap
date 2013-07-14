@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
+            enableLocalization="true">
+
+  <mvcSiteMapNode title="Login" controller="Login" action="Index" requireLoggedIn="false">
+    <mvcSiteMapNode title="Welcome" controller="Login" action="Welcome" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
+    <mvcSiteMapNode title="Company Admin" controller="Company" action="Admin" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
+    <mvcSiteMapNode title="Project Overview" controller="Project" action="Overview" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
+    <mvcSiteMapNode title="Action Item Index" controller="ActionItem" action="Index" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true">
+      <mvcSiteMapNode title="Action Item Edit" controller="ActionItem" action="Edit" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
+      <mvcSiteMapNode title="Action Item Create" controller="ActionItem" action="Create" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="About Us" controller="Information" action="FAQ" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="false"/>
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

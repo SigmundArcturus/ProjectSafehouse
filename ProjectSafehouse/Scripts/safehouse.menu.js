@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('#mainMenu').on('click', '.NavDropDown', function () {
         $('.NavSelected').removeClass('NavSelected');
         $(this).addClass('NavSelected');
-        menuMethods.ToggleSubMenu($(this).attr('id'));
+        menuMethods.ToggleSubMenu($(this));
     });
 
     $('body').on('mouseleave', '#subMenu', function () {
@@ -59,9 +59,13 @@ menuMethods.LoadTopLevel = function () {
     }
 }
 
-menuMethods.ToggleSubMenu = function (targetId) {
-    var Menu = menuMethods.CurrentMenu;
+menuMethods.ToggleSubMenu = function (target) {
+    //var Menu = menuMethods.CurrentMenu;
     $('#subMenu').html('');
+
+    var newHtml = $(target).find('.HiddenSubNav').html();
+
+    $('#subMenu').html(newHtml);
 
     if ($('#subMenu').height() < 1) {
         
@@ -74,23 +78,23 @@ menuMethods.ToggleSubMenu = function (targetId) {
         );
     }
 
-    var selectedItem = null;
-    for (var i = 0; i < Menu.length; i++) {
-        if (Menu[i].id == targetId) {
-            selectedItem = Menu[i];
-        }
-    }
+    //var selectedItem = null;
+    //for (var i = 0; i < Menu.length; i++) {
+    //    if (Menu[i].id == targetId) {
+    //        selectedItem = Menu[i];
+    //    }
+    //}
 
-    if (selectedItem && selectedItem.submenu) {
-        for(var j = 0; j < selectedItem.submenu.length; j++)
-        {
-            var subItem = selectedItem.submenu[j];
-            $('#subMenu').append('<div class="NavOption NavLink">' +
-                '<a href="' + subItem.link + '">' +
-                    subItem.text +
-                '</a>' +
-            '</div> ');
-        }
-    }
+    //if (selectedItem && selectedItem.submenu) {
+    //    for(var j = 0; j < selectedItem.submenu.length; j++)
+    //    {
+    //        var subItem = selectedItem.submenu[j];
+    //        $('#subMenu').append('<div class="NavOption NavLink">' +
+    //            '<a href="' + subItem.link + '">' +
+    //                subItem.text +
+    //            '</a>' +
+    //        '</div> ');
+    //    }
+    //}
 }
 
