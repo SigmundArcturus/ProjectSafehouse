@@ -151,6 +151,7 @@
     <Compile Include="CustomAttributes\CustomAuthorize.cs" />
     <Compile Include="CustomAttributes\ProjectArsenalAuthorizeAttribute.cs" />
     <Compile Include="CustomExceptions\UserExceptions.cs" />
+    <Compile Include="CustomSiteMap\CustomSiteMapNodeVisibility.cs" />
     <Compile Include="Dependencies\DataAccessLayer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -229,9 +230,11 @@
       <DependentUpon>SQLDB.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddUserTo.cs" />
+    <Compile Include="ViewModels\CompanyList.cs" />
     <Compile Include="ViewModels\CreateActionItem.cs" />
     <Compile Include="ViewModels\EditActionItem.cs" />
     <Compile Include="ViewModels\HistoricEventGroup.cs" />
+    <Compile Include="ViewModels\SelectCompany.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\arrow_down_alt1_32x32.png" />
@@ -411,6 +414,7 @@
     <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
+    <Content Include="Views\Company\SelectCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

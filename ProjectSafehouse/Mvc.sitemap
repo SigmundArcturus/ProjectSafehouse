@@ -4,15 +4,20 @@
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
             enableLocalization="true">
 
-  <mvcSiteMapNode title="Login" controller="Login" action="Index" requireLoggedIn="false">
-    <mvcSiteMapNode title="Welcome" controller="Login" action="Welcome" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
-    <mvcSiteMapNode title="Company Admin" controller="Company" action="Admin" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
-    <mvcSiteMapNode title="Project Overview" controller="Project" action="Overview" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
-    <mvcSiteMapNode title="Action Item Index" controller="ActionItem" action="Index" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true">
-      <mvcSiteMapNode title="Action Item Edit" controller="ActionItem" action="Edit" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
-      <mvcSiteMapNode title="Action Item Create" controller="ActionItem" action="Create" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true"/>
+  <mvcSiteMapNode title="Login" controller="Login" action="Index" requireLoggedIn="false" customRoles="*">
+    <mvcSiteMapNode title="Company" controller="Company" action="Admin" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true" customRoles="*">
+      <mvcSiteMapNode title="Company List" controller="Login" action="Welcome" requireLoggedIn="true"  customRoles="*"/>
+      <mvcSiteMapNode title="Admin Panel" controller="Company" action="Admin" requireLoggedIn="true"  customRoles="*"/>
     </mvcSiteMapNode>
-    <mvcSiteMapNode title="About Us" controller="Information" action="FAQ" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="false"/>
+    <mvcSiteMapNode title="Project" controller="Project" action="Overview" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true" customRoles="*">
+      <mvcSiteMapNode title="Overview" controller="Project" action="Overview" requireLoggedIn="true" customRoles="*"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Action Items" controller="ActionItem" action="Index" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="true" customRoles="*">
+      <mvcSiteMapNode title="Action Item Create" controller="ActionItem" action="Create" requireLoggedIn="true" customRoles="*"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Help" controller="Information" action="FAQ" imageUrl="~/Content/themes/base/images/cog_32x32.png" requireLoggedIn="false" customRoles="*">
+      <mvcSiteMapNode title="FAQ" controller="Information" action="FAQ" requireLoggedIn="false" customRoles="*"/>
+    </mvcSiteMapNode>
   </mvcSiteMapNode>
 
 </mvcSiteMap>

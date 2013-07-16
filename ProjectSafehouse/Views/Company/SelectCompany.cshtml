@@ -1,0 +1,39 @@
+﻿@model ProjectSafehouse.ViewModels.SelectCompany
+
+@{
+    ViewBag.Title = "SelectCompany";
+    Layout = "~/Views/Shared/StandardPage.cshtml";
+}
+
+@section Head{
+    <script type="text/javascript" src="/Scripts/Login/Welcome.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Content/themes/base/Login/Welcome.css" />
+}
+
+@section MainContent{
+    @Html.HiddenFor(x => x.CurrentUserID, new { id = "userId" })
+
+
+    <h2>Please Select a Company</h2>
+    <p class="FriendlyText">
+        @Model.IntroText  
+    </p>
+ 
+    <div id="companiesList">
+
+    </div>
+
+    <div class="FriendlyBox" id="createCompanyButton" target="createCompanyBox">
+        <img src="~/Content/themes/base/images/plus_alt_32x32.png" />
+        <p>
+            Create a New Company
+        </p>
+    </div>
+    <div id="createCompanyBox" class="CompanyDetailsContainer">
+        <div class="CompanyDetailsConstraint">
+            @Html.Partial("~/Views/Company/Partial_CreateNewCompany.cshtml", new ProjectSafehouse.Models.Company())
+        </div>
+        <img src="~/Content/themes/base/images/x_alt_24x24.png" class="CloseDetailsContainer" />
+    </div>
+}
+

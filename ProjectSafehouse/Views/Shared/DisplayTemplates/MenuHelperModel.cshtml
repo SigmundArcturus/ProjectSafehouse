@@ -2,16 +2,18 @@
 @using System.Web.Mvc.Html
 @using MvcSiteMapProvider.Web.Html.Models
 
+@{
+    ProjectSafehouse.Models.User CurrentUser = (ProjectSafehouse.Models.User)Session["CurrentUser"];
+}
+
 <div id="mainMenu">
 
     <div class="NavOption NavLink NavHome">
 		<img src="@Url.Content("~/Content/themes/base/images/home_goldenrod.png")"/>
-        <a href="">Project Arsenal</a>
+        <a href="@Url.Content("~/")">Project Arsenal</a>
 	</div> 
 
     @foreach(var node in Model.Nodes){
-        if (true)
-        {
         <div class="NavOption NavDropDown">
             <img src='@Url.Content(node.ImageUrl)'/>
             <h2>@node.Title</h2>
@@ -19,14 +21,13 @@
                 @foreach(var subNode in node.Children)
                 {
                     <div class="NavOption NavLink">
-                        <a href="">
+                        <a href="@subNode.Url">
                             @subNode.Title
                         </a>
                     </div>
                 }
             </div>
         </div>
-        }
     }
     @*    @foreach (var node in Model.Nodes) { 
         <li>@Html.DisplayFor(m => node) 
@@ -36,7 +37,7 @@
         </li>
     }*@
 
-    @if (ViewBag.CurrentUser != null)
+    @if (CurrentUser != null)
     {
         <div class="NavOption NavLink">
 		    <img src="@Url.Content("~/Content/themes/base/images/undo_32x32.png")"/><a href="~/LogOut">Sign Out</a>
