@@ -234,7 +234,7 @@ namespace ProjectSafehouse.Abstractions
             throw new NotImplementedException();
         }
 
-        public bool addUserToCompany(Guid companyId, Guid userId)
+        public bool addUserToCompany(Guid companyId, Guid userId, bool isAdmin)
         {
             throw new NotImplementedException();
         }
@@ -246,6 +246,12 @@ namespace ProjectSafehouse.Abstractions
 
 
         public List<Models.ActionItemHistoryEvent> loadActionItemHistory(Guid actionItemId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public List<Models.Role> loadUserRoles(Guid userId)
         {
             throw new NotImplementedException();
         }

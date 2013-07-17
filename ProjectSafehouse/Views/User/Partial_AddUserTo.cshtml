@@ -22,7 +22,7 @@
             </div>
             <div class="TitleSection InputSection">
                 <label for="adminTitle">Make user admin? </label>
-			     @Html.CheckBoxFor(x => x.ToAdd.Administrator, new { id = "adminTitle", required = "false"})
+			     @Html.CheckBoxFor(x => x.ToAdd.Administrator, new { id = "adminTitle" })
                 <div style="clear:both"></div>
             </div>
             <input type="submit" id="addUserButton" value="Add User" />

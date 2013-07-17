@@ -46,7 +46,7 @@ namespace ProjectSafehouse.Controllers
                 switch (AddUserTo.DestinationType)
                 {
                     case GroupingType.Company:
-                        DAL.addUserToCompany(AddUserTo.DestinationID, thisUser.ID);
+                        DAL.addUserToCompany(AddUserTo.DestinationID, thisUser.ID, AddUserTo.ToAdd.Administrator);
                         break;
                     case GroupingType.Project:
                         DAL.addUserToProject(AddUserTo.DestinationID, thisUser.ID);

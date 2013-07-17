@@ -87,8 +87,8 @@ namespace ProjectSafehouse.Dependencies
             // always create a default project for any new company
             if (createdCompany != null)
             {
-
-                addUserToCompany(createdCompany.ID, creator.ID);
+                // always make the default user a company admin
+                addUserToCompany(createdCompany.ID, creator.ID, true);
 
                 List<Models.ActionItemType> companyActionItemTypes = loadCompanyActionItemTypes(createdCompany.ID);
                 List<Models.ActionItemStatus> companyActionItemStatuses = loadCompanyActionItemStatuses(createdCompany.ID);
@@ -250,19 +250,24 @@ namespace ProjectSafehouse.Dependencies
             return dal.loadProjectUsers(projectId);
         }
 
-        public bool addUserToCompany(Guid companyId, Guid userId)
+        public bool addUserToCompany(Guid companyId, Guid userId, bool isAdmin)
         {
-            return dal.addUserToCompany(companyId, userId);
+            return dal.addUserToCompany(companyId, userId, isAdmin);
         }
 
         public bool addUserToProject(Guid projectId, Guid userId)
         {
-            return dal.addUserToCompany(projectId, userId);
+            return dal.addUserToProject(projectId, userId);
         }
 
         public List<Models.ActionItemHistoryEvent> loadActionItemHistory(Guid actionItemId)
         {
             return dal.loadActionItemHistory(actionItemId);
+        }
+
+        public List<Models.Role> loadUserRoles(Guid userId)
+        {
+            return dal.loadUserRoles(userId);
         }
     }
 }

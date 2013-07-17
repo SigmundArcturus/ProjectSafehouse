@@ -90,7 +90,8 @@ namespace ProjectSafehouse.Abstractions
                     Name = foundUser.Name,
                     OvertimeMultiplier = foundUser.OvertimeMultiplier,
                     OvertimeThreshold = foundUser.OvertimeThreshold,
-                    Companies = includeCompanies ? loadUserCompanies(foundUser.ID, true, true, true) : null
+                    Companies = includeCompanies ? loadUserCompanies(foundUser.ID, true, true, true) : null,
+                    Roles = loadUserRoles(foundUser.ID)
                 };
 
                 return loadedUser;
@@ -1127,7 +1128,7 @@ namespace ProjectSafehouse.Abstractions
             throw new NotImplementedException();
         }
 
-        public bool addUserToCompany(Guid companyId, Guid userId)
+        public bool addUserToCompany(Guid companyId, Guid userId, bool isAdmin)
         {
             bool successfulAdd = false;
             var CurrentUsers = db.SQLCompanyUsers.Where(x => x.CompanyId == companyId).ToList();
@@ -1142,7 +1143,7 @@ namespace ProjectSafehouse.Abstractions
                 {
                     AddedBy = null,
                     CompanyId = companyId,
-                    RoleId = 1,
+                    RoleId = isAdmin ? 2 : 4, // 2 = CompanyAdmin, 4 = user
                     UserId = userId
                 };
 
@@ -1180,6 +1181,19 @@ namespace ProjectSafehouse.Abstractions
             {
                 item.WhoChangedIt = loadUserById(item.WhoChangedIt.ID, false);
             }
+
+            return returnMe;
+        }
+
+        public List<Models.Role> loadUserRoles(Guid userId)
+        {
+            List<Models.Role> returnMe = new List<Models.Role>();
+
+            returnMe.AddRange(db.SQLCompanyUsers.Where(x => x.UserId == userId).Select(x => new Models.Role(){
+                Description = x.SystemRole.RoleName,
+                ID = x.ID,
+                Name = x.SystemRole.RoleName
+            }));
 
             return returnMe;
         }

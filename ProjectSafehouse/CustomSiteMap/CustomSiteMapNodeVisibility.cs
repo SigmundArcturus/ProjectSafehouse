@@ -16,7 +16,7 @@ namespace ProjectSafehouse.CustomSiteMap
             Models.User user = context.Session["CurrentUser"] as Models.User;
             string visibilitySettings = mvcNode == null ? "" : mvcNode["requireLoggedIn"];
             string roleSettings = mvcNode == null ? "" : mvcNode["customRoles"];
-            string[] allowedRoles = (roleSettings ?? "").Split(',');
+            string[] allowedRoles = (roleSettings ?? "").Split(',').Select(x => x.Trim()).ToArray();
             List<string> currentRoles = new List<string>();
             if (user != null && user.Roles != null)
                 currentRoles = user.Roles.Select(x => x.Name).ToList();

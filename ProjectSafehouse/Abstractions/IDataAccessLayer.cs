@@ -20,8 +20,9 @@ namespace ProjectSafehouse.Abstractions
         string hashPassword(string unhashedPassword);
         List<User> loadCompanyUsers(Guid companyId);
         List<User> loadProjectUsers(Guid projectId);
-        bool addUserToCompany(Guid companyId, Guid userId);
+        bool addUserToCompany(Guid companyId, Guid userId, bool isAdmin);
         bool addUserToProject(Guid projectId, Guid userId);
+        List<Role> loadUserRoles(Guid userId);
 
         // Company methods
         Company createNewCompany(User creator, Company toCreate);
