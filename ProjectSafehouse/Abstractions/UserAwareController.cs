@@ -10,7 +10,7 @@ using ProjectSafehouse.Dependencies;
 
 namespace ProjectSafehouse.Abstractions
 {
-    public class UserAwareController : Controller
+    public class UserAwareController : DataAwareController
     {
         public Models.User CurrentUser {
             get
@@ -62,25 +62,5 @@ namespace ProjectSafehouse.Abstractions
                 ViewBag.CurrentRelease = value;
             }
         }
-
-
-
-
-
-        public DataAccessLayer DAL { get; set; } 
-
-        public UserAwareController()
-        {
-            //DependencyInjection
-            UnityConfigurationSection config =
-                    ConfigurationManager.GetSection("unity") as UnityConfigurationSection;
-
-            IUnityContainer container = new UnityContainer();
-            config.Configure(container);
-
-            DAL = new DataAccessLayer(container.Resolve<IDataAccessLayer>("SQL"));
-
-        }
-
     }
 }

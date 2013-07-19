@@ -62,5 +62,8 @@ namespace ProjectSafehouse.Abstractions
         // Type methods
         List<Models.ActionItemType> loadCompanyActionItemTypes(Guid companyId);
 
+        // Device / RESTful methods
+
+
     }
 }

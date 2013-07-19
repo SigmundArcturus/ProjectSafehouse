@@ -134,6 +134,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\DataAwareController.cs" />
     <Compile Include="Abstractions\FakeDataAccessLayer.cs" />
     <Compile Include="Abstractions\IDataAccessLayer.cs" />
     <Compile Include="Abstractions\SQLDataAccessLayer.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActionItemController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -164,6 +166,8 @@
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\BillingType.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Device.cs" />
+    <Compile Include="Models\DeviceSession.cs" />
     <Compile Include="Models\FileFolder.cs" />
     <Compile Include="Models\FileRevision.cs" />
     <Compile Include="Models\FinanceCode.cs" />

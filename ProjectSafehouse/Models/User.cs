@@ -5,6 +5,7 @@ using System.Web;
 
 namespace ProjectSafehouse.Models
 {
+    [Serializable]
     public class User
     {
         public Guid ID { get; set; }
