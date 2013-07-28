@@ -18,6 +18,16 @@ namespace ProjectSafehouse.Controllers
             return View();
         }
 
+        //[HttpGet]
+        //public PartialViewResult Partial_CompanyList()
+        //{
+        //    List<Models.Company> companies = new List<Models.Company>();
+
+        //    companies = 
+
+        //    return PartialView("Partial_CompanyList", companies);
+        //}
+
         [HttpGet]
         public PartialViewResult LoadUserCompanies(Guid userId)
         {

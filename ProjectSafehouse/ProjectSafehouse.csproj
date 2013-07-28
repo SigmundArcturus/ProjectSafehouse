@@ -269,6 +269,7 @@
     <Content Include="Content\themes\base\images\PlusSign.png" />
     <Content Include="Content\themes\base\images\plus_32x32.png" />
     <Content Include="Content\themes\base\images\plus_alt_32x32.png" />
+    <Content Include="Content\themes\base\images\pw_maze_white.png" />
     <Content Include="Content\themes\base\images\selectedTriangle.png" />
     <Content Include="Content\themes\base\images\tag_stroke_24x24.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

@@ -3,6 +3,10 @@
 @foreach (ProjectSafehouse.Models.Project proj in Model)
 {
     <li>
+        <img class="ProjectLogo" style="width: 100px; height: 100px; background-color: #cacaca; display: inline-block;">
+
+        </img>
         <a href="~/Project/@proj.ID/Overview">@proj.Name</a>
+        <p>@proj.Description</p>
     </li>
 }

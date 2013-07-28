@@ -8,22 +8,38 @@
     foreach (var company in Model.Companies)
     {
         <div class="FriendlyBox" id="@string.Format("{0}Button", company.ID)" target="@string.Format("{0}Box", company.ID)" companyid="@company.ID">
-            <img src="~/Content/themes/base/images/layers_32x28.png" />
-            <p>
-                @company.Name
-            </p>
-        </div>
+            <div class="CompanyStats" style="float: right; width: 60%; height: 100%;">
+                @*<img src="~/Content/themes/base/images/layers_32x28.png" />*@
+                
+                <div class="CompanyDescription">
+                    <img class="CompanyLogo Thumnmail" style="width: 150px; height: 150px; background-color: #CCC; display: inline-block;">
+
+                    </img>
+                    <p style="display: inline; vertical-align: top;">
+                            <h3 class="NoTextWrap CompanyName">@company.Name</h3>
+                        @company.Description
+                    </p>
+                </div>
+                <ul class="CompanyUsers">
+                    @foreach(var user in company.Users)
+                    {
+                        <li>@user.Email</li>
+                    }
+                </ul>
+            </div>
+            <ul class="ProjectList" style="display: block; float: left; width: 30%;">
+                @Html.Action("LoadCompanyProjects", "Project", new {companyId = @company.ID})
+            </ul>
+            @Html.ActionLink("Admin Panel", "Admin", new { id = @company.ID }, new {  @class="AdminLink" })
+        </div>@*
         <div id="@string.Format("{0}Box", company.ID)" class="CompanyDetailsContainer">
             <div class="CompanyDetailsConstraint">
                 <p class="CompanyName">@company.Name (@Html.ActionLink("Admin Panel", "Admin", new {id = @company.ID}))</p>
                 <p class="CompanyDescription">@company.Description</p>
                 <p class="CompanyCreatedDate">Created On:@company.CreatedDate</p>
             </div>
-            <ul class="ProjectList">
-
-            </ul>
             <img src="~/Content/themes/base/images/x_alt_24x24.png" class="CloseDetailsContainer" />
-        </div>
+        </div>*@
     }
     <div style="clear:both">
         <p class="FriendlyText">@Model.OutroText</p>

@@ -23,7 +23,13 @@
     </p>
  
     <div id="companiesList">
-
+        @Html.Partial("../Company/Partial_CompanyList", new ProjectSafehouse.ViewModels.CompanyList()
+            {
+                Companies = Model.Companies,
+                IntroText = "Get work done for one of these companies:",
+                OutroText = "or you could"
+            } 
+         )
     </div>
 
     <div class="FriendlyBox" id="createCompanyButton" target="createCompanyBox">

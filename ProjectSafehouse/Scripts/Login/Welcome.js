@@ -18,13 +18,13 @@ companyCreator.CreateCompany = function (newCompany) {
 $(document).ready(function () {
 
     var ajaxMethods = ProjectSafehouse.Utilities.AJAX;
-    ajaxMethods.LoadPartialView({
-        url: "../Company/LoadUserCompanies",
-        data: {
-            userId: $('#userId').attr('value')
-        },
-        resultTarget: $('#companiesList')
-    });
+    //ajaxMethods.LoadPartialView({
+    //    url: "../Company/LoadUserCompanies",
+    //    data: {
+    //        userId: $('#userId').attr('value')
+    //    },
+    //    resultTarget: $('#companiesList')
+    //});
 
     //$.ajax({
     //    url: "../Company/LoadUserCompanies",
@@ -38,7 +38,7 @@ $(document).ready(function () {
     //    }
     //});
 
-    $('body').on('click', '.FriendlyBox', function () {
+    $('body').on('click', '#createCompanyButton', function () {
         var targetExpand = $(this).attr('target');
         var companyId = $(this).attr('companyid');
 
