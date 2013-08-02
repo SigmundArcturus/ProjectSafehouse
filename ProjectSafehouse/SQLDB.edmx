@@ -211,6 +211,7 @@
           <Property Name="HourlyCost" Type="money" />
           <Property Name="OvertimeMultiplier" Type="decimal" Scale="2" />
           <Property Name="OvertimeThreshold" Type="decimal" Scale="2" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false"/>
         </EntityType>
         <Association Name="FK_ActionItemHistory_ActionItems">
           <End Role="ActionItems" Type="ProjectArsenalModel.Store.ActionItems" Multiplicity="1" />
@@ -498,6 +499,7 @@
           <Property Name="HourlyCost" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="OvertimeMultiplier" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OvertimeThreshold" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false"/>
           <NavigationProperty Name="AdminCompanies" Relationship="ProjectArsenalModel.FK_Companies_Users" FromRole="SQLUser" ToRole="Company" />
           <NavigationProperty Name="Projects" Relationship="ProjectArsenalModel.FK_Projects_Users" FromRole="SQLUser" ToRole="Project" />
           <NavigationProperty Name="ActionItemUsers" Relationship="ProjectArsenalModel.FK_ActionItemUsers_Users" FromRole="SQLUser" ToRole="ActionItemUser" />
@@ -856,6 +858,7 @@
                 <ScalarProperty Name="HourlyCost" ColumnName="HourlyCost" />
                 <ScalarProperty Name="OvertimeMultiplier" ColumnName="OvertimeMultiplier" />
                 <ScalarProperty Name="OvertimeThreshold" ColumnName="OvertimeThreshold" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled"/>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

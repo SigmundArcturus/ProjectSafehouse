@@ -29,11 +29,10 @@ namespace ProjectArsenal.Tests
         public void CanCreateNewUser()
         {
             //Arrange
-            string email = "test@test.com";
+            string email = string.Format("{0}@{1}.com", Guid.NewGuid(), "test");
             string password = "password";
 
             //Act
-            bool test = DAL.deleteExistingUser(email, password);
             User result = DAL.createNewUser(new User()
             {
                 Email = email,
