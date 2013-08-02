@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjectArsenal
+namespace ProjectSafehouse
 {
     using System;
     using System.Collections.Generic;
@@ -32,6 +32,7 @@ namespace ProjectArsenal
         public Nullable<decimal> HourlyCost { get; set; }
         public Nullable<decimal> OvertimeMultiplier { get; set; }
         public Nullable<decimal> OvertimeThreshold { get; set; }
+        public bool IsEnabled { get; set; }
     
         public virtual ICollection<SQLCompany> AdminCompanies { get; set; }
         public virtual ICollection<SQLProject> Projects { get; set; }

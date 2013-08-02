@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Security;
+using ProjectSafehouse;
 
 namespace ProjectArsenal.Abstractions
 {
@@ -44,36 +45,47 @@ namespace ProjectArsenal.Abstractions
         {
             string hashedPassword = hashPassword(toCreate.Password);
 
-            Models.User newUser = new Models.User()
+            var preExisting = loadUserByEmail(toCreate.Email, false);
+            if (preExisting == null)
             {
-                ID = Guid.NewGuid(),
-                Email = toCreate.Email,
-                Password = hashedPassword,
-                Companies = new List<Models.Company>()
-            };
+                Models.User newUser = new Models.User()
+                {
+                    ID = Guid.NewGuid(),
+                    Email = toCreate.Email,
+                    Password = hashedPassword,
+                    Companies = new List<Models.Company>()
+                };
 
-            db.SQLUsers.Add(new SQLUser()
+                db.SQLUsers.Add(new SQLUser()
+                {
+                    ID = newUser.ID,
+                    Password = newUser.Password,
+                    Email = newUser.Email,
+                    IsEnabled = true
+                });
+
+                db.SaveChanges();
+
+                return newUser;
+            }
+            else
             {
-                ID = newUser.ID,
-                Password = newUser.Password,
-                Email = newUser.Email
-            });
+                throw new ProjectArsenal.CustomExceptions.DuplicateUserInsertException("This user already exists.  If this is an active account, please try logging in.");
+            }
 
-            db.SaveChanges();
-
-            return newUser;
+            
         }
 
         public Models.User loadUserById(Guid userId, bool includeCompanies)
         {
-            SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.ID == userId);
+            SQLUser foundUser = db.SQLUsers.Where(x => x.IsEnabled).FirstOrDefault(x => x.ID == userId);
 
             return loadUserBySqlUser(foundUser, includeCompanies);
         }
 
         public Models.User loadUserByEmail(string userEmail, bool includeCompanies)
         {
-            SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == userEmail);
+            SQLUser foundUser = db.SQLUsers.Where(x => x.IsEnabled).FirstOrDefault(x => x.Email == userEmail);
             return loadUserBySqlUser(foundUser, includeCompanies);            
         }
 
@@ -163,12 +175,7 @@ namespace ProjectArsenal.Abstractions
             SQLUser foundUser = db.SQLUsers.FirstOrDefault(x => x.Email == emailAddress);
             if (foundUser != null && foundUser.Password == hashedPassword)
             {
-                List<Models.Company> userCompanies = loadUserCompanies(foundUser.ID, true, true, true);
-                foreach (var company in userCompanies)
-                {
-                    deleteExistingCompany(foundUser.ID, unhashedPassword, company.ID);
-                }
-                db.SQLUsers.Remove(foundUser);
+                foundUser.IsEnabled = false;
                 db.SaveChanges();
                 return true;
             }
