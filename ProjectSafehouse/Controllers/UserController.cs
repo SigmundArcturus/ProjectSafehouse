@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ProjectSafehouse.Abstractions;
-using ProjectSafehouse.ViewModels;
+using ProjectArsenal.Abstractions;
+using ProjectArsenal.ViewModels;
 
-namespace ProjectSafehouse.Controllers
+namespace ProjectArsenal.Controllers
 {
     public class UserController : UserAwareController
     {

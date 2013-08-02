@@ -5,7 +5,7 @@ using System.Web;
 using MvcSiteMapProvider;
 using MvcSiteMapProvider.Extensibility;
 
-namespace ProjectSafehouse.CustomSiteMap
+namespace ProjectArsenal.CustomSiteMap
 {
     public class CustomSiteMapNodeVisibility: ISiteMapNodeVisibilityProvider
     {

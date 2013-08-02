@@ -3,13 +3,13 @@ using System.Configuration;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProjectSafehouse.Abstractions;
-using ProjectSafehouse.Dependencies;
-using ProjectSafehouse.Models;
+using ProjectArsenal.Abstractions;
+using ProjectArsenal.Dependencies;
+using ProjectArsenal.Models;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace ProjectSafehouse.Tests
+namespace ProjectArsenal.Tests
 {
     [TestClass]
     public class ProjectTesting

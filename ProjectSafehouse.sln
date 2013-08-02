@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectSafehouse", "ProjectSafehouse\ProjectSafehouse.csproj", "{434F6D39-1581-4982-B284-83F3B03394BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectArsenal", "ProjectSafehouse\ProjectArsenal.csproj", "{434F6D39-1581-4982-B284-83F3B03394BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectSafehouse.Tests", "ProjectSafehouse.Tests\ProjectSafehouse.Tests.csproj", "{7C94302B-FE2E-408B-9047-87ACB35F604D}"
 EndProject

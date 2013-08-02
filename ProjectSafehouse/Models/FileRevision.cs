@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ProjectSafehouse.Models
+namespace ProjectArsenal.Models
 {
     public enum FileType {doc, img, pdf, txt}
 

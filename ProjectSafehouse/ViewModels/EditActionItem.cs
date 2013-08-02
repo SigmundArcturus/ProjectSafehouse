@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ProjectSafehouse.ViewModels
+namespace ProjectArsenal.ViewModels
 {
     public class EditActionItem : CreateActionItem
     {

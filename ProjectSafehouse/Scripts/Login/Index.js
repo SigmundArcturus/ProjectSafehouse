@@ -20,7 +20,7 @@
 
 $(document).ready(function () {
 
-    var loginMenu = ProjectSafehouse.Utilities.Menu;
+    var loginMenu = ProjectArsenal.Utilities.Menu;
     //loginMenu.SetCurrentMenu(loginMenu.ExampleMenu);
     //loginMenu.LoadTopLevel(loginMenu.ExampleMenu);
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ProjectSafehouse.CustomAttributes
+namespace ProjectArsenal.CustomAttributes
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {

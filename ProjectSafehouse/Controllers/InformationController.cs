@@ -1,11 +1,11 @@
-﻿using ProjectSafehouse.Abstractions;
+﻿using ProjectArsenal.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ProjectSafehouse.Controllers
+namespace ProjectArsenal.Controllers
 {
     public class InformationController : UserAwareController
     {

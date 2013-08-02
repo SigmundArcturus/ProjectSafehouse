@@ -1,4 +1,4 @@
-﻿var loadingMethods = extend(ProjectSafehouse, "ProjectSafehouse.Utilities.Loading");
+﻿var loadingMethods = extend(ProjectArsenal, "ProjectArsenal.Utilities.Loading");
 
 loadingMethods.ShowLoading = function (target) {
     $(target).prepend('<div class="GlobalLoading"></div>');

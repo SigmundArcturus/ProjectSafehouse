@@ -56,7 +56,7 @@ namespace System.Web.Mvc
             if (httpContext == null)
                 throw new ArgumentNullException("httpContext");
 
-            var currentUser = (ProjectSafehouse.Models.User)HttpContext.Current.Session["CurrentUser"];
+            var currentUser = (ProjectArsenal.Models.User)HttpContext.Current.Session["CurrentUser"];
 
             if (currentUser != null && !string.IsNullOrWhiteSpace(currentUser.Email))
             {

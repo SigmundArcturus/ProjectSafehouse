@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ProjectSafehouse.Abstractions;
-using ProjectSafehouse.CustomAttributes;
+using ProjectArsenal.Abstractions;
+using ProjectArsenal.CustomAttributes;
 
-namespace ProjectSafehouse.Controllers
+namespace ProjectArsenal.Controllers
 {
     public class CompanyController : UserAwareController
     {

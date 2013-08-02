@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjectSafehouse
+namespace ProjectArsenal
 {
     using System;
     using System.Collections.Generic;

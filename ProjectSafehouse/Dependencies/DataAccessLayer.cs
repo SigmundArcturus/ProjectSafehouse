@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using Microsoft.Practices.Unity;
-using ProjectSafehouse.Abstractions;
+using ProjectArsenal.Abstractions;
 
-namespace ProjectSafehouse.Dependencies
+namespace ProjectArsenal.Dependencies
 {
     public class DataAccessLayer : IDataAccessLayer
     {
@@ -24,10 +24,10 @@ namespace ProjectSafehouse.Dependencies
             // They are necessary in case client-side validation fails.
             //
             if (string.IsNullOrWhiteSpace(toCreate.Email))
-                throw new ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException("An empty or null email address was specified for a new user.");
+                throw new ProjectArsenal.CustomExceptions.InvalidUserDataInsertException("An empty or null email address was specified for a new user.");
 
             if (string.IsNullOrWhiteSpace(toCreate.Password))
-                throw new ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException("An invalid, null or empty password was specified for a new user: " + toCreate.Email);
+                throw new ProjectArsenal.CustomExceptions.InvalidUserDataInsertException("An invalid, null or empty password was specified for a new user: " + toCreate.Email);
 
             try
             {
@@ -35,11 +35,11 @@ namespace ProjectSafehouse.Dependencies
             }
             catch (FormatException fex)
             {
-                throw new ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException("An invalid email address was specified for a new user: " + toCreate.Email, fex);
+                throw new ProjectArsenal.CustomExceptions.InvalidUserDataInsertException("An invalid email address was specified for a new user: " + toCreate.Email, fex);
             }
 
             if (loadUserByEmail(toCreate.Email, false) != null)
-                throw new ProjectSafehouse.CustomExceptions.DuplicateUserInsertException("A possible duplicate user insert was detected and avoided for email: " + toCreate.Email);
+                throw new ProjectArsenal.CustomExceptions.DuplicateUserInsertException("A possible duplicate user insert was detected and avoided for email: " + toCreate.Email);
 
             return dal.createNewUser(toCreate);
         }

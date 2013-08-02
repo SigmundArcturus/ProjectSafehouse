@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 
-namespace ProjectSafehouse.HTMLHelpers
+namespace ProjectArsenal.HTMLHelpers
 {
     public static class JSONHelper
     {

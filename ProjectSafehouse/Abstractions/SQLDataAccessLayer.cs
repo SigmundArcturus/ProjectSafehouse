@@ -5,16 +5,16 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Security;
 
-namespace ProjectSafehouse.Abstractions
+namespace ProjectArsenal.Abstractions
 {
     public class SQLDataAccessLayer: IDataAccessLayer
     {
-        private ProjectSafehouseEntities db { get; set; }
+        private ProjectArsenalEntities db { get; set; }
         private List<Models.Priority> defaultPriorities { get; set; }
 
         public SQLDataAccessLayer()
         {
-            db = new ProjectSafehouseEntities();
+            db = new ProjectArsenalEntities();
             defaultPriorities = new List<Models.Priority>(){ 
                 new Models.Priority(){
                     CreatedBy = null,
@@ -750,6 +750,7 @@ namespace ProjectSafehouse.Abstractions
             };
             foreach (var assignedUser in toInsert.ActionItemUsers)
             {
+                if (assignedUser.User != null)
                 toAdd.DescriptionOfChange += string.Format("{0},", assignedUser.User.Email);
             }
             historicEvents.Add(toAdd);
@@ -997,7 +998,7 @@ namespace ProjectSafehouse.Abstractions
                     db.SQLActionItemUsers.Add(assignmentsToCreate);
                 }
 
-                db.Database.ExecuteSqlCommand(string.Format("delete from ProjectSafehouse.dbo.ActionItemUsers where ActionItemID = '{0}'", toUpdate.ID));
+                db.Database.ExecuteSqlCommand(string.Format("delete from ProjectArsenal.dbo.ActionItemUsers where ActionItemID = '{0}'", toUpdate.ID));
                 
                 db.SaveChanges();                 
             }

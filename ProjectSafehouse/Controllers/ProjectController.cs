@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ProjectSafehouse.Abstractions;
+using ProjectArsenal.Abstractions;
 
-namespace ProjectSafehouse.Controllers
+namespace ProjectArsenal.Controllers
 {
     public class ProjectController : UserAwareController
     {

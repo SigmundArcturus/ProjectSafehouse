@@ -1,4 +1,4 @@
-﻿@model ProjectSafehouse.ViewModels.SelectCompany
+﻿@model ProjectArsenal.ViewModels.SelectCompany
 
 @{
     ViewBag.Title = "SelectCompany";
@@ -31,7 +31,7 @@
     </div>
     <div id="createCompanyBox" class="CompanyDetailsContainer">
         <div class="CompanyDetailsConstraint">
-            @Html.Partial("~/Views/Company/Partial_CreateNewCompany.cshtml", new ProjectSafehouse.Models.Company())
+            @Html.Partial("~/Views/Company/Partial_CreateNewCompany.cshtml", new ProjectArsenal.Models.Company())
         </div>
         <img src="~/Content/themes/base/images/x_alt_24x24.png" class="CloseDetailsContainer" />
     </div>

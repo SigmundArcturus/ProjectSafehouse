@@ -3,11 +3,11 @@ using System.Configuration;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProjectSafehouse.Abstractions;
-using ProjectSafehouse.Dependencies;
-using ProjectSafehouse.Models;
+using ProjectArsenal.Abstractions;
+using ProjectArsenal.Dependencies;
+using ProjectArsenal.Models;
 
-namespace ProjectSafehouse.Tests
+namespace ProjectArsenal.Tests
 {
     [TestClass]
     public class UserTesting
@@ -47,7 +47,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ProjectSafehouse.CustomExceptions.DuplicateUserInsertException))]
+        [ExpectedException(typeof(ProjectArsenal.CustomExceptions.DuplicateUserInsertException))]
         public void CannotCreateDuplicateUser()
         {
             //Arrange
@@ -65,7 +65,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException))]
+        [ExpectedException(typeof(ProjectArsenal.CustomExceptions.InvalidUserDataInsertException))]
         public void CannotCreateUserNoEmail()
         {
             //Arrange
@@ -82,7 +82,7 @@ namespace ProjectSafehouse.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ProjectSafehouse.CustomExceptions.InvalidUserDataInsertException))]
+        [ExpectedException(typeof(ProjectArsenal.CustomExceptions.InvalidUserDataInsertException))]
         public void CannotCreateUserNoPassword()
         {
             //Arrange

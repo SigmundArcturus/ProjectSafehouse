@@ -1,4 +1,4 @@
-﻿@model ProjectSafehouse.ViewModels.CompanyList
+﻿@model ProjectArsenal.ViewModels.CompanyList
 
 @if (Model.Companies.Count > 0)
 {
@@ -7,7 +7,7 @@
     
     foreach (var company in Model.Companies)
     {
-        <div class="FriendlyBox" id="@string.Format("{0}Button", company.ID)" target="@string.Format("{0}Box", company.ID)" companyid="@company.ID">
+        <div class="FriendlyBox" style="width: 95%; overflow:hidden;" id="@string.Format("{0}Button", company.ID)" target="@string.Format("{0}Box", company.ID)" companyid="@company.ID">
             <div class="CompanyStats" style="float: right; width: 60%; height: 100%;">
                 @*<img src="~/Content/themes/base/images/layers_32x28.png" />*@
                 

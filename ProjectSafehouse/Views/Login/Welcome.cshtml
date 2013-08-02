@@ -1,4 +1,4 @@
-﻿@model ProjectSafehouse.Models.User
+﻿@model ProjectArsenal.Models.User
 
 @{
     ViewBag.Title = "Welcome";
@@ -14,7 +14,7 @@
     @Html.HiddenFor(x => x.ID, new { id = "userId" })
 
 
-    <h2>Welcome to Project Safehouse, @Model.Email</h2>
+    <h2>Welcome to Project Arsenal, @Model.Email</h2>
     <p class="FriendlyText">
         To jump right in, you can select an existing company that you are a member of.
         Clicking on a company will list all projects that you have access to.  
@@ -23,7 +23,7 @@
     </p>
  
     <div id="companiesList">
-        @Html.Partial("../Company/Partial_CompanyList", new ProjectSafehouse.ViewModels.CompanyList()
+        @Html.Partial("../Company/Partial_CompanyList", new ProjectArsenal.ViewModels.CompanyList()
             {
                 Companies = Model.Companies,
                 IntroText = "Get work done for one of these companies:",
@@ -40,7 +40,7 @@
     </div>
     <div id="createCompanyBox" class="CompanyDetailsContainer">
         <div class="CompanyDetailsConstraint">
-            @Html.Partial("~/Views/Company/Partial_CreateNewCompany.cshtml", new ProjectSafehouse.Models.Company())
+            @Html.Partial("~/Views/Company/Partial_CreateNewCompany.cshtml", new ProjectArsenal.Models.Company())
         </div>
         <img src="~/Content/themes/base/images/x_alt_24x24.png" class="CloseDetailsContainer" />
     </div>

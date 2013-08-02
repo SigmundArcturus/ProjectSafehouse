@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace ProjectSafehouse.CustomExceptions
+namespace ProjectArsenal.CustomExceptions
 {
     [Serializable]
     public class DuplicateUserInsertException: System.Exception

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using ProjectSafehouse.Abstractions;
-using ProjectSafehouse.Models;
+using ProjectArsenal.Abstractions;
+using ProjectArsenal.Models;
 
 
-namespace ProjectSafehouse.Controllers
+namespace ProjectArsenal.Controllers
 {
     public class LoginController : UserAwareController
     {

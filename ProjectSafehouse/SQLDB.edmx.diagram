@@ -5,34 +5,34 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4c4f33529e374a979b98da99ad4b902a" Name="Diagram1" ZoomLevel="63">
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLUser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLCompany" Width="1.5" PointX="2.875" PointY="0.75" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_Companies_Users" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLProject" Width="1.5" PointX="11.70443089292591" PointY="19.396726542802867" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_Projects_Companies" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_Projects_Users" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLRelease" Width="1.5" PointX="0.7721816398073833" PointY="6.634627375115933" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_Releases_Projects" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLActionItem" Width="1.5" PointX="11.402117561270538" PointY="27.396424276473198" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLActionItemType" Width="1.5" PointX="8.1007000189743472" PointY="9.9899575458792764" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLStatus" Width="1.5" PointX="4.4835931865887684" PointY="2.9339838041616528" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItems_ActionItemTypes" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItems_Statuses" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItems_Releases" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLActionItemUser" Width="1.5" PointX="9.3177435590502533" PointY="24.88647739257965" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItemUsers_ActionItems" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItemUsers_Users" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLPriority" Width="1.5" PointX="3.818883437578978" PointY="8.4582943806696189" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyPriorities_Companies" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLCompanyUser" Width="1.5" PointX="10.622539126604115" PointY="2.1174307326401727" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLSystemRole" Width="1.5" PointX="8.0725281127134938" PointY="3.1257142886173512" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_Companies" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_SystemRoles" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_Users" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_CompanyUsers_Users1" />
-        <EntityTypeShape EntityType="ProjectSafehouseModel.SQLActionItemHistory" Width="2.375" PointX="10.625" PointY="5.5" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItemHistory_ActionItems" />
-        <AssociationConnector Association="ProjectSafehouseModel.FK_ActionItemHistory_Users" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLUser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLCompany" Width="1.5" PointX="2.875" PointY="0.75" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_Companies_Users" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLProject" Width="1.5" PointX="11.70443089292591" PointY="19.396726542802867" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_Projects_Companies" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_Projects_Users" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLRelease" Width="1.5" PointX="0.7721816398073833" PointY="6.634627375115933" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_Releases_Projects" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLActionItem" Width="1.5" PointX="11.402117561270538" PointY="27.396424276473198" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLActionItemType" Width="1.5" PointX="8.1007000189743472" PointY="9.9899575458792764" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLStatus" Width="1.5" PointX="4.4835931865887684" PointY="2.9339838041616528" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_ActionItems_ActionItemTypes" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_ActionItems_Statuses" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_ActionItems_Releases" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLActionItemUser" Width="1.5" PointX="9.3177435590502533" PointY="24.88647739257965" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_ActionItemUsers_ActionItems" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_ActionItemUsers_Users" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLPriority" Width="1.5" PointX="3.818883437578978" PointY="8.4582943806696189" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_CompanyPriorities_Companies" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLCompanyUser" Width="1.5" PointX="10.622539126604115" PointY="2.1174307326401727" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLSystemRole" Width="1.5" PointX="8.0725281127134938" PointY="3.1257142886173512" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_CompanyUsers_Companies" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_CompanyUsers_SystemRoles" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_CompanyUsers_Users" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_CompanyUsers_Users1" />
+        <EntityTypeShape EntityType="ProjectArsenalModel.SQLActionItemHistory" Width="2.375" PointX="10.625" PointY="5.5" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_ActionItemHistory_ActionItems" />
+        <AssociationConnector Association="ProjectArsenalModel.FK_ActionItemHistory_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

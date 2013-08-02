@@ -1,4 +1,4 @@
-﻿var companyCreator = extend(ProjectSafehouse, "ProjectSafehouse.AJAX.Company");
+﻿var companyCreator = extend(ProjectArsenal, "ProjectArsenal.AJAX.Company");
 
 companyCreator.CreateCompany = function (newCompany) {
     console.log(newCompany);
@@ -17,7 +17,7 @@ companyCreator.CreateCompany = function (newCompany) {
 
 $(document).ready(function () {
 
-    var ajaxMethods = ProjectSafehouse.Utilities.AJAX;
+    var ajaxMethods = ProjectArsenal.Utilities.AJAX;
     //ajaxMethods.LoadPartialView({
     //    url: "../Company/LoadUserCompanies",
     //    data: {

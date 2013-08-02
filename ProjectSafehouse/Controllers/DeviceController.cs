@@ -6,10 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using ProjectSafehouse.Abstractions;
-using ProjectSafehouse.Dependencies;
+using ProjectArsenal.Abstractions;
+using ProjectArsenal.Dependencies;
 
-namespace ProjectSafehouse.Controllers
+namespace ProjectArsenal.Controllers
 {
     public class DeviceController : DataAwareController
     {

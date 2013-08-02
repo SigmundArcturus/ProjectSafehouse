@@ -144,9 +144,9 @@
     <None Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectSafehouse\ProjectSafehouse.csproj">
+    <ProjectReference Include="..\ProjectSafehouse\ProjectArsenal.csproj">
       <Project>{434F6D39-1581-4982-B284-83F3B03394BB}</Project>
-      <Name>ProjectSafehouse</Name>
+      <Name>ProjectArsenal</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjectSafehouse
+namespace ProjectArsenal
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjectSafehouseEntities : DbContext
+    public partial class ProjectArsenalEntities : DbContext
     {
-        public ProjectSafehouseEntities()
-            : base("name=ProjectSafehouseEntities")
+        public ProjectArsenalEntities()
+            : base("name=ProjectArsenalEntities")
         {
         }
     

@@ -6,9 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using ProjectSafehouse.Dependencies;
+using ProjectArsenal.Dependencies;
 
-namespace ProjectSafehouse.Abstractions
+namespace ProjectArsenal.Abstractions
 {
     public class UserAwareController : DataAwareController
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
-using ProjectSafehouse.Models;
+using ProjectArsenal.Models;
 
-namespace ProjectSafehouse.Abstractions
+namespace ProjectArsenal.Abstractions
 {
     public interface IDataAccessLayer
     {
