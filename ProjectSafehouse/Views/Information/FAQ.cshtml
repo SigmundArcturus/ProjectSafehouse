@@ -1,16 +1,64 @@
 ﻿@model ProjectSafehouse.Models.User
-
+<a id="top"></a>
 @{
     ViewBag.Title = "FAQ";
     Layout = "~/Views/Shared/StandardPage.cshtml";
 }
 
 @section MainContent{
-    <b>><h1>Fequently Asked Questions</h1></b>
+    
+    <h1>Fequently Asked Questions</h1>
     @if (Model != null)
     {
         @Model.Email
     }
+    
+    <a href="#faq1">What is Project Arsenal?</a> <br />
+    <a href="#faq2">How does Project Arsenal help Management?</a> <br />
+    <a href="#faq3">How does Project Arsenal help Developers?</a> <br />
+    <a href="#faq4">How Much does it Cost?</a> <br />
+    <a href="#faq4">Who is behind all of this?</a> <br />
 
-    <div><b>What is Project Arsenal?</b></div>
+    <div>
+        <h2><a id="faq1">What is Project Arsenal?</a></h2> <br />
+        Project Arsenal is Team Management tool that allows for task planning and tracking, workflow control, documentation control, and more.
+        The goal behind Project Arsenal is to give your team the tools it needs to constantly be aware and moving forward.
+        <br />
+        <a href="#top">Back to top</a>
+    </div>
+    <br />
+    <div>
+        <h2><a id="faq2">How does Project Arsenal help Management?</a></h2> <br />
+        Through planning, monitoring, and control Project Arsenal is able to give management the tools they need to enable team guidance to completion.
+        With tools like worflow control management can help facilitate task movement from one step to the next. With immediate reporting managers can see
+        at a glance whether their project is on time, ahead of schedual, of hitting a roadblock.
+        <br />
+        <a href="#top">Back to top</a>
+    </div>
+    <div>
+        <h2><a id="faq3">How does Project Arsenal help developers?</a></h2> <br />
+        One of the biggest complications of development is keeping track of everything beyond the code. This comes in the form of requirements, documentation,
+        time tracking, bug-tracking, and then attempting to link all of this information together. With Project Arsenal we wanted to make things easier
+        for the developers and management by giving you everything in one space. Tickets contain requirements, links to documentation, time-tracking information,
+        bug information, and a detailed history. Soon it will also link up with GitRepositories to connect code pushes with time and requirements.
+        <br />
+        <a href="#top">Back to top</a>
+    </div>
+    <div>
+        <h2><a id="faq4">How much does it cost?</a></h2>
+        Currently the software is pre-alpha and is free to the public. However, since many changes are being done to both the front and back ends of the site
+        the chance for data loss is high. This will be removed when we enter our complete Alpha stage.
+        <br />
+        <a href="#top">Back to top</a>
+    </div>
+    <div>
+        <h2><a id="faq5">Who is behind all this?</a></h2>
+        Project Arsenal began with Edmund Bates and Robert Brown who were looking for a better way to track software development projects. Robert worked with
+        tracking software as both a software tester and as a manager. He wanted something that could easily track the requirements and changes done to a ticket
+        while maintaining the proper flow as well as great data presentation. As a developer, Edmund wanted something that could easily keep track of all connecting
+        documentation, commits, time-logging, and scheduling. While both of them knew software could do a few of these things very well, they had not found a
+        comprehensive solution. Thus Project Arsenal was born!
+        <br />
+        <a href="#top">Back to top</a>
+    </div>
 }
